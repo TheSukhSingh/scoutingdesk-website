@@ -6,4 +6,4 @@ from django.http import HttpResponse
 
 @login_required
 def home(request):
-    return HttpResponse("Home Page Working")
+    return render(request, 'core/home.html')

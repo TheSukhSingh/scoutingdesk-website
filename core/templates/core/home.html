@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="bg-gradient-to-br from-[#0b1c2c] via-[#0e2236] to-[#0b1c2c] text-white min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="flex items-center justify-between px-10 py-6 border-b border-white/10">
+        <h1 class="text-2xl font-semibold">
+            Scouting<span class="font-bold">Desk</span>
+        </h1>
+
+        <div class="hidden md:flex items-center gap-8 text-sm text-gray-300">
+            <a href="#" class="hover:text-white">Product</a>
+            <a href="#" class="hover:text-white">Solutions</a>
+            <a href="#" class="hover:text-white">Packages</a>
+            <a href="#" class="hover:text-white">Demo</a>
+            <a href="#" class="hover:text-white">Resources</a>
+        </div>
+
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded text-sm font-medium">
+            Purchase Software
+        </a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="flex flex-col lg:flex-row items-center justify-between px-10 py-20 gap-10">
+
+        <!-- LEFT CONTENT -->
+        <div class="max-w-xl">
+            <h1 class="text-4xl lg:text-5xl font-bold leading-tight">
+                The Leading Software for <br>
+                <span class="text-gray-200">Professional Football</span> <br>
+                <span class="text-gray-200">Scouting Reports</span>
+            </h1>
+
+            <p class="mt-6 text-gray-400 text-lg">
+                ScoutingDesk enables clubs, agencies and players to generate structured,
+                professional scouting reports with clarity, precision and consistency.
+            </p>
+
+            <div class="mt-8 flex gap-4">
+                <a href="#" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded font-medium">
+                    Purchase Software
+                </a>
+                <a href="#" class="border border-gray-500 px-6 py-3 rounded font-medium hover:bg-white/10">
+                    View Demo
+                </a>
+            </div>
+        </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="w-full lg:w-1/2 flex justify-center">
+            <img src="{% static 'images/laptop.png' %}" alt="Dashboard Preview"
+                 class="w-[500px] max-w-full">
+        </div>
+
+    </section>
+
+    <!-- BOTTOM STRIP -->
+    <div class="bg-yellow-400 text-black py-4 text-center font-medium text-sm flex justify-center gap-6 flex-wrap">
+        <span>✔ ONE-TIME PURCHASE</span>
+        <span>✔ FULLY STANDALONE SOFTWARE</span>
+        <span>✔ NO SUBSCRIPTIONS</span>
+    </div>
+
+</div>
+
+{% endblock %}

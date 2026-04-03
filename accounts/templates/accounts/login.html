@@ -10,3 +10,12 @@
 <p style="color:red;">{{ error }}</p>
 
 <a href="/accounts/register/">Register</a>
+
+<br><br>
+
+<!-- ✅ ADD THIS -->
+{% load socialaccount %}
+
+<a href="{% provider_login_url 'google' %}">
+    <button type="button">Continue with Google</button>
+</a>

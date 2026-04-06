@@ -10,10 +10,21 @@ def register_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
 
+        # Check password match
+        if password != confirm_password:
+            return render(request, 'accounts/register.html', {
+                'error': 'Passwords do not match'
+            })
+
+        # Check existing user
         if User.objects.filter(username=username).exists():
-            return render(request, 'accounts/register.html', {'error': 'User already exists'})
+            return render(request, 'accounts/register.html', {
+                'error': 'User already exists'
+            })
 
+        # Create user
         user = User.objects.create_user(username=username, password=password)
         login(request, user)
         return redirect('/')

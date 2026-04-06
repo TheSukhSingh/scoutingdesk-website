@@ -1,71 +1,813 @@
+{% extends "base.html" %} {% load static %} {% block content %}
 
-{% extends "base.html" %}
-{% load static %}
+<div
+  class="bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]"
+>
+  <!-- NAVBAR -->
+  <nav class="border-b border-white/15">
+    <div class="container-main flex items-center justify-between py-5">
+      <!-- LOGO -->
+      <h1 class="heading-md">Scouting<span class="font-bold">Desk</span></h1>
 
-{% block content %}
+      <!-- DESKTOP MENU -->
+      <div class="hidden lg:flex gap-8 text-sm text-gray-300">
+        <a href="#" class="hover:text-white transition">Product</a>
+        <a href="#" class="hover:text-white transition">Solutions</a>
+        <a href="#" class="hover:text-white transition">Packages</a>
+        <a href="#" class="hover:text-white transition">Demo</a>
+        <a href="#" class="hover:text-white transition">Resources</a>
+      </div>
 
-<div class="bg-gradient-to-br from-[#0b1c2c] via-[#0e2236] to-[#0b1c2c] text-white min-h-screen">
-
-    <!-- NAVBAR -->
-    <nav class="flex items-center justify-between px-10 py-6 border-b border-white/10">
-        <h1 class="text-2xl font-semibold">
-            Scouting<span class="font-bold">Desk</span>
-        </h1>
-
-        <div class="hidden md:flex items-center gap-8 text-sm text-gray-300">
-            <a href="#" class="hover:text-white">Product</a>
-            <a href="#" class="hover:text-white">Solutions</a>
-            <a href="#" class="hover:text-white">Packages</a>
-            <a href="#" class="hover:text-white">Demo</a>
-            <a href="#" class="hover:text-white">Resources</a>
-        </div>
-
-        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded text-sm font-medium">
-            Purchase Software
+      <!-- RIGHT SIDE -->
+      <div class="flex items-center gap-4">
+        <!-- CTA -->
+        <a href="#" class="btn-primary hidden sm:inline-block text-sm">
+          Purchase Software
         </a>
-    </nav>
 
-    <!-- HERO SECTION -->
-    <section class="flex flex-col lg:flex-row items-center justify-between px-10 py-20 gap-10">
-
-        <!-- LEFT CONTENT -->
-        <div class="max-w-xl">
-            <h1 class="text-4xl lg:text-5xl font-bold leading-tight">
-                The Leading Software for <br>
-                <span class="text-gray-200">Professional Football</span> <br>
-                <span class="text-gray-200">Scouting Reports</span>
-            </h1>
-
-            <p class="mt-6 text-gray-400 text-lg">
-                ScoutingDesk enables clubs, agencies and players to generate structured,
-                professional scouting reports with clarity, precision and consistency.
-            </p>
-
-            <div class="mt-8 flex gap-4">
-                <a href="#" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded font-medium">
-                    Purchase Software
-                </a>
-                <a href="#" class="border border-gray-500 px-6 py-3 rounded font-medium hover:bg-white/10">
-                    View Demo
-                </a>
-            </div>
-        </div>
-
-        <!-- RIGHT IMAGE -->
-        <div class="w-full lg:w-1/2 flex justify-center">
-            <img src="{% static 'images/laptop.png' %}" alt="Dashboard Preview"
-                 class="w-[500px] max-w-full">
-        </div>
-
-    </section>
-
-    <!-- BOTTOM STRIP -->
-    <div class="bg-yellow-400 text-black py-4 text-center font-medium text-sm flex justify-center gap-6 flex-wrap">
-        <span>✔ ONE-TIME PURCHASE</span>
-        <span>✔ FULLY STANDALONE SOFTWARE</span>
-        <span>✔ NO SUBSCRIPTIONS</span>
+        <!-- HAMBURGER -->
+        <button id="menu-btn" class="lg:hidden">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
 
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
+      <div class="flex flex-col gap-4 text-gray-300 text-sm">
+        <a href="#" class="hover:text-white transition">Product</a>
+        <a href="#" class="hover:text-white transition">Solutions</a>
+        <a href="#" class="hover:text-white transition">Packages</a>
+        <a href="#" class="hover:text-white transition">Demo</a>
+        <a href="#" class="hover:text-white transition">Resources</a>
+
+        <a href="#" class="btn-primary text-center mt-2"> Purchase Software </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <!-- GLOW EFFECT -->
+    <!-- <div class="glow top-[-120px] left-[-120px]"></div> -->
+    <!-- <div class="glow bottom-[-120px] right-[-120px]"></div> -->
+
+    <div
+      class="container-main relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12 pt-16 pb-8 lg:pt-20"
+    >
+      <!-- LEFT CONTENT -->
+      <div class="max-w-xl text-center lg:text-left">
+        <h1 class="heading-lg w-4/5">
+          The Leading Software for
+          <span class="text-blue-400 font-semibold">
+            Professional Football Scouting
+          </span>
+          Reports
+        </h1>
+
+        <p class="text-body mt-6 text-[var(--color-text-light)]">
+          ScoutingDesk enables clubs, agencies and players to generate
+          structured, professional scouting reports with clarity, precision and
+          consistency.
+        </p>
+
+        <div
+          class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+        >
+          <a href="#" class="btn-primary shadow-lg shadow-blue-500/20">
+            Purchase Software
+          </a>
+
+          <a href="#" class="btn-secondary"> View Demo </a>
+        </div>
+      </div>
+
+      <!-- RIGHT IMAGE -->
+      <div class="flex justify-center">
+        <img
+          src="{% static 'images/laptop.png' %}"
+          class="w-full max-w-md lg:max-w-lg rounded-lg"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="max-w-2xl mx-auto bg-[var(--color-yellow)] text-black shadow-md">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-[7fr_9fr_7fr] text-center text-xs sm:text-sm font-medium"
+    >
+      <div class="py-4 px-4 sm:border-r border-black/30">
+        ✔ ONE-TIME PURCHASE
+      </div>
+
+      <div class="py-4 px-4 sm:border-r border-black/30">
+        ✔ FULLY STANDALONE SOFTWARE
+      </div>
+
+      <div class="py-4 px-4">✔ NO SUBSCRIPTIONS</div>
+    </div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="mt-12 bg-[var(--color-primary)]">
+    <svg viewBox="0 0 1440 120" class="w-full block">
+      <path d="M0,120 L720,0 L1440,120 Z" fill="var(--color-bg-2)" />
+    </svg>
+  </div>
+
+  <!-- SECTION 2 -->
+  <section class="bg-[var(--color-bg-2)]">
+    <div class="container-main">
+      <div class="grid lg:grid-cols-2 gap-12 items-center py-16 lg:py-24">
+        <img
+          src="{% static 'images/control.png' %}"
+          class="w-64 sm:w-80 lg:w-96 mx-auto rounded-full"
+        />
+
+        <div class="max-w-xl text-center lg:text-left text-black">
+          <h1 class="heading-lg">
+            Scouting Reports
+            <span class="text-blue-400 font-semibold">
+              Should Reflect the Level of the Organization
+            </span>
+          </h1>
+
+          <p class="text-body mt-6">
+            Whether you're a professional club analyzing opposition, an agent
+            building player portfolios, or a player showcasing your abilities -
+            your reports need to look the part.
+          </p>
+
+          <ul class="text-body mt-6 space-y-2">
+            <li>
+              Industry-standard report templates used by professional scouts
+            </li>
+            <li>Clean, modern formatting that commands attention</li>
+            <li>
+              Structured data collection that ensures nothing is overlooked
+            </li>
+            <li>Exportable reports ready for presentations and negotiations</li>
+            <li>Complete offline functionality. No Internet Required.</li>
+          </ul>
+
+          <div
+            class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="#"
+              class="btn-primary shadow-lg shadow-blue-500/20 text-white"
+            >
+              Explore More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="bg-[var(--color-bg-2)]">
+    <div class="container-main">
+      <div class="grid lg:grid-cols-2 gap-12 items-center py-16 lg:py-24">
+        <div class="max-w-xl text-center lg:text-left text-black">
+          <h1 class="heading-lg">
+            A Structured Report
+            <span class="text-blue-400 font-semibold">
+              Engine for Modern Football Operations
+            </span>
+          </h1>
+
+          <p class="text-body mt-6">
+            Football decisions happen fast. Transfer windows close. Contract
+            negotiations have deadlines. You need reporting tools that keep pace
+            with the game.
+          </p>
+
+          <p class="text-body mt-6">
+            ScoutingDesk provides a systematic framework that transforms raw
+            observations into actionable intelligence. Every attribute rated.
+            Every detail documented. Every report professionally formatted.
+          </p>
+
+          <div
+            class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="#"
+              class="btn-primary shadow-lg shadow-blue-500/20 text-white"
+            >
+              Explore More
+            </a>
+          </div>
+        </div>
+
+        <img
+          src="{% static 'images/control-2.png' %}"
+          class="w-64 sm:w-80 lg:w-96 mx-auto rounded-full"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="bg-[var(--color-primary)]">
+    <svg viewBox="0 0 1440 120" class="w-full block">
+      <path d="M0,0 L1000,120 L1440,0 Z" fill="var(--color-bg-2)" />
+    </svg>
+  </div>
+
+  <!-- FEATURES -->
+  <section
+    class="bg-[var(--color-primary)] py-16 lg:py-24 relative overflow-hidden"
+  >
+    <!-- OPTIONAL GLOW -->
+    <!-- <div class="glow top-[-100px] left-[-100px]"></div> -->
+    <!-- <div class="glow bottom-[-100px] right-[-100px]"></div> -->
+
+    <div class="container-main relative z-10">
+      <!-- HEADING -->
+      <div class="text-center mb-12">
+        <h2 class="heading-lg text-white">Our Core Features</h2>
+      </div>
+
+      <!-- GRID -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- CARD 1 -->
+        <div class="glass p-6 rounded-xl card-hover">
+          <h3 class="text-white font-semibold mb-3">
+            Structured Report Framework
+          </h3>
+          <p class="text-body text-gray-300">
+            Pre-built templates covering individual players, match analysis, and
+            opposition scouting designed by industry professionals.
+          </p>
+        </div>
+
+        <!-- CARD 2 (highlighted) -->
+        <div class="glass p-6 rounded-xl border border-white/30 card-hover">
+          <h3 class="text-white font-semibold mb-3">
+            Performance Evaluation Modules
+          </h3>
+          <p class="text-body text-gray-300">
+            Comprehensive attribute ratings across technical, physical and
+            mental categories with automatic averaging and overall scores.
+          </p>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="glass p-6 rounded-xl card-hover">
+          <h3 class="text-white font-semibold mb-3">
+            Automated Formatting Engine
+          </h3>
+          <p class="text-body text-gray-300">
+            Your data automatically populates professional report layouts - no
+            design skills required.
+          </p>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="glass p-6 rounded-xl card-hover">
+          <h3 class="text-white font-semibold mb-3">A4 Executive PDF Export</h3>
+          <p class="text-body text-gray-300">
+            Generate print-ready documents perfect for boardroom presentations,
+            agent meetings, or player portfolios.
+          </p>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="glass p-6 rounded-xl card-hover">
+          <h3 class="text-white font-semibold mb-3">
+            Offline Desktop Software
+          </h3>
+          <p class="text-body text-gray-300">
+            Work anywhere - training grounds, stadiums, airports. No internet
+            connection needed.
+          </p>
+        </div>
+
+        <!-- CARD 6 -->
+        <div class="glass p-6 rounded-xl card-hover">
+          <h3 class="text-white font-semibold mb-3">Secure Local Storage</h3>
+          <p class="text-body text-gray-300">
+            Your scouting data stays on your device. Complete privacy and data
+            ownership.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="mt-12 bg-[var(--color-primary)]">
+    <svg viewBox="0 0 1440 120" class="w-full block">
+      <path d="M0,120 L420,0 L1440,120 Z" fill="var(--color-bg-2)" />
+    </svg>
+  </div>
+
+  <!-- STEPS -->
+  <section class="bg-[var(--color-bg-2)] text-black py-16 lg:py-20">
+    <div class="container-main text-center">
+      <!-- HEADING -->
+      <h2 class="heading-lg mb-12">
+        Structured Reporting in
+        <span class="text-blue-600">Four Clear Steps</span>
+      </h2>
+
+      <!-- STEPS -->
+      <div class="relative">
+        <!-- DASHED LINE -->
+        <div
+          class="hidden md:block absolute top-12 left-0 right-0 border-t-2 border-dashed border-gray-300"
+        ></div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
+          <!-- STEP 1 -->
+          <div class="flex flex-col items-center text-center">
+            <div
+              class="w-16 h-16 flex items-center justify-center rounded-full bg-white shadow-md mb-4"
+            >
+              ⚙️
+            </div>
+            <h3 class="font-semibold">Install the Software</h3>
+            <p class="text-muted mt-2 text-xs">
+              One-time download, instant access
+            </p>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="flex flex-col items-center text-center">
+            <div
+              class="w-16 h-16 flex items-center justify-center rounded-full bg-white shadow-md mb-4"
+            >
+              🗄️
+            </div>
+            <h3 class="font-semibold">Input Structured Evaluation Data</h3>
+            <p class="text-muted mt-2 text-xs">Follow guided templates</p>
+          </div>
+
+          <!-- STEP 3 (highlighted) -->
+          <div class="flex flex-col items-center text-center">
+            <div
+              class="w-16 h-16 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg mb-4"
+            >
+              📊
+            </div>
+            <h3 class="font-semibold">Generate Consistent, Clean Reports</h3>
+            <p class="text-muted mt-2 text-xs">
+              Professional formatting applied automatically
+            </p>
+          </div>
+
+          <!-- STEP 4 -->
+          <div class="flex flex-col items-center text-center">
+            <div
+              class="w-16 h-16 flex items-center justify-center rounded-full bg-white shadow-md mb-4"
+            >
+              🌐
+            </div>
+            <h3 class="font-semibold">Export & Distribute</h3>
+            <p class="text-muted mt-2 text-xs">
+              Share PDF reports with stakeholders
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="bg-[var(--color-bg-2)] text-black py-16 lg:py-24">
+    <div class="container-main text-center">
+      <!-- HEADING -->
+      <h2 class="heading-lg">Professional Software Packages</h2>
+
+      <p class="mt-2 text-blue-600 font-medium">One-Time Purchase</p>
+
+      <p class="text-muted mt-4 max-w-2xl mx-auto">
+        ScoutingDesk offers professional software packages designed for clubs,
+        agencies and players. Purchase once and use the software locally with no
+        subscriptions or recurring fees.
+      </p>
+
+      <!-- PRICING CARDS -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <!-- PLAYER -->
+        <div class="bg-white rounded-xl shadow-sm p-6 text-left">
+          <h3 class="font-semibold text-lg">Player Package</h3>
+          <p class="text-muted text-sm mt-1">
+            Showcase your abilities professionally
+          </p>
+
+          <p class="text-3xl font-bold text-blue-600 mt-6">€49</p>
+
+          <ul class="mt-6 space-y-3 text-sm">
+            <li>• Individual Player Report</li>
+            <li>• Blank Report Templates</li>
+            <li>• Full Report History</li>
+          </ul>
+        </div>
+
+        <!-- AGENCY (HIGHLIGHTED) -->
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 text-left relative border border-blue-200"
+        >
+          <!-- TAG -->
+          <span
+            class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-400 text-xs px-3 py-1 font-semibold rounded"
+          >
+            Most popular
+          </span>
+
+          <h3 class="font-semibold text-lg">Agency Package</h3>
+          <p class="text-muted text-sm mt-1">
+            Perfect for building player portfolios
+          </p>
+
+          <p class="text-3xl font-bold text-blue-600 mt-6">€99</p>
+
+          <ul class="mt-6 space-y-3 text-sm">
+            <li>• Individual Player Report</li>
+            <li>• Player Match Report</li>
+            <li>• Blank Report Templates</li>
+            <li>• Full Report History</li>
+          </ul>
+        </div>
+
+        <!-- CLUB -->
+        <div class="bg-white rounded-xl shadow-sm p-6 text-left">
+          <h3 class="font-semibold text-lg">Club Package</h3>
+          <p class="text-muted text-sm mt-1">
+            Complete scouting department solution
+          </p>
+
+          <p class="text-3xl font-bold text-blue-600 mt-6">€199</p>
+
+          <ul class="mt-6 space-y-3 text-sm">
+            <li>• All 6 report templates</li>
+            <li>• Individual Player Report</li>
+            <li>• Player Match Report</li>
+            <li>• General Match Report</li>
+            <li>• Opposition Report</li>
+            <li>• Blank Report Templates</li>
+            <li>• Full Report History</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- FOOTNOTE -->
+      <p class="text-xs text-gray-500 mt-10">
+        All packages include lifetime usage, instant installation, and no
+        recurring subscription fees.
+      </p>
+    </div>
+  </section>
+
+  <!-- DEMO -->
+  <section
+    class="bg-[var(--color-primary)] text-white py-16 lg:py-24 relative overflow-hidden"
+  >
+    <!-- OPTIONAL GLOW -->
+    <div class="glow top-[-100px] left-[-100px]"></div>
+    <div class="glow bottom-[-100px] right-[-100px]"></div>
+
+    <div
+      class="container-main grid lg:grid-cols-2 gap-12 items-center relative z-10"
+    >
+      <!-- LEFT (IMAGE + PLAY BUTTON) -->
+      <div class="relative flex justify-center">
+        <!-- CIRCLE BG -->
+        <div
+          class="w-[280px] sm:w-[320px] lg:w-[360px] h-[280px] sm:h-[320px] lg:h-[360px] rounded-full overflow-hidden relative"
+        >
+          <img
+            src="{% static 'images/demo.png' %}"
+            class="w-full h-full object-cover"
+          />
+
+          <!-- PLAY BUTTON -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div
+              class="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-lg cursor-pointer"
+            >
+              ▶
+            </div>
+          </div>
+        </div>
+
+        <!-- OPTIONAL SMALL IMAGE OVERLAY -->
+        <img
+          src="{% static 'images/laptop.png' %}"
+          class="absolute bottom-[-20px] w-40 sm:w-48 lg:w-56"
+        />
+      </div>
+
+      <!-- RIGHT CONTENT -->
+      <div class="text-center lg:text-left">
+        <h2 class="heading-lg">
+          See ScoutingDesk <br />
+          <span class="text-white/80">in Action</span>
+        </h2>
+
+        <p class="text-body mt-6 max-w-md mx-auto lg:mx-0">
+          Watch how ScoutingDesk enables clubs, agencies and players to create
+          and access professional football scouting reports.
+        </p>
+
+        <!-- BULLETS -->
+        <ul class="mt-6 space-y-2 text-sm text-gray-300">
+          <li>• Structured report generation</li>
+          <li>• Clean, professional formatting</li>
+          <li>• Comprehensive attribute tracking</li>
+          <li>• Instant PDF export</li>
+          <li>• Offline functionality</li>
+          <li>• Lifetime access</li>
+        </ul>
+
+        <!-- BUTTON -->
+        <div class="mt-8">
+          <a href="#" class="btn-secondary inline-block text-sm">
+            View Demo Video
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="mt-12 bg-[var(--color-primary)]">
+    <svg viewBox="0 0 1440 120" class="w-full block">
+      <path d="M0,120 L720,0 L1440,120 Z" fill="var(--color-bg-2)" />
+    </svg>
+  </div>
+
+  <!-- WHY -->
+  <section
+    class="bg-[var(--color-bg-2)] text-black py-16 lg:py-24 relative overflow-hidden"
+  >
+    <div class="container-main text-center">
+      <!-- HEADING -->
+      <h2 class="heading-lg">
+        Why Choose <span class="text-blue-600">Us</span>
+      </h2>
+
+      <!-- SUBTEXT -->
+      <p class="text-muted mt-4 max-w-xl mx-auto">
+        Structured by Design — Every report follows proven frameworks used
+        across professional football.
+      </p>
+
+      <!-- VISUAL AREA -->
+      <div class="relative mt-16 flex justify-center">
+        <!-- SVG ARC -->
+        <svg class="absolute w-[600px] h-[300px]" viewBox="0 0 600 300">
+          <path
+            d="M50,250 A250,250 0 0,1 550,250"
+            stroke="#94a3b8"
+            stroke-width="2"
+            stroke-dasharray="6 6"
+            fill="none"
+          />
+        </svg>
+
+        <!-- CENTER TEXT -->
+        <div class="absolute bottom-0 text-center">
+          <h3 class="text-lg font-semibold">ScoutingDesk</h3>
+        </div>
+
+        <!-- ICONS -->
+
+        <!-- ICON 1 -->
+        <div class="absolute left-[80px] bottom-[160px]">
+          <div
+            class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-md"
+          >
+            ⚙️
+          </div>
+        </div>
+
+        <!-- ICON 2 -->
+        <div class="absolute left-[180px] bottom-[220px]">
+          <div
+            class="w-12 h-12 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-md"
+          >
+            📊
+          </div>
+        </div>
+
+        <!-- ICON 3 (TOP CENTER) -->
+        <div class="absolute left-1/2 -translate-x-1/2 bottom-[250px]">
+          <div
+            class="w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-lg"
+          >
+            🧩
+          </div>
+        </div>
+
+        <!-- ICON 4 -->
+        <div class="absolute right-[180px] bottom-[220px]">
+          <div
+            class="w-12 h-12 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-md"
+          >
+            🎯
+          </div>
+        </div>
+
+        <!-- ICON 5 -->
+        <div class="absolute right-[80px] bottom-[160px]">
+          <div
+            class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-md"
+          >
+            💰
+          </div>
+        </div>
+
+        <!-- TEXT LEFT -->
+        <div class="hidden lg:block absolute left-0 top-10 text-left max-w-xs">
+          <h4 class="font-semibold text-sm">Consistency Across Departments</h4>
+          <p class="text-xs text-gray-500 mt-2">
+            Standardized templates ensure all scouts and analysts speak the same
+            language.
+          </p>
+
+          <h4 class="font-semibold text-sm mt-6">
+            Designed for Internal Football
+          </h4>
+          <p class="text-xs text-gray-500 mt-2">
+            Built for scouts at matches, not marketers at desks.
+          </p>
+        </div>
+
+        <!-- TEXT RIGHT -->
+        <div
+          class="hidden lg:block absolute right-0 top-10 text-right max-w-xs"
+        >
+          <h4 class="font-semibold text-sm">Executive-Ready Output</h4>
+          <p class="text-xs text-gray-500 mt-2">
+            Reports formatted for decision-makers — from technical directors to
+            club boards.
+          </p>
+
+          <h4 class="font-semibold text-sm mt-6">One-Time Purchase</h4>
+          <p class="text-xs text-gray-500 mt-2">
+            Pay once, own forever. No subscriptions eating into your budget.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- CTA -->
+  <section class="bg-[var(--color-bg-2)] text-black py-16 lg:py-24">
+    <div class="container-main text-center">
+      <!-- HEADING -->
+      <h2 class="heading-lg max-w-2xl mx-auto">
+        Evaluate the Structure.
+        <span class="text-blue-600"> Decide with Confidence. </span>
+      </h2>
+
+      <!-- DESCRIPTION -->
+      <p class="text-muted mt-6 max-w-xl mx-auto">
+        Review the framework, assess the formatting, and implement a reporting
+        system aligned with professional standards.
+      </p>
+
+      <!-- BUTTONS -->
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#" class="btn-primary text-white shadow-md">
+          Purchase Software
+        </a>
+
+        <a
+          href="#"
+          class="px-6 py-3 border border-gray-300 text-sm font-medium hover:bg-gray-100 transition"
+        >
+          Request a Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[var(--color-primary)] text-white pt-16 pb-6">
+    <div class="container-main">
+      <!-- TOP GRID -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <!-- BRAND -->
+        <div>
+          <h2 class="text-xl font-semibold">
+            Scouting<span class="font-bold">Desk</span>
+          </h2>
+
+          <p class="text-sm text-gray-400 mt-4 leading-relaxed">
+            Structured desktop software for generating executive-level A4
+            scouting reports. Built for professional football clubs, agencies,
+            and players.
+          </p>
+        </div>
+
+        <!-- PRODUCTS -->
+        <div>
+          <h3 class="font-semibold mb-4">Products</h3>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li>
+              <a href="#" class="hover:text-white transition"
+                >Product Overview</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">Features</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">How It Works</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">Packages</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">Demo Report</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition"
+                >Purchase / Download</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- LICENSING -->
+        <div>
+          <h3 class="font-semibold mb-4">Licensing</h3>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li>
+              <a href="#" class="hover:text-white transition">Club License</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">Agency License</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">Player License</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition"
+                >Licensing Terms</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition"
+                >Software Requirements</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- SUPPORT -->
+        <div>
+          <h3 class="font-semibold mb-4">Support</h3>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="#" class="hover:text-white transition">Contact</a></li>
+            <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+            <li>
+              <a href="#" class="hover:text-white transition"
+                >Installation Guide</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">User Manual</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition"
+                >Terms & Conditions</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- DIVIDER -->
+      <div
+        class="border-t border-white/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400"
+      >
+        <p>Copyright@2026. All Rights Reserved</p>
+
+        <p class="mt-2 sm:mt-0">C 72</p>
+      </div>
+    </div>
+  </footer>
 </div>
 
 {% endblock %}

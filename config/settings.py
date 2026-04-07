@@ -35,14 +35,34 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+# 🔐 EMAIL VERIFICATION REQUIRED
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+# 🔑 LOGIN / LOGOUT
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
-ACCOUNT_EMAIL_REQUIRED = True
+# 🧠 AUTO SIGNUP FOR GOOGLE USERS
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_QUERY_EMAIL = True
 
-ACCOUNT_LOGIN_METHODS = {'username', 'email'}
+# 🔗 AUTO CONNECT SAME EMAIL
+ACCOUNT_UNIQUE_EMAIL = True
 
-ACCOUNT_SIGNUP_FIELDS = ['username*', 'password1*', 'password2*']
+# 📩 EMAIL SETTINGS (we’ll configure SMTP later)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@scoutingdesk.com'
+
+# ACCOUNT_LOGIN_METHODS = {'username', 'email'}
+
+# ACCOUNT_SIGNUP_FIELDS = ['username*', 'password1*', 'password2*']
 
 # Application definition
 
@@ -54,7 +74,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'accounts',
+    # 'accounts', upgrade later
     'payments',
     'django.contrib.sites',
 

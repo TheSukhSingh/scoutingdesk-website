@@ -1053,6 +1053,10 @@ video {
   align-items: center;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -1087,6 +1091,14 @@ video {
 
 .gap-3 {
   gap: 0.75rem;
+}
+
+.gap-16 {
+  gap: 4rem;
+}
+
+.gap-32 {
+  gap: 8rem;
 }
 
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
@@ -1401,6 +1413,11 @@ video {
   padding-bottom: 3rem;
 }
 
+.px-16 {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
 .pb-4 {
   padding-bottom: 1rem;
 }
@@ -1431,6 +1448,14 @@ video {
 
 .pl-4 {
   padding-left: 1rem;
+}
+
+.pl-16 {
+  padding-left: 4rem;
+}
+
+.pt-0 {
+  padding-top: 0px;
 }
 
 .text-left {

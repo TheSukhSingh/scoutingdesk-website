@@ -3,9 +3,10 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Package, Order
-
+from django.http import HttpResponse
+from django.shortcuts import render
 stripe.api_key = settings.STRIPE_SECRET_KEY
-
+from django.core.mail import send_mail
 
 @login_required
 def create_checkout_session(request, package_type):
@@ -28,8 +29,8 @@ def create_checkout_session(request, package_type):
             'quantity': 1,
         }],
         mode='payment',
-        success_url='http://127.0.0.1:8000/payments/success/',
-        cancel_url='http://127.0.0.1:8000/payments/cancel/',
+        success_url=request.build_absolute_uri('/payments/success/?session_id={CHECKOUT_SESSION_ID}'),
+        cancel_url=request.build_absolute_uri('/payments/cancel/'),
         metadata={
             'order_id': order.id
         }
@@ -41,12 +42,12 @@ def create_checkout_session(request, package_type):
     return redirect(session.url)
 
 
-from django.http import HttpResponse
-
 
 @login_required
 def payment_success(request):
-    return HttpResponse("Payment successful! Redirecting to download page...")
+    return render(request, "payments/success.html", {
+        "plan": request.user.profile.plan
+    })
 
 
 @login_required
@@ -56,7 +57,7 @@ def payment_cancel(request):
 
 
 from django.views.decorators.csrf import csrf_exempt
-
+from django.utils import timezone
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
@@ -69,15 +70,41 @@ def stripe_webhook(request):
         )
     except Exception as e:
         return HttpResponse(status=400)
-
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         order_id = session['metadata']['order_id']
 
         order = Order.objects.get(id=order_id)
-        order.status = 'paid'
-        order.save()
 
-        # 🔥 Send email here (we'll add next step)
+        if order.status != 'paid':
+            order.status = 'paid'
+            order.save()
+
+            # 🔥 Assign plan
+            user = order.user
+            profile = user.profile
+            profile.plan_updated_at = timezone.now()
+            profile.plan = order.package
+            profile.failed_attempts = 0
+            profile.is_locked = False
+            profile.save()
+            
+            send_mail(
+                subject="Your ScoutingDesk Plan is Activated 🎉",
+                message=f"""Hi {user.email},
+
+            Your payment was successful.
+
+            Plan Activated: {order.package.upper()}
+
+            You can now access your dashboard.
+
+            Thanks,
+            ScoutingDesk Team
+            """,
+                from_email=None,
+                recipient_list=[user.email],
+                fail_silently=True,
+            )
 
     return HttpResponse(status=200)

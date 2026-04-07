@@ -93,8 +93,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
-    # 'accounts', upgrade later
+    'core.apps.CoreConfig',
     'payments',
     'django.contrib.sites',
 

@@ -1,19 +1,94 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="{% static 'css/output.css' %}" rel="stylesheet">
-</head>
-<body class="bg-[var(--color-primary)] text-white">
-        {% block content %}{% endblock %}
-</body>
-<script>
-  const btn = document.getElementById('menu-btn');
-  const menu = document.getElementById('mobile-menu');
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="{% static 'css/output.css' %}" rel="stylesheet" />
+  </head>
+  <body class="bg-[var(--color-primary)] text-white">
+    {% block content %}{% endblock %}
+  </body>
+  <script>
+    const btn = document.getElementById("menu-btn");
+    const menu = document.getElementById("mobile-menu");
 
-  btn.addEventListener('click', () => {
-    menu.classList.toggle('hidden');
-  });
-</script>
+    if (btn && menu) {
+      btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+    }
+
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const svg = btn.querySelector("svg");
+
+      // ✨ animate icon (scale down → up)
+      svg.classList.add("scale-75", "opacity-50");
+
+      setTimeout(() => {
+        if (input.type === "password") {
+          input.type = "text";
+
+          // cross eye
+          svg.innerHTML = `
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M13.875 18.825A10.05 10.05 0 0112 19
+          c-4.478 0-8.268-2.943-9.542-7
+          a9.956 9.956 0 012.042-3.362M6.223 6.223
+          A9.953 9.953 0 0112 5c4.477 0 8.268 2.943
+          9.542 7a9.973 9.973 0 01-4.132 5.411M15
+          12a3 3 0 11-6 0 3 3 0 016 0zm6
+          6L3 3"/>
+      `;
+        } else {
+          input.type = "password";
+
+          // normal eye
+          svg.innerHTML = `
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M2.458 12C3.732 7.943 7.523 5 12 5
+          c4.477 0 8.268 2.943 9.542 7
+          -1.274 4.057-5.065 7-9.542 7
+          -4.477 0-8.268-2.943-9.542-7z"/>
+      `;
+        }
+
+        // ✨ animate back
+        svg.classList.remove("scale-75", "opacity-50");
+        svg.classList.add("scale-100", "opacity-100");
+      }, 120); // small delay for smooth effect
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      const setupCaps = (inputId, warningId) => {
+        const input = document.getElementById(inputId);
+        const warning = document.getElementById(warningId);
+
+        if (!input || !warning) return;
+
+        input.addEventListener("keyup", (e) => {
+          if (e.getModifierState("CapsLock")) {
+            warning.classList.remove("hidden");
+          } else {
+            warning.classList.add("hidden");
+          }
+        });
+
+        input.addEventListener("blur", () => {
+          warning.classList.add("hidden");
+        });
+      };
+
+      // login
+      setupCaps("password", "caps-warning");
+
+      // signup
+      setupCaps("password1", "caps-warning-1");
+      setupCaps("password2", "caps-warning-2");
+    });
+  </script>
 </html>

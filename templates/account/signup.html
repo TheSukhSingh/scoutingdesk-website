@@ -1,0 +1,272 @@
+{% extends "base.html" %} {% load socialaccount %} {% block content %}
+
+<div class="min-h-screen flex relative overflow-hidden">
+  <!-- 🔵 LEFT SIDE (UNCHANGED) -->
+  <div
+    class="hidden lg:flex w-1/2 flex-col justify-between bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)] text-white p-16 relative overflow-hidden"
+  >
+    <!-- BACKGROUND PATTERN -->
+    <div
+      class="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:30px_30px]"
+    ></div>
+
+    <!-- GLOW -->
+    <div
+      class="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/20 blur-3xl rounded-full"
+    ></div>
+
+    <!-- LOGO -->
+    <h1 class="text-xl font-semibold relative z-10">
+      Scouting<span class="font-bold">Desk</span>
+    </h1>
+
+    <!-- CONTENT -->
+    <div class="max-w-lg relative z-10">
+      <h2 class="text-4xl font-semibold leading-tight">
+        Structured Scouting.<br />
+        <span class="text-blue-400">Clear Decisions.</span>
+      </h2>
+
+      <p class="mt-6 text-sm text-gray-300 leading-relaxed">
+        A professional environment for documenting player and match evaluations
+        with clarity, consistency and structure.
+      </p>
+
+      <!-- FEATURE BLOCKS -->
+      <div class="mt-10 space-y-6">
+        <div class="flex gap-3 group">
+          <div
+            class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"
+          ></div>
+          <div>
+            <h3 class="text-sm font-medium">Standardized Reporting</h3>
+            <p class="text-xs text-gray-400 mt-1">
+              Every report follows a defined framework used in professional
+              environments.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 group">
+          <div
+            class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"
+          ></div>
+          <div>
+            <h3 class="text-sm font-medium">Structured Evaluations</h3>
+            <p class="text-xs text-gray-400 mt-1">
+              Technical, physical and mental attributes — all consistently
+              recorded.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 group">
+          <div
+            class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"
+          ></div>
+          <div>
+            <h3 class="text-sm font-medium">Presentation Ready</h3>
+            <p class="text-xs text-gray-400 mt-1">
+              Clean, formatted outputs ready for internal review or
+              decision-making.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-10 text-xs text-gray-500">
+        No subscriptions. No cloud dependency. Full control over your data.
+      </p>
+    </div>
+
+    <p class="text-xs text-gray-600 relative z-10">
+      Used where clarity in reporting directly impacts decisions.
+    </p>
+  </div>
+  <div class="hidden lg:block w-px bg-white/10"></div>
+
+  <!-- ⚪ RIGHT SIDE -->
+  <div
+    class="w-full lg:w-1/2 flex items-center justify-center bg-gray-50 px-6 relative overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)] [background-size:30px_30px]"
+    ></div>
+    <div class="absolute w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
+
+    <div
+      class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-8 relative z-10"
+    >
+      <!-- HEADER -->
+      <h2 class="text-2xl font-semibold text-gray-900">Create Your Account</h2>
+      <p class="text-sm text-gray-500 mt-2">
+        Start building structured reports and evaluations.
+      </p>
+
+      <!-- 🔴 GLOBAL ERRORS -->
+      {% if form.non_field_errors %}
+      <div class="mt-4 text-red-500 text-sm">{{ form.non_field_errors }}</div>
+      {% endif %}
+
+      <!-- FORM -->
+      <form method="POST" class="mt-8 space-y-5">
+        {% csrf_token %}
+
+        <!-- EMAIL -->
+        <div>
+          <label class="text-xs text-gray-500">Email</label>
+          <input
+            type="email"
+            name="email"
+            required
+            value="{{ form.email.value|default:'' }}"
+            class="w-full mt-1 px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
+          />
+
+          {% if form.email.errors %}
+          <p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="relative">
+          <label class="text-xs text-gray-500">Password</label>
+
+          <input
+            type="password"
+            name="password1"
+            id="password1"
+            required
+            class="w-full mt-1 px-4 py-3 pr-12 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
+          />
+
+          <!-- 👁️ TOGGLE -->
+          <button
+            type="button"
+            onclick="togglePassword('password1', this)"
+            class="absolute right-3 top-1/2 text-gray-400 hover:text-gray-700 transition-all duration-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 transition-all duration-200 ease-in-out transform"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5
+        c4.477 0 8.268 2.943 9.542 7
+        -1.274 4.057-5.065 7-9.542 7
+        -4.477 0-8.268-2.943-9.542-7z"
+              />
+            </svg>
+          </button>
+
+
+          {% if form.password1.errors %}
+          <p class="text-red-500 text-xs mt-1">{{ form.password1.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <!-- CONFIRM PASSWORD -->
+        <div class="relative">
+          <label class="text-xs text-gray-500">Confirm Password</label>
+
+          <input
+            type="password"
+            name="password2"
+            id="password2"
+            required
+            class="w-full mt-1 px-4 py-3 pr-12 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
+          />
+
+          <!-- 👁️ TOGGLE -->
+          <button
+            type="button"
+            onclick="togglePassword('password2', this)"
+            class="absolute right-3 top-1/2 text-gray-400 hover:text-gray-700 transition-all duration-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 transition-all duration-200 ease-in-out transform"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5
+        c4.477 0 8.268 2.943 9.542 7
+        -1.274 4.057-5.065 7-9.542 7
+        -4.477 0-8.268-2.943-9.542-7z"
+              />
+            </svg>
+          </button>
+
+
+          {% if form.password2.errors %}
+          <p class="text-red-500 text-xs mt-1">{{ form.password2.errors.0 }}</p>
+          {% endif %}
+        </div>
+        <!-- BUTTON -->
+        <button
+          type="submit"
+          class="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white py-3 rounded-xl text-sm font-medium shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-200"
+        >
+          Create Account
+        </button>
+      </form>
+
+      <!-- DIVIDER -->
+      <div class="flex items-center my-6">
+        <div class="flex-1 h-px bg-gray-200"></div>
+        <span class="px-3 text-xs text-gray-400">OR</span>
+        <div class="flex-1 h-px bg-gray-200"></div>
+      </div>
+
+      <!-- GOOGLE -->
+      <a href="{% provider_login_url 'google' %}">
+        <button
+          type="button"
+          class="w-full flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition text-sm text-black"
+        >
+          <img
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            class="w-4 h-4"
+          />
+          Continue with Google
+        </button>
+      </a>
+
+      <!-- FOOT -->
+      <p class="text-sm text-gray-500 text-center mt-6">
+        Already have an account?
+        <a
+          href="{% url 'account_login' %}"
+          class="text-blue-600 hover:underline"
+        >
+          Login
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

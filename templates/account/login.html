@@ -1,21 +1,26 @@
 {% extends "base.html" %} {% load socialaccount %} {% block content %}
 
 <div class="min-h-screen flex relative overflow-hidden">
-  <!-- 🔵 LEFT SIDE (EXACT SAME — DO NOT TOUCH) -->
+  <!-- 🔵 LEFT SIDE -->
   <div
     class="hidden lg:flex w-1/2 flex-col justify-between bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)] text-white p-16 relative overflow-hidden"
   >
+    <!-- BACKGROUND PATTERN -->
     <div
       class="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:30px_30px]"
     ></div>
+
+    <!-- GLOW -->
     <div
       class="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/20 blur-3xl rounded-full"
     ></div>
 
+    <!-- LOGO -->
     <h1 class="text-xl font-semibold relative z-10">
       Scouting<span class="font-bold">Desk</span>
     </h1>
 
+    <!-- CONTENT -->
     <div class="max-w-lg relative z-10">
       <h2 class="text-4xl font-semibold leading-tight">
         Structured Scouting.<br />
@@ -27,6 +32,7 @@
         with clarity, consistency and structure.
       </p>
 
+      <!-- FEATURE BLOCKS -->
       <div class="mt-10 space-y-6">
         <div class="flex gap-3 group">
           <div
@@ -78,67 +84,108 @@
     </p>
   </div>
 
-  <!-- DIVIDER -->
   <div class="hidden lg:block w-px bg-white/10"></div>
 
-  <!-- ⚪ RIGHT SIDE -->
+  <!-- RIGHT SIDE -->
   <div
     class="w-full lg:w-1/2 flex items-center justify-center bg-gray-50 px-6 relative overflow-hidden"
   >
-    <!-- PATTERN -->
     <div
       class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)] [background-size:30px_30px]"
     ></div>
-
-    <!-- GLOW -->
     <div class="absolute w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
 
-    <!-- FORM CARD -->
     <div
-      class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-300 relative z-10"
+      class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-8 relative z-10"
     >
       <!-- HEADER -->
-      <h2 class="text-2xl font-semibold text-gray-900">Create Your Account</h2>
+      <h2 class="text-2xl font-semibold text-gray-900">
+        Access Your Workspace
+      </h2>
 
       <p class="text-sm text-gray-500 mt-2">
-        Start building structured reports and evaluations.
+        Continue working on your reports and evaluations.
       </p>
+
+      <!-- 🔴 ERROR MESSAGES -->
+      {% if messages %} {% for message in messages %}
+      <p class="text-red-500 text-sm mt-4">{{ message }}</p>
+      {% endfor %} {% endif %}
 
       <!-- FORM -->
       <form method="POST" class="mt-8 space-y-5">
         {% csrf_token %}
 
-        <!-- USERNAME -->
+        <!-- EMAIL -->
         <div>
-          <label class="text-xs text-gray-500">Username</label>
+          <label class="text-xs text-gray-500">Email</label>
           <input
-            type="text"
-            name="username"
+            type="email"
+            name="login"
             required
             class="w-full mt-1 px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
           />
         </div>
 
         <!-- PASSWORD -->
-        <div>
+        <div class="relative">
           <label class="text-xs text-gray-500">Password</label>
+
           <input
             type="password"
             name="password"
+            id="password"
             required
-            class="w-full mt-1 px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
+            class="w-full mt-1 px-4 py-3 pr-12 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
           />
+  
+          <!-- 👁️ TOGGLE -->
+          <button
+            type="button"
+            onclick="togglePassword('password', this)"
+            class="absolute right-3 top-1/2 text-gray-400 hover:text-gray-700 transition-all duration-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 transition-all duration-200 ease-in-out transform"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <!-- default = eye open -->
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5
+        c4.477 0 8.268 2.943 9.542 7
+        -1.274 4.057-5.065 7-9.542 7
+        -4.477 0-8.268-2.943-9.542-7z"
+              />
+            </svg>
+          </button>
+                
         </div>
 
-        <!-- CONFIRM PASSWORD -->
-        <div>
-          <label class="text-xs text-gray-500">Confirm Password</label>
-          <input
-            type="password"
-            name="confirm_password"
-            required
-            class="w-full mt-1 px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
-          />
+        <!-- ACTIONS -->
+        <div class="flex justify-between items-center text-xs text-gray-500">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="accent-blue-600" />
+            Remember me
+          </label>
+
+          <a
+            href="/accounts/password/reset/"
+            class="hover:text-gray-800 transition"
+          >
+            Forgot password?
+          </a>
         </div>
 
         <!-- BUTTON -->
@@ -146,9 +193,10 @@
           type="submit"
           class="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white py-3 rounded-xl text-sm font-medium shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-200"
         >
-          Create Account
+          Login
         </button>
       </form>
+
       <!-- DIVIDER -->
       <div class="flex items-center my-6">
         <div class="flex-1 h-px bg-gray-200"></div>
@@ -156,11 +204,11 @@
         <div class="flex-1 h-px bg-gray-200"></div>
       </div>
 
-      <!-- GOOGLE SIGNUP -->
+      <!-- GOOGLE -->
       <a href="{% provider_login_url 'google' %}">
         <button
           type="button"
-          class="w-full flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 hover:shadow-sm transition text-sm text-black"
+          class="w-full flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition text-sm text-black"
         >
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -169,21 +217,16 @@
           Continue with Google
         </button>
       </a>
-      <!-- ERROR -->
-      {% if error %}
-      <p class="text-red-500 text-sm mt-4">{{ error }}</p>
-      {% endif %}
 
       <!-- FOOT -->
       <p class="text-sm text-gray-500 text-center mt-6">
-        Already have an account?
-        <a href="/accounts/login/" class="text-blue-600 hover:underline">
-          Login
+        Don't have an account?
+        <a
+          href="{% url 'account_signup' %}"
+          class="text-blue-600 hover:underline"
+        >
+          Sign up
         </a>
-      </p>
-
-      <p class="text-xs text-gray-400 text-center mt-4">
-        Your data remains local and fully under your control.
       </p>
     </div>
   </div>

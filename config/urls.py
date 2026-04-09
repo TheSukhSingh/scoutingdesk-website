@@ -9,7 +9,7 @@ urlpatterns = [
     path('accounts/login/', custom_login, name='account_login'),
     path('accounts/', include('allauth.urls')),
     path('', home, name="home"),
-    path('inside/', feature_page),
+    path('inside/', feature_page, name="inside"),
     path('terms/', terms, name="terms"),
     path('privacy/', privacy, name="privacy"),
     path('payments/', include('payments.urls')),

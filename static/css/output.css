@@ -1696,7 +1696,7 @@ body {
 /* PREMIUM UI ADDITIONS */
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(7, 21, 34, 0.15);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -1707,7 +1707,7 @@ body {
 
 .card-hover:hover {
   transform: translateY(-6px);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(7, 21, 34, 0.35);
 }
 
 .glow {

@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.http import HttpResponse
 
-# @login_required
 def home(request):
     return render(request, 'core/home.html')
+
+def feature_page(request):
+    return render(request, 'core/features.html')
+

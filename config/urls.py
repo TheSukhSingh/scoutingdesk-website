@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
-from core.views import home
+from core.views import home, feature_page
 
 from core.auth_views import custom_login
 
@@ -9,6 +9,7 @@ urlpatterns = [
     path('accounts/login/', custom_login, name='account_login'),
     path('accounts/', include('allauth.urls')),
     path('', home),
+    path('inside/', feature_page),
     path('payments/', include('payments.urls')),
 ]
 

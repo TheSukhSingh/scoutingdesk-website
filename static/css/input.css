@@ -29,11 +29,14 @@ body {
   }
 
   .heading-lg {
-    @apply text-4xl sm:text-4xl lg:text-4xl ;
+    @apply text-4xl ;
   }
 
   .heading-md {
-    @apply text-2xl sm:text-2xl;
+    @apply text-2xl;
+  }
+  .heading-sm {
+    @apply text-lg;
   }
 
   /* BODY TEXT */
@@ -47,11 +50,11 @@ body {
 
   /* BUTTON */
   .btn-primary {
-    @apply bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] px-6 py-3 font-medium;
+    @apply bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] px-6 py-3 font-medium text-white;
   }
 
   .btn-secondary {
-    @apply border border-white/20 px-6 py-3 hover:bg-white/10;
+    @apply border border-white/20 px-6 py-3 hover:bg-white/10 text-white;
   }
 }
 

@@ -10,3 +10,9 @@ def home(request):
 def feature_page(request):
     return render(request, 'core/features.html')
 
+def terms(request):
+    return render(request, 'docs/terms.html')
+
+def privacy(request):
+    return render(request, 'docs/privacy.html')
+

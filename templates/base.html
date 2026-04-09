@@ -8,8 +8,12 @@
     />
     <link href="{% static 'css/output.css' %}" rel="stylesheet" />
   </head>
-  <body class="bg-[var(--color-primary)] text-white">
+  <body>
+    {% include 'header.html' %}
+
     {% block content %}{% endblock %}
+
+    {% include 'footer.html' %}
   </body>
   <script>
     const btn = document.getElementById("menu-btn");

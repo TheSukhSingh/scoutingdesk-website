@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="bg-[var(--color-bg-2)] min-h-screen py-16">
+
+  <div class="container-main">
+
+    <!-- HEADER -->
+    <div class="mb-12">
+      <h1 class="heading-lg text-black">Your Dashboard</h1>
+      <p class="text-muted mt-2">Manage your licenses and access your software.</p>
+    </div>
+
+    <!-- PLAN CARD -->
+    <div class="glass-light rounded-2xl p-6 mb-10">
+      <h2 class="heading-sm font-semibold text-black">Current Plan</h2>
+
+      <div class="flex items-center justify-between mt-4">
+        <div>
+          <p class="text-lg font-semibold text-black">
+            {{ request.user.profile.plan|default:"No Plan" | upper }}
+          </p>
+          <p class="text-muted">
+            Updated: {{ request.user.profile.plan_updated_at|date:"M d, Y" }}
+          </p>
+        </div>
+
+        <a href="#" class="btn-primary text-sm">
+          Upgrade Plan
+        </a>
+      </div>
+    </div>
+
+    <!-- LICENSE SECTION -->
+    <div>
+      <h2 class="heading-md text-black mb-6">Your Licenses</h2>
+
+      <div id="licenses-container" class="grid md:grid-cols-2 gap-6">
+
+        <!-- Example Card (JS will replace this) -->
+        <div class="glass-light rounded-2xl p-6">
+          <p class="text-muted">Loading licenses...</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+async function loadLicenses() {
+  try {
+    const res = await fetch("/api/license/my-licenses/");
+    const data = await res.json();
+
+    const container = document.getElementById("licenses-container");
+    container.innerHTML = "";
+
+    if (!data.licenses.length) {
+      container.innerHTML = "<p class='text-muted'>No licenses found.</p>";
+      return;
+    }
+
+    data.licenses.forEach(l => {
+      const card = `
+        <div class="glass-light rounded-2xl p-6 flex flex-col justify-between">
+
+          <div>
+            <p class="text-xs text-gray-500 uppercase">${l.package}</p>
+
+            <p class="mt-2 text-lg font-semibold text-black break-all">
+              ${l.key}
+            </p>
+
+            <p class="text-muted mt-2">
+              ${l.is_active ? "Active" : "Inactive"} • 
+              ${l.device_bound ? "Device Linked" : "Not Activated"}
+            </p>
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+
+            <button onclick="copyKey('${l.key}')"
+              class="btn-secondary text-sm bg-black text-white">
+              Copy
+            </button>
+
+            <button onclick="resetDevice('${l.key}')"
+              class="btn-secondary text-sm text-black border-black/20">
+              Reset Device
+            </button>
+
+            <button onclick="regenKey('${l.key}')"
+              class="btn-secondary text-sm text-black border-black/20">
+              Regenerate
+            </button>
+
+            <a href="/download/"
+              class="btn-primary text-sm">
+              Download
+            </a>
+
+          </div>
+
+        </div>
+      `;
+
+      container.innerHTML += card;
+    });
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function copyKey(key) {
+  navigator.clipboard.writeText(key);
+  alert("Activation key copied");
+}
+
+async function resetDevice(key) {
+  await fetch("/api/license/reset-device/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ activation_key: key })
+  });
+
+  alert("Device reset successful");
+  loadLicenses();
+}
+
+async function regenKey(key) {
+  const res = await fetch("/api/license/regenerate-key/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ activation_key: key })
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    alert("New Key: " + data.new_key);
+    loadLicenses();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadLicenses);
+</script>
+
+{% endblock %}

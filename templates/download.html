@@ -1,0 +1,138 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<div class="bg-[var(--color-bg-2)] min-h-screen py-20">
+  <div class="container-main text-[var(--color-text-dark)]">
+
+    <!-- TOP GRID -->
+    <div class="grid md:grid-cols-2 gap-32 items-center">
+
+      <!-- LEFT SIDE -->
+      <div class="text-left">
+        <h1 class="heading-lg font-semibold">
+          From Download to First Report In Minutes
+        </h1>
+
+        <p class="text-body mt-6 text-[var(--color-text-muted)] max-w-lg leading-relaxed">
+          Access the ScoutingDesk desktop application and start generating
+          structured, professional scouting reports in minutes. Built for clubs,
+          agencies, and players who demand elite-level analysis.
+        </p>
+      </div>
+
+      <!-- RIGHT SIDE (DOWNLOAD CARD) -->
+      <div class="bg-white border border-gray-200 shadow-lg p-10 rounded-2xl text-center">
+
+        <h2 class="heading-sm font-semibold mb-4">
+          Desktop Application
+        </h2>
+
+        <p class="text-[var(--color-text-muted)] mb-6">
+          Fully offline. No subscriptions. High-performance reporting system
+          designed for professional environments.
+        </p>
+
+        <a href="#" class="btn-primary inline-block px-8 py-3">
+          Download for Windows
+        </a>
+
+        <p class="text-xs text-gray-500 mt-4">
+          Version 1.0 • 64-bit • Instant access after purchase
+        </p>
+      </div>
+
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="mt-24 max-w-5xl mx-auto">
+
+      <div class="text-center mb-14">
+        <p class="text-sm text-[var(--color-text-muted)] mt-4 max-w-xl mx-auto">
+          ScoutingDesk is built for speed and simplicity. Get up and running
+          instantly without complex setup or configuration.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- STEP 1 -->
+        <div class="bg-white border border-gray-200 shadow-sm p-8 rounded-2xl relative">
+
+          <span class="absolute top-4 right-6 text-4xl font-bold text-gray-100">
+            01
+          </span>
+
+          <h4 class="font-semibold text-lg mb-3 text-[var(--color-text-dark)]">
+            Download the Software
+          </h4>
+
+          <p class="text-sm text-[var(--color-text-muted)] leading-relaxed">
+            Access your desktop application instantly after purchase. No
+            waiting, no additional setup required.
+          </p>
+
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="bg-white border border-gray-200 shadow-sm p-8 rounded-2xl relative">
+
+          <span class="absolute top-4 right-6 text-4xl font-bold text-gray-100">
+            02
+          </span>
+
+          <h4 class="font-semibold text-lg mb-3 text-[var(--color-text-dark)]">
+            Activate Your License
+          </h4>
+
+          <p class="text-sm text-[var(--color-text-muted)] leading-relaxed">
+            Enter your unique license key to unlock full functionality and
+            secure your access to the platform.
+          </p>
+
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="bg-white border border-gray-200 shadow-sm p-8 rounded-2xl relative">
+
+          <span class="absolute top-4 right-6 text-4xl font-bold text-gray-100">
+            03
+          </span>
+
+          <h4 class="font-semibold text-lg mb-3 text-[var(--color-text-dark)]">
+            Start Creating Reports
+          </h4>
+
+          <p class="text-sm text-[var(--color-text-muted)] leading-relaxed">
+            Generate structured, professional scouting reports immediately using
+            a streamlined and intuitive workflow.
+          </p>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SYSTEM REQUIREMENTS -->
+    <div class="mt-20 max-w-xl mx-auto bg-white border border-gray-200 shadow-sm p-8 rounded-xl">
+
+      <h2 class="heading-sm mb-4 text-center">
+        System Requirements
+      </h2>
+
+      <ul class="text-sm text-[var(--color-text-muted)] space-y-2">
+        <li>• Windows 10 or higher</li>
+        <li>• 64-bit system</li>
+        <li>• Minimum 4GB RAM (8GB recommended)</li>
+        <li>• 200MB free disk space</li>
+      </ul>
+
+    </div>
+
+    <!-- FREE VERSION -->
+    <div class="mt-12 text-sm text-[var(--color-text-muted)] max-w-lg mx-auto text-center">
+      A free version is available with limited features and watermark output.
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

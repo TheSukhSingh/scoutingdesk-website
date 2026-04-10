@@ -16,3 +16,9 @@ def terms(request):
 def privacy(request):
     return render(request, 'docs/privacy.html')
 
+@login_required
+def dashboard(request):
+    return render(request, "dashboard.html")
+
+def download_page(request):
+    return render(request, "download.html")

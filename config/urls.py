@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
-from core.views import home, feature_page, privacy, terms
+from core.views import *
 
 from core.auth_views import custom_login
 
@@ -13,6 +13,8 @@ urlpatterns = [
     path('terms/', terms, name="terms"),
     path('privacy/', privacy, name="privacy"),
     path('payments/', include('payments.urls')),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('download/', download_page, name='download'),
     path('api/license/', include('activation.urls')),
 ]
 

@@ -1,13 +1,24 @@
 import stripe
+import logging
+
 from django.conf import settings
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import Package, Order
 from django.http import HttpResponse
-from django.shortcuts import render
-stripe.api_key = settings.STRIPE_SECRET_KEY
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 
+from .models import Order
+from activation.utils import create_license, deactivate_license_by_order
+from activation.models import License
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+logger = logging.getLogger(__name__)
+
+
+# 🛒 CREATE CHECKOUT SESSION
 @login_required
 def create_checkout_session(request, package_type):
     package = settings.STRIPE_PRICES.get(package_type)
@@ -42,7 +53,7 @@ def create_checkout_session(request, package_type):
     return redirect(session.url)
 
 
-
+# ✅ PAYMENT SUCCESS PAGE
 @login_required
 def payment_success(request):
     return render(request, "payments/success.html", {
@@ -50,14 +61,13 @@ def payment_success(request):
     })
 
 
+# ❌ PAYMENT CANCEL
 @login_required
 def payment_cancel(request):
     return HttpResponse("Payment cancelled.")
 
 
-
-from django.views.decorators.csrf import csrf_exempt
-from django.utils import timezone
+# 🔌 STRIPE WEBHOOK
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
@@ -69,42 +79,98 @@ def stripe_webhook(request):
             payload, sig_header, endpoint_secret
         )
     except Exception as e:
+        logger.error(f"Stripe webhook error: {str(e)}")
         return HttpResponse(status=400)
+
+    logger.info(f"Stripe event received: {event['type']}")
+
+    # 🟢 PAYMENT SUCCESS
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        order_id = session['metadata']['order_id']
+        order_id = session.get('metadata', {}).get('order_id')
 
-        order = Order.objects.get(id=order_id)
+        if not order_id:
+            logger.error("No order_id in metadata")
+            return HttpResponse(status=200)
+
+        try:
+            order = Order.objects.get(id=order_id)
+        except Order.DoesNotExist:
+            logger.error(f"Order not found: {order_id}")
+            return HttpResponse(status=200)
 
         if order.status != 'paid':
             order.status = 'paid'
             order.save()
 
-            # 🔥 Assign plan
             user = order.user
             profile = user.profile
+
+            # 🔥 Assign plan
             profile.plan_updated_at = timezone.now()
             profile.plan = order.package
             profile.failed_attempts = 0
             profile.is_locked = False
             profile.save()
-            
-            send_mail(
-                subject="Your ScoutingDesk Plan is Activated 🎉",
-                message=f"""Hi {user.email},
 
-            Your payment was successful.
+            # 🔑 Prevent duplicate license
+            existing_license = License.objects.filter(order_id=order.id).first()
 
-            Plan Activated: {order.package.upper()}
+            if not existing_license:
+                license = create_license(
+                    user=user,
+                    package=order.package,
+                    order_id=order.id
+                )
 
-            You can now access your dashboard.
+                # 📩 Send email
+                send_mail(
+                    subject="Your ScoutingDesk Plan is Activated 🎉",
+                    message=f"""Hi {user.email},
 
-            Thanks,
-            ScoutingDesk Team
-            """,
-                from_email=None,
-                recipient_list=[user.email],
-                fail_silently=True,
-            )
+Your payment was successful.
 
+Plan Activated: {order.package.upper()}
+
+🔑 Your Activation Key:
+{license.key}
+
+Keep this key safe. You will need it to activate your software.
+
+Thanks,
+ScoutingDesk Team
+""",
+                    from_email=None,
+                    recipient_list=[user.email],
+                    fail_silently=True,
+                )
+
+                logger.info(f"License created for order {order.id}")
+
+            else:
+                logger.warning(f"License already exists for order {order.id}")
+
+    # 🔴 REFUND / CANCEL (SAFE HANDLING FOR NOW)
+    elif event['type'] == 'charge.refunded':
+        charge = event['data']['object']
+
+        payment_intent = charge.get("payment_intent")
+
+        if payment_intent:
+            try:
+                # 🔍 Find checkout session from payment_intent
+                sessions = stripe.checkout.Session.list(
+                    payment_intent=payment_intent,
+                    limit=1
+                )
+
+                if sessions.data:
+                    session = sessions.data[0]
+                    order_id = session.metadata.get("order_id")
+
+                    if order_id:
+                        deactivate_license_by_order(order_id)
+
+            except Exception as e:
+                logger.error(f"Refund handling error: {str(e)}")
     return HttpResponse(status=200)

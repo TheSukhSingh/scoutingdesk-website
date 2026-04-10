@@ -13,7 +13,7 @@ urlpatterns = [
     path('terms/', terms, name="terms"),
     path('privacy/', privacy, name="privacy"),
     path('payments/', include('payments.urls')),
-
+    path('api/license/', include('activation.urls')),
 ]
 
 from core import dev_views as core_views

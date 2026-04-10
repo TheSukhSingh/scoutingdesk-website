@@ -679,6 +679,10 @@ video {
   bottom: 10%;
 }
 
+.left-0 {
+  left: 0px;
+}
+
 .left-1\/2 {
   left: 50%;
 }
@@ -711,20 +715,16 @@ video {
   top: 50%;
 }
 
+.top-10 {
+  top: 2.5rem;
+}
+
 .top-\[-120px\] {
   top: -120px;
 }
 
 .top-\[10\%\] {
   top: 10%;
-}
-
-.left-0 {
-  left: 0px;
-}
-
-.top-10 {
-  top: 2.5rem;
 }
 
 .z-0 {
@@ -857,6 +857,10 @@ video {
   height: 24rem;
 }
 
+.h-\[2px\] {
+  height: 2px;
+}
+
 .h-\[300px\] {
   height: 300px;
 }
@@ -871,22 +875,6 @@ video {
 
 .h-px {
   height: 1px;
-}
-
-.h-\[2px\] {
-  height: 2px;
-}
-
-.h-\[85\%\] {
-  height: 85%;
-}
-
-.h-\[400px\] {
-  height: 400px;
-}
-
-.h-\[350px\] {
-  height: 350px;
 }
 
 .min-h-screen {
@@ -949,10 +937,6 @@ video {
   width: 1px;
 }
 
-.w-\[100\%\] {
-  width: 100%;
-}
-
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -963,6 +947,10 @@ video {
 
 .max-w-4xl {
   max-width: 56rem;
+}
+
+.max-w-6xl {
+  max-width: 72rem;
 }
 
 .max-w-\[420px\] {
@@ -979,10 +967,6 @@ video {
 
 .max-w-xl {
   max-width: 36rem;
-}
-
-.max-w-6xl {
-  max-width: 72rem;
 }
 
 .flex-1 {
@@ -1069,10 +1053,6 @@ video {
 
 .gap-8 {
   gap: 2rem;
-}
-
-.gap-16 {
-  gap: 4rem;
 }
 
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
@@ -1250,12 +1230,12 @@ video {
   background-color: rgb(255 255 255 / 0.1);
 }
 
-.bg-white\/5 {
-  background-color: rgb(255 255 255 / 0.05);
-}
-
 .bg-white\/20 {
   background-color: rgb(255 255 255 / 0.2);
+}
+
+.bg-white\/5 {
+  background-color: rgb(255 255 255 / 0.05);
 }
 
 .bg-\[radial-gradient\(circle_at_1px_1px\2c \#000_1px\2c transparent_0\)\] {
@@ -1334,10 +1314,6 @@ video {
 
 .p-8 {
   padding: 2rem;
-}
-
-.p-4 {
-  padding: 1rem;
 }
 
 .px-3 {
@@ -1613,10 +1589,6 @@ video {
   color: rgb(234 179 8 / var(--tw-text-opacity, 1));
 }
 
-.text-white\/90 {
-  color: rgb(255 255 255 / 0.9);
-}
-
 .accent-blue-600 {
   accent-color: #2563eb;
 }
@@ -1764,13 +1736,13 @@ body {
   z-index: 0;
 }
 
+.hover\:border-blue-500\/40:hover {
+  border-color: rgb(59 130 246 / 0.4);
+}
+
 .hover\:border-gray-300:hover {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
-}
-
-.hover\:border-blue-500\/40:hover {
-  border-color: rgb(59 130 246 / 0.4);
 }
 
 .hover\:bg-\[var\(--color-accent-hover\)\]:hover {

@@ -95,6 +95,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
     'payments',
+    "activation",
+
+    
     'django.contrib.sites',
 
     'allauth',

@@ -5,8 +5,12 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+
 def generate_activation_key():
-    return f"SD-{uuid.uuid4().hex[:12].upper()}"
+    while True:
+        key = f"SD-{uuid.uuid4().hex[:12].upper()}"
+        if not License.objects.filter(key=key).exists():
+            return key
 
 
 class License(models.Model):

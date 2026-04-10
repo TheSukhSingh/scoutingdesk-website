@@ -65,7 +65,7 @@ def activate_license(request):
             return JsonResponse({"valid": False, "error": "Too many attempts"})
 
         try:
-            licelicense = License.objects.get(key=key, user=request.user)
+            license = License.objects.get(key=key, user=request.user)
         except License.DoesNotExist:
             LicenseActivity.objects.create(
                 license=None,
@@ -190,7 +190,7 @@ def reset_device(request):
         data = json.loads(request.body)
         key = data.get("activation_key")
 
-        licelicense = License.objects.get(key=key, user=request.user)
+        license = License.objects.get(key=key, user=request.user)
 
         license.device_id = None
         license.session_token = None
@@ -242,6 +242,12 @@ def dashboard_reset_device(request):
     
 import uuid
 
+def generate_unique_key():
+    while True:
+        key = f"SD-{uuid.uuid4().hex[:12].upper()}"
+        if not License.objects.filter(key=key).exists():
+            return key
+        
 @login_required
 def regenerate_key(request):
     if request.method != "POST":
@@ -254,7 +260,7 @@ def regenerate_key(request):
         license = License.objects.get(key=key, user=request.user)
 
         # 🔥 generate new key
-        new_key = f"SD-{uuid.uuid4().hex[:12].upper()}"
+        new_key = generate_unique_key()
 
         license.key = new_key
         license.device_id = None

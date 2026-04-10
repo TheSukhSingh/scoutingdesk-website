@@ -1,8 +1,8 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 
-<div class="bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]">
-
-
+<div
+  class="bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]"
+>
   <!-- HERO -->
   <section class="relative overflow-hidden">
     <!-- GLOW EFFECT -->
@@ -10,7 +10,8 @@
     <!-- <div class="glow bottom-[-120px] right-[-120px]"></div> -->
 
     <div
-      class="container-main relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12 pt-16 pb-8 lg:pt-20">
+      class="container-main relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12 pt-16 pb-8 lg:pt-20"
+    >
       <!-- LEFT CONTENT -->
       <div class="max-w-xl text-center lg:text-left">
         <h1 class="heading-lg w-4/5 text-white">
@@ -27,7 +28,9 @@
           consistency.
         </p>
 
-        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+        <div
+          class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+        >
           <a href="#" class="btn-primary shadow-lg shadow-blue-500/20">
             Purchase Software
           </a>
@@ -38,14 +41,21 @@
 
       <!-- RIGHT IMAGE -->
       <div class="flex justify-center">
-        <img src="{% static 'images/laptop.png' %}" class="w-full max-w-md lg:max-w-lg rounded-lg" />
+        <img
+          src="{% static 'images/laptop.png' %}"
+          class="w-full max-w-md lg:max-w-lg rounded-lg"
+        />
       </div>
     </div>
   </section>
 
   <!-- STRIP -->
-  <div class="max-w-2xl mx-auto bg-[var(--color-yellow)] text-black shadow-md mt-4">
-    <div class="grid grid-cols-1 sm:grid-cols-[7fr_9fr_7fr] text-center text-xs sm:text-sm font-medium">
+  <div
+    class="max-w-2xl mx-auto bg-[var(--color-yellow)] text-black shadow-md mt-4"
+  >
+    <div
+      class="grid grid-cols-1 sm:grid-cols-[7fr_9fr_7fr] text-center text-xs sm:text-sm font-medium"
+    >
       <div class="py-4 px-4 sm:border-r border-black/30">
         ✔ ONE-TIME PURCHASE
       </div>
@@ -70,10 +80,15 @@
     <div class="container-main">
       <div class="grid lg:grid-cols-[1fr_1.2fr] items-center py-16 lg:py-24">
         <div class="flex justify-center lg:justify-start">
-          <img src="{% static 'images/control.png' %}" class="w-[85%] max-w-[420px] rounded-full" />
+          <img
+            src="{% static 'images/control.png' %}"
+            class="w-[85%] max-w-[420px] rounded-full"
+          />
         </div>
 
-        <div class="max-w-lg mx-auto lg:mx-0 text-center lg:text-left text-black">
+        <div
+          class="max-w-lg mx-auto lg:mx-0 text-center lg:text-left text-black"
+        >
           <h2 class="heading-lg leading-tight">
             Scouting Reports
             <span class="text-blue-600 font-semibold block mt-1">
@@ -101,8 +116,13 @@
             <li>• Complete offline functionality. No Internet Required.</li>
           </ul>
 
-          <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="{% url 'inside' %}" class="btn-primary shadow-lg shadow-blue-500/20 text-white">
+          <div
+            class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="{% url 'inside' %}"
+              class="btn-primary shadow-lg shadow-blue-500/20 text-white"
+            >
               Explore More
             </a>
           </div>
@@ -115,7 +135,9 @@
   <section class="bg-[var(--color-bg-2)]">
     <div class="container-main">
       <div class="grid lg:grid-cols-[1.2fr_1fr] items-center py-16 lg:py-24">
-        <div class="max-w-lg mx-auto lg:mx-0 text-center lg:text-left text-black">
+        <div
+          class="max-w-lg mx-auto lg:mx-0 text-center lg:text-left text-black"
+        >
           <h2 class="heading-lg leading-tight">
             A Structured Report
             <span class="text-blue-600 font-semibold block mt-1">
@@ -135,15 +157,23 @@
             Every detail documented. Every report professionally formatted.
           </p>
 
-          <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="{% url 'inside' %}" class="btn-primary shadow-lg shadow-blue-500/20 text-white">
+          <div
+            class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="{% url 'inside' %}"
+              class="btn-primary shadow-lg shadow-blue-500/20 text-white"
+            >
               Explore More
             </a>
           </div>
         </div>
 
         <div class="flex justify-center lg:justify-end">
-          <img src="{% static 'images/control-2.png' %}" class="w-[85%] max-w-[420px] rounded-full" />
+          <img
+            src="{% static 'images/control-2.png' %}"
+            class="w-[85%] max-w-[420px] rounded-full"
+          />
         </div>
       </div>
     </div>
@@ -206,7 +236,9 @@
         <div class="glass p-8 rounded-xl card-hover">
           <div class="flex items-center gap-3 mb-4">
             <span class="text-xl">📑</span>
-            <h3 class="text-white heading-sm font-semibold">A4 Executive PDF Export</h3>
+            <h3 class="text-white heading-sm font-semibold">
+              A4 Executive PDF Export
+            </h3>
           </div>
           <p class="text-body text-gray-300 leading-relaxed">
             Generate print-ready documents perfect for boardroom presentations,
@@ -217,7 +249,9 @@
         <div class="glass p-8 rounded-xl card-hover">
           <div class="flex items-center gap-3 mb-4">
             <span class="text-xl">💻</span>
-            <h3 class="text-white heading-sm font-semibold">Offline Desktop Software</h3>
+            <h3 class="text-white heading-sm font-semibold">
+              Offline Desktop Software
+            </h3>
           </div>
           <p class="text-body text-gray-300 leading-relaxed">
             Work anywhere — training grounds, stadiums, airports. No internet
@@ -228,7 +262,9 @@
         <div class="glass p-8 rounded-xl card-hover">
           <div class="flex items-center gap-3 mb-4">
             <span class="text-xl">🔒</span>
-            <h3 class="text-white heading-sm font-semibold">Secure On-Device Storage</h3>
+            <h3 class="text-white heading-sm font-semibold">
+              Secure On-Device Storage
+            </h3>
           </div>
           <p class="text-body text-gray-300 leading-relaxed">
             Your scouting data stays on your device. Complete privacy and data
@@ -247,64 +283,111 @@
   </div>
 
   <!-- STEPS -->
-  <section class="bg-[var(--color-bg-2)] text-black py-20 lg:py-24">
-    <div class="container-main text-center">
-      <h2 class="heading-lg leading-tight mb-20">
-        Structured Reporting in <br />
-        <span class="text-blue-600 font-semibold">Four Clear Steps</span>
-      </h2>
+  <section
+    class="bg-[var(--color-bg-2)] text-black py-24 lg:py-32 relative overflow-hidden"
+  >
+    <!-- SUBTLE GLOW -->
+    <div class="glow top-[10%] left-[20%]"></div>
+    <div class="glow bottom-[10%] right-[20%]"></div>
 
-      <div class="relative max-w-5xl mx-auto">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-y-16 md:gap-y-0 relative z-10">
-          <div class="flex flex-col items-center text-center">
-            <div
-              class="w-20 h-20 flex items-center justify-center rounded-full bg-white shadow-md ring-1 ring-gray-200 mb-6 md:-mt-6">
-              <span class="text-2xl">⚙️</span>
-            </div>
-            <h3 class="text-sm font-semibold text-gray-900">
-              Install the Software
+    <div class="container-main">
+      <!-- HEADER -->
+      <div class="text-center max-w-2xl mx-auto mb-24">
+        <h2 class="heading-lg leading-tight">
+          Structured Reporting in
+          <span class="text-blue-600 font-semibold block mt-2">
+            Four Clear Steps
+          </span>
+        </h2>
+      </div>
+
+      <!-- TIMELINE -->
+      <div class="relative max-w-4xl mx-auto">
+        <!-- CENTER LINE -->
+        <div
+          class="absolute left-1/2 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-blue-300/40 to-transparent"
+        ></div>
+
+        <!-- STEP 1 -->
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-28">
+          <div class="text-right pr-12">
+            <h3 class="heading-sm font-semibold">
+              Install the <span class="text-blue-600">Software</span>
             </h3>
-            <p class="text-muted mt-2 text-xs leading-relaxed max-w-[150px]">
-              One-time download, instant access
+            <p class="text-muted mt-3">
+              Download once and get immediate access to the full reporting
+              system. No setup complexity, no recurring dependencies.
             </p>
           </div>
 
-          <div class="flex flex-col items-center text-center">
-            <div
-              class="w-20 h-20 flex items-center justify-center rounded-full bg-white shadow-md ring-1 ring-gray-200 mb-6 md:mt-10">
-              <span class="text-2xl">🗄️</span>
-            </div>
-            <h3 class="text-sm font-semibold text-gray-900">
-              Input Structured Evaluation Data
+          <div class="pl-12">
+            <span
+              class="text-6xl font-light bg-gradient-to-b from-blue-500/30 to-transparent bg-clip-text text-transparent"
+            >
+              01
+            </span>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-28">
+          <div class="text-right pr-12">
+            <span
+              class="text-6xl font-light bg-gradient-to-b from-blue-500/30 to-transparent bg-clip-text text-transparent"
+            >
+              02
+            </span>
+          </div>
+
+          <div class="pl-12">
+            <h3 class="heading-sm font-semibold">
+              Input Structured <span class="text-blue-600">Data</span>
             </h3>
-            <p class="text-muted mt-2 text-xs leading-relaxed max-w-[150px]">
-              Follow guided templates
+            <p class="text-muted mt-3">
+              Use guided templates to evaluate players consistently across
+              technical, physical and tactical attributes.
+            </p>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-28">
+          <div class="text-right pr-12">
+            <h3 class="heading-sm font-semibold">
+              Generate <span class="text-blue-600">Reports</span>
+            </h3>
+            <p class="text-muted mt-3">
+              Transform raw observations into clean, standardized reports with
+              professional formatting applied automatically.
             </p>
           </div>
 
-          <div class="flex flex-col items-center text-center">
-            <div
-              class="w-20 h-20 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg ring-4 ring-blue-200 scale-110 mb-6 md:-mt-12">
-              <span class="text-2xl">📊</span>
-            </div>
-            <h3 class="text-sm font-semibold text-gray-900">
-              Generate Consistent, Clean Reports
-            </h3>
-            <p class="text-muted mt-2 text-xs leading-relaxed max-w-[170px]">
-              Professional formatting applied automatically
-            </p>
+          <div class="pl-12">
+            <span
+              class="text-6xl font-light bg-gradient-to-b from-blue-500/30 to-transparent bg-clip-text text-transparent"
+            >
+              03
+            </span>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="text-right pr-12">
+            <span
+              class="text-6xl font-light bg-gradient-to-b from-blue-500/30 to-transparent bg-clip-text text-transparent"
+            >
+              04
+            </span>
           </div>
 
-          <div class="flex flex-col items-center text-center">
-            <div
-              class="w-20 h-20 flex items-center justify-center rounded-full bg-white shadow-md ring-1 ring-gray-200 mb-6 md:mt-10">
-              <span class="text-2xl">🌐</span>
-            </div>
-            <h3 class="text-sm font-semibold text-gray-900">
-              Export & Distribute
+          <div class="pl-12">
+            <h3 class="heading-sm font-semibold">
+              Export & <span class="text-blue-600">Share</span>
             </h3>
-            <p class="text-muted mt-2 text-xs leading-relaxed max-w-[150px]">
-              Share PDF reports with stakeholders
+            <p class="text-muted mt-3">
+              Export polished PDF reports and share them seamlessly with
+              coaches, agents and decision-makers.
             </p>
           </div>
         </div>
@@ -328,7 +411,9 @@
       </p>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden text-left border border-gray-100">
+        <div
+          class="bg-white rounded-xl shadow-sm overflow-hidden text-left border border-gray-100"
+        >
           <div class="bg-blue-50 p-6">
             <h3 class="font-semibold text-lg text-gray-900">Player Package</h3>
             <p class="text-sm text-gray-500 mt-1 leading-relaxed">
@@ -348,7 +433,8 @@
         </div>
 
         <div
-          class="bg-white rounded-xl shadow-lg overflow-hidden text-left relative border border-blue-200 scale-[1.02]">
+          class="bg-white rounded-xl shadow-lg overflow-hidden text-left relative border border-blue-200 scale-[1.02]"
+        >
           <div class="bg-[var(--color-primary)] text-white p-6">
             <h3 class="font-semibold text-lg">Agency Package</h3>
             <p class="text-sm text-white/70 mt-1 leading-relaxed">
@@ -368,7 +454,9 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden text-left border border-gray-100">
+        <div
+          class="bg-white rounded-xl shadow-sm overflow-hidden text-left border border-gray-100"
+        >
           <div class="bg-blue-50 p-6">
             <h3 class="font-semibold text-lg text-gray-900">Club Package</h3>
             <p class="text-sm text-gray-500 mt-1 leading-relaxed">
@@ -400,25 +488,34 @@
   </section>
 
   <!-- DEMO -->
-  <section class="bg-[var(--color-primary)] text-white py-20 lg:py-28 relative overflow-hidden">
+  <section
+    class="bg-[var(--color-primary)] text-white py-20 lg:py-28 relative overflow-hidden"
+  >
     <div
-      class="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary)]/90 to-transparent z-0">
-    </div>
+      class="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary)]/90 to-transparent z-0"
+    ></div>
 
-    <div class="container-main grid lg:grid-cols-2 gap-12 items-center relative z-10">
+    <div
+      class="container-main grid sm:grid-cols-2 gap-12 items-center relative z-10"
+    >
       <!-- LEFT -->
-      <div class="relative flex justify-center lg:justify-start"></div>
+      <div class="relative flex justify-center lg:justify-start h-full">
+        <img
+          src="{% static 'images/demo.png' %}"
+          class="h-[450px] w-auto object-cover rounded-lg"
+        />
+      </div>
 
       <!-- RIGHT -->
       <div class="text-center lg:text-left max-w-lg mx-auto lg:mx-0">
         <h2 class="heading-lg leading-tight">
-          See ScoutingDesk
-          <span class="text-white/80 block mt-1">in Action</span>
+          Unlock the Power
+          <span class="text-white/80 block mt-1">of ScoutingDesk</span>
         </h2>
 
         <p class="text-body mt-6 text-gray-300 leading-relaxed">
-          Watch how ScoutingDesk enables clubs, agencies and players to create
-          and access professional football scouting reports.
+          Discover how ScoutingDesk can benefit clubs, agencies and players by
+          creating and accessing professional football scouting reports.
         </p>
 
         <ul class="mt-6 space-y-2 text-sm text-gray-300 leading-relaxed">
@@ -431,8 +528,11 @@
         </ul>
 
         <div class="mt-8">
-          <a href="{% url 'inside' %}" class="btn-secondary inline-block text-sm">
-            View Demo Video
+          <a
+            href="{% url 'inside' %}"
+            class="btn-secondary inline-block text-sm"
+          >
+            Explore Features
           </a>
         </div>
       </div>
@@ -440,116 +540,108 @@
   </section>
 
   <!-- DIVIDER -->
-  <div class=" bg-[var(--color-primary)]">
+  <div class="bg-[var(--color-primary)]">
     <svg viewBox="0 0 1440 120" class="w-full block">
       <path d="M0,120 L720,0 L1440,120 Z" fill="var(--color-bg-2)" />
     </svg>
   </div>
 
   <!-- WHY -->
-  <section class="bg-[var(--color-bg-2)] text-black py-24 lg:py-32 relative overflow-hidden">
-    <div class="container-main text-center">
-      <h2 class="heading-lg leading-tight">
-        Why Choose <span class="text-blue-600 font-semibold">Us</span>
-      </h2>
-
-      <p class="text-body text-gray-600 mt-4 max-w-xl mx-auto leading-relaxed">
-        Structured by Design — Every report follows proven frameworks used
-        across professional football.
-      </p>
-
-      <!-- CENTER -->
-      <div class="mt-10 font-semibold text-gray-800">ScoutingDesk</div>
-
-      <!-- VISUAL -->
-      <div class="relative mt-16 h-[360px] flex justify-center">
-        <!-- ARC -->
-        <svg class="absolute bottom-0 w-[700px] h-[320px]" viewBox="0 0 700 320">
-          <path d="M50,300 A300,300 0 0,1 650,300" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 6"
-            fill="none" />
-        </svg>
-
-        <!-- ICONS (ALIGNED ON ARC) -->
-
-        <div class="absolute left-[90px] bottom-[150px]">
-          <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-md">
-            📄
-          </div>
-        </div>
-
-        <div class="absolute left-[220px] bottom-[230px]">
-          <div class="w-12 h-12 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-md border">
-            📊
-          </div>
-        </div>
-
-        <div class="absolute left-1/2 -translate-x-1/2 bottom-[270px]">
-          <div
-            class="w-14 h-14 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center shadow-lg">
-            🧩
-          </div>
-        </div>
-
-        <div class="absolute right-[220px] bottom-[230px]">
-          <div class="w-12 h-12 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-md border">
-            🎯
-          </div>
-        </div>
-
-        <div class="absolute right-[90px] bottom-[150px]">
-          <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-md">
-            💰
-          </div>
-        </div>
+  <section
+    class="bg-[var(--color-bg-2)] text-black py-28 relative overflow-hidden"
+  >
+    <div class="container-main">
+      <!-- HEADER -->
+      <div class="max-w-xl mb-16 mx-auto">
+        <h2 class="heading-lg leading-tight text-center">
+          Why Choose
+          <span class="text-blue-600 font-semibold">ScoutingDesk</span>
+        </h2>
       </div>
 
-      <!-- TEXT (NOW PROPERLY ALIGNED SIDE BY SIDE) -->
-      <div class="mt-10 grid lg:grid-cols-2 gap-16 max-w-5xl mx-auto text-sm">
-        <!-- LEFT -->
-        <div class="text-left space-y-8">
-          <div>
-            <h4 class="font-semibold text-gray-900">
-              Consistency Across Departments
-            </h4>
-            <p class="text-gray-600 mt-2 leading-relaxed">
-              Standardized templates ensure all scouts and analysts speak the
-              same language.
-            </p>
-          </div>
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <!-- LEFT CONTENT -->
+        <div>
+          <div class="space-y-6">
+            <!-- 1 -->
+            <div>
+              <h4 class="font-semibold text-gray-900 text-lg">
+                Structured by
+                <span class="text-blue-600">Design</span>
+              </h4>
+              <p class="text-gray-600 mt-3 text-sm leading-relaxed max-w-md">
+                Every report follows proven frameworks used across professional
+                football.
+              </p>
+            </div>
 
-          <div>
-            <h4 class="font-semibold text-gray-900">
-              Designed for Internal Football
-            </h4>
-            <p class="text-gray-600 mt-2 leading-relaxed">
-              Built for scouts at matches, not marketers at desks. Practical,
-              efficient, professional.
-            </p>
+            <!-- 2 -->
+
+            <div>
+              <h4 class="font-semibold text-gray-900 text-lg">
+                Consistency Across
+                <span class="text-blue-600">Departments</span>
+              </h4>
+              <p class="text-gray-600 mt-3 text-sm leading-relaxed max-w-md">
+                Standardized templates ensure all scouts and analysts speak the
+                same language.
+              </p>
+            </div>
+
+            <!-- 3 -->
+            <div>
+              <h4 class="font-semibold text-gray-900 text-lg">
+                Designed for
+                <span class="text-blue-600">Internal Football</span>
+              </h4>
+              <p class="text-gray-600 mt-3 text-sm leading-relaxed max-w-md">
+                Built for scouts at matches, not marketers at desks. Practical,
+                efficient, professional.
+              </p>
+            </div>
+
+            <!-- 4 -->
+            <div>
+              <h4 class="font-semibold text-gray-900 text-lg">
+                Executive-Ready
+                <span class="text-blue-600">Output</span>
+              </h4>
+              <p class="text-gray-600 mt-3 text-sm leading-relaxed max-w-md">
+                Reports formatted for decision-makers — from technical directors
+                to club boards.
+              </p>
+            </div>
+
+            <!-- 5 -->
+            <div>
+              <h4 class="font-semibold text-gray-900 text-lg">
+                One-Time
+                <span class="text-blue-600">Purchase</span>
+              </h4>
+              <p class="text-gray-600 mt-3 text-sm leading-relaxed max-w-md">
+                Pay once, own forever. No subscriptions eating into your budget.
+              </p>
+            </div>
           </div>
         </div>
 
-        <!-- RIGHT -->
-        <div class="text-right space-y-8">
-          <div>
-            <h4 class="font-semibold text-gray-900">Executive-Ready Output</h4>
-            <p class="text-gray-600 mt-2 leading-relaxed">
-              Reports formatted for decision-makers — from technical directors
-              to club boards.
-            </p>
-          </div>
-
-          <div>
-            <h4 class="font-semibold text-gray-900">One-Time Purchase</h4>
-            <p class="text-gray-600 mt-2 leading-relaxed">
-              Pay once, own forever. No subscriptions eating into your budget.
-            </p>
-          </div>
+        <!-- RIGHT VISUAL -->
+        <div class="relative flex justify-center">
+          <!-- GLOW BACK -->
+          <div
+            class="absolute w-[600px] h-[300px] bg-blue-500/10 blur-3xl rounded-full"
+          ></div>
+          <img
+            src="{% static 'images/demo2.png' %}"
+            class="w-full max-w-md lg:max-w-lg rounded-lg"
+          />
         </div>
       </div>
     </div>
   </section>
 
-  <section class="bg-[var(--color-bg-2)] text-black py-16 lg:py-24">
+  <!-- CTA -->
+  <section class="bg-[var(--color-bg-2)] text-black pb-16 lg:pb-24">
     <div class="container-main text-center">
       <h2 class="heading-lg leading-tight max-w-2xl mx-auto">
         Evaluate the Structure.
@@ -568,15 +660,15 @@
           Purchase Software
         </a>
 
-        <a href="#"
-          class="px-6 py-3 border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
+        <a
+          href="#"
+          class="px-6 py-3 border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100 transition"
+        >
           Request a Demo
         </a>
       </div>
     </div>
   </section>
-
-
 </div>
 
 {% endblock %}

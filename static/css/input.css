@@ -23,25 +23,27 @@ body {
   .container-main {
     @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+
   /* HEADINGS */
   .heading-xl {
     @apply text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight;
   }
 
   .heading-lg {
-    @apply text-4xl ;
+    @apply text-4xl;
   }
 
   .heading-md {
     @apply text-2xl;
   }
+
   .heading-sm {
     @apply text-lg;
   }
 
   /* BODY TEXT */
   .text-body {
-    @apply text-sm sm:text-base  font-medium;
+    @apply text-sm sm:text-base font-medium;
   }
 
   .text-muted {
@@ -59,12 +61,12 @@ body {
 }
 
 /* PREMIUM UI ADDITIONS */
-
 .glass {
   background: rgba(7, 21, 34, 0.15);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
 .glass-light {
   background: rgba(255, 255, 255, 0.671);
   backdrop-filter: blur(12px);
@@ -74,9 +76,10 @@ body {
 .card-hover {
   transition: all 0.3s ease;
 }
+
 .card-hover:hover {
   transform: translateY(-6px);
-background: rgba(7, 21, 34, 0.35);
+  background: rgba(7, 21, 34, 0.35);
 }
 
 .glow {

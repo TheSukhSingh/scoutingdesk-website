@@ -65,6 +65,11 @@ body {
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+.glass-light {
+  background: rgba(255, 255, 255, 0.671);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.877);
+}
 
 .card-hover {
   transition: all 0.3s ease;

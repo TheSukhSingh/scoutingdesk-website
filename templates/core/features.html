@@ -1,192 +1,293 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
 
-<div class="bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]">
-
+<div
+  class="bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]"
+>
   <!-- HERO -->
   <section class="relative overflow-hidden">
-    <div class="container-main flex flex-col lg:flex-row items-center gap-12 pt-20 pb-12">
-      
+    <div
+      class="container-main relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12 pt-16 pb-8 lg:pt-20"
+    >
       <div class="max-w-xl text-center lg:text-left">
-        <h1 class="heading-lg text-white">
-          Inside <span class="text-blue-400 font-semibold">ScoutingDesk</span>
+        <h1 class="heading-lg w-4/5 text-white">
+          A Professional Scouting System
+          <span class="text-blue-400 font-semibold">
+            Built for Real Football Decisions
+          </span>
         </h1>
 
         <p class="text-body mt-6 text-[var(--color-text-light)]">
-          A structured reporting system designed for modern football operations — built to turn observation into decision-ready intelligence.
-        </p>
-
-        <p class="text-body mt-4 text-gray-400">
-          Not just a tool — a complete framework for creating consistent, professional scouting reports.
-        </p>
-
-        <div class="mt-8 flex gap-4 justify-center lg:justify-start">
-          <a href="#" class="btn-primary shadow-lg shadow-blue-500/20">
-            Upgrade Your Scouting
-          </a>
-        </div>
-
-        <p class="text-xs text-gray-400 mt-4">
-          Used by clubs, agencies, and professional players
+          ScoutingDesk is a structured reporting platform designed for clubs,
+          agencies and players who require consistency, clarity and professional
+          output — without relying on fragmented tools.
         </p>
       </div>
 
       <div class="flex justify-center">
-        <img src="{% static 'images/laptop.png' %}" class="max-w-md rounded-lg">
+        <img
+          src="{% static 'images/featurehero.png' %}"
+          class="w-full max-w-md lg:max-w-lg rounded-lg"
+        />
       </div>
     </div>
   </section>
 
-  <!-- STRIP -->
-  <div class="max-w-2xl mx-auto bg-[var(--color-yellow)] text-black shadow-md">
-    <div class="grid grid-cols-3 text-center text-xs sm:text-sm font-medium">
-      <div class="py-4">✔ ONE-TIME PURCHASE</div>
-      <div class="py-4">✔ FULLY STANDALONE</div>
-      <div class="py-4">✔ NO SUBSCRIPTIONS</div>
-    </div>
-  </div>
-
   <!-- DIVIDER -->
-  <div class="mt-12 bg-[var(--color-primary)]">
+  <div class="mt-16">
     <svg viewBox="0 0 1440 120" class="w-full block">
-      <path d="M0,120 L720,0 L1440,120 Z" fill="var(--color-bg-2)" />
+      <path d="M0,120 L1440,0 L1440,120 Z" fill="var(--color-bg-2)" />
     </svg>
   </div>
 
-  <!-- PROBLEM -->
-  <section class="bg-[var(--color-bg-2)] text-black py-16">
-    <div class="container-main text-center max-w-2xl">
-      <h2 class="heading-lg">Scouting Without Structure Leads to Inconsistent Decisions</h2>
-
-      <p class="text-body mt-6">
-        Notes vary between scouts.<br>
-        Formats differ across departments.<br>
-        Important details are missed.
-      </p>
-
-      <p class="text-body mt-6">
-        Without structure, even good observations lose value.
-      </p>
-    </div>
-  </section>
-
-  <!-- SYSTEM -->
-  <section class="bg-[var(--color-primary)] py-16">
-    <div class="container-main text-center">
-      <h2 class="heading-lg text-white mb-12">A Complete Reporting System</h2>
-
-      <div class="grid sm:grid-cols-2 gap-6">
-        
-        <div class="glass p-6 rounded-xl card-hover">
-          <h3 class="text-white font-semibold mb-2">01 Structured Data</h3>
-          <p class="text-gray-300 text-sm">Capture every key detail using guided templates.</p>
+  <!-- SECTION 2 -->
+  <section class="bg-[var(--color-bg-2)]">
+    <div class="container-main">
+      <div
+        class="grid lg:grid-cols-[1fr_1.2fr] items-center gap-12 py-16 lg:py-24"
+      >
+        <div class="flex justify-center lg:justify-start">
+          <img src="{% static 'images/sec2feature.png' %}" class=" " />
         </div>
 
-        <div class="glass p-6 rounded-xl card-hover">
-          <h3 class="text-white font-semibold mb-2">02 Report Logic</h3>
-          <p class="text-gray-300 text-sm">Ensure consistency and completeness across reports.</p>
-        </div>
+        <div
+          class="max-w-lg mx-auto lg:mx-0 text-center lg:text-left text-black"
+        >
+          <h2 class="heading-lg leading-tight">
+            Scouting Reports
+            <span class="text-blue-600 font-semibold block mt-1">
+              Should Match the Level of Your Organisation
+            </span>
+          </h2>
 
-        <div class="glass p-6 rounded-xl card-hover">
-          <h3 class="text-white font-semibold mb-2">03 Formatting Engine</h3>
-          <p class="text-gray-300 text-sm">Automatically generate clean, professional layouts.</p>
-        </div>
+          <p class="text-body mt-6 text-gray-600 leading-relaxed">
+            In professional football, reports are used in recruitment decisions,
+            contract evaluations and internal analysis. Unstructured notes and
+            inconsistent formats reduce clarity and impact.
+          </p>
 
-        <div class="glass p-6 rounded-xl card-hover">
-          <h3 class="text-white font-semibold mb-2">04 A4 Output</h3>
-          <p class="text-gray-300 text-sm">Executive-ready reports for real decisions.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- CAPABILITIES -->
-  <section class="bg-[var(--color-bg-2)] text-black py-16">
-    <div class="container-main text-center">
-      <h2 class="heading-lg mb-12">Core Capabilities</h2>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-        <div>
-          <h4 class="font-semibold">Structured Templates</h4>
-          <p class="text-muted mt-2">Industry-aligned report formats.</p>
-        </div>
-
-        <div>
-          <h4 class="font-semibold">Attribute Evaluation</h4>
-          <p class="text-muted mt-2">Technical, physical and mental scoring.</p>
-        </div>
-
-        <div>
-          <h4 class="font-semibold">Consistent Formatting</h4>
-          <p class="text-muted mt-2">Uniform layout across all reports.</p>
-        </div>
-
-        <div>
-          <h4 class="font-semibold">Offline Software</h4>
-          <p class="text-muted mt-2">No internet required.</p>
-        </div>
-
-        <div>
-          <h4 class="font-semibold">Secure Storage</h4>
-          <p class="text-muted mt-2">All data stays local.</p>
-        </div>
-
-        <div>
-          <h4 class="font-semibold">PDF Export</h4>
-          <p class="text-muted mt-2">Instant A4 reports.</p>
+          <ul class="text-body mt-6 space-y-3 text-gray-700">
+            <li>• Structured and complete reports</li>
+            <li>• Consistent formatting across all outputs</li>
+            <li>• Clear interpretation at decision level</li>
+            <li>• Ready for internal and external use</li>
+            <li>• Fully offline functionality</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- COMPARISON -->
-  <section class="bg-white text-black py-16">
-    <div class="container-main text-center">
-      <h2 class="heading-lg mb-12">Traditional vs Structured Scouting</h2>
+  <!-- SECTION 3 -->
+  <section class="bg-[var(--color-bg-2)]">
+    <div class="container-main">
+      <div class="grid lg:grid-cols-[1.2fr_1fr] items-center py-16 lg:py-24">
+        <div
+          class="max-w-lg mx-auto lg:mx-0 text-center lg:text-left text-black"
+        >
+          <h2 class="heading-lg leading-tight">
+            A Structured Reporting Engine for
+            <span class="text-blue-600 font-semibold">
+              Modern Football Operations
+            </span>
+          </h2>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="border-b">
-              <th class="py-3 text-left">Traditional</th>
-              <th class="py-3 text-left text-blue-600">ScoutingDesk</th>
-            </tr>
-          </thead>
-          <tbody class="text-gray-700">
-            <tr class="border-b"><td class="py-3">Unstructured notes</td><td>✔ Structured framework</td></tr>
-            <tr class="border-b"><td class="py-3">Inconsistent formats</td><td>✔ Consistent reports</td></tr>
-            <tr class="border-b"><td class="py-3">Manual formatting</td><td>✔ Automated output</td></tr>
-            <tr class="border-b"><td class="py-3">Hard to compare</td><td>✔ Easy comparison</td></tr>
-            <tr><td class="py-3">Online tools required</td><td>✔ Fully offline</td></tr>
-          </tbody>
-        </table>
+          <p class="text-body mt-6 text-gray-600 leading-relaxed">
+            Scouting is not just observation — it is structured evaluation.
+          </p>
+
+          <p class="text-body mt-6 text-gray-600 leading-relaxed">
+            ScoutingDesk transforms raw input into consistent, decision-ready
+            intelligence through standardized input, automated calculations and
+            predefined report logic.
+          </p>
+        </div>
+
+        <div class="flex justify-center lg:justify-end">
+          <img src="{% static 'images/sec1feature.png' %}" class=" " />
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- DIVIDER -->
+  <div class="bg-[var(--color-bg-2)]">
+    <svg viewBox="0 0 1440 120" class="w-full block">
+      <path d="M0,0 L1440,120 L0,120 Z" fill="var(--color-primary)" />
+    </svg>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="var(--color-primary) py-16 lg:py-24 relative overflow-hidden">
+    <div class="container-main relative z-10">
+      <div class="text-center mb-12">
+        <h2 class="heading-lg text-white">Core System Capabilities</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass p-8 rounded-xl card-hover">
+          <h3 class="text-white heading-sm font-semibold mb-3">
+            Structured Report Framework
+          </h3>
+          <p class="text-body text-gray-300">
+            Professional templates aligned with real scouting workflows.
+          </p>
+        </div>
+
+        <div class="glass p-8 rounded-xl card-hover">
+          <h3 class="text-white heading-sm font-semibold mb-3">
+            Attribute Evaluation Engine
+          </h3>
+          <p class="text-body text-gray-300">
+            Scoring across technical, physical and mental attributes.
+          </p>
+        </div>
+
+        <div class="glass p-8 rounded-xl card-hover">
+          <h3 class="text-white heading-sm font-semibold mb-3">
+            Automated Report Generation
+          </h3>
+          <p class="text-body text-gray-300">
+            Generate complete reports instantly from structured input.
+          </p>
+        </div>
+
+        <div class="glass p-8 rounded-xl card-hover">
+          <h3 class="text-white heading-sm font-semibold mb-3">
+            Executive PDF Output
+          </h3>
+          <p class="text-body text-gray-300">
+            Clean A4 reports ready for meetings and decision-making.
+          </p>
+        </div>
+
+        <div class="glass p-8 rounded-xl card-hover">
+          <h3 class="text-white heading-sm font-semibold mb-3">
+            Offline Desktop Software
+          </h3>
+          <p class="text-body text-gray-300">
+            Fully standalone system with no internet dependency.
+          </p>
+        </div>
+
+        <div class="glass p-8 rounded-xl card-hover">
+          <h3 class="text-white heading-sm font-semibold mb-3">
+            Local Data Control
+          </h3>
+          <p class="text-body text-gray-300">
+            All data stored locally with full control and privacy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+
+  <section class="text-white py-24 lg:py-32 relative">
+    <div class="container-main max-w-6xl mx-auto text-center">
+      <!-- Heading -->
+      <h2 class="heading-lg leading-tight mb-16">
+        From Observation to Report
+        <span class="text-blue-600 font-semibold block mt-2">
+          in Four Structured Steps
+        </span>
+      </h2>
+
+      <!-- Steps -->
+      <div class="grid md:grid-cols-4 gap-8 relative">
+        <!-- Connector line -->
+        <div
+          class="hidden md:block absolute top-10 left-0 w-full h-[2px] bg-white/20"
+        ></div>
+
+        <!-- Step 1 -->
+        <div class="relative group">
+          <div
+            class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:border-blue-500/40 transition-all duration-300"
+          >
+            <div class="text-white text-4xl mb-4">01</div>
+
+            <h3 class="font-semibold text-lg">Install</h3>
+            <p class="text-muted mt-2 text-sm">
+              Access the full system immediately after purchase, with everything
+              ready to use from the start.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative group">
+          <div
+            class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:border-blue-500/40 transition-all duration-300"
+          >
+            <div class="text-white text-4xl mb-4">02</div>
+
+            <h3 class="font-semibold text-lg">Input</h3>
+            <p class="text-muted mt-2 text-sm">
+              Enter structured data using guided templates designed to keep
+              everything consistent and organized.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative group">
+          <div
+            class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:border-blue-500/40 transition-all duration-300"
+          >
+            <div class="text-white text-4xl mb-4">03</div>
+
+            <h3 class="font-semibold text-lg">Generate</h3>
+            <p class="text-muted mt-2 text-sm">
+              Build complete reports automatically with structured formatting &
+              clear presentation.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="relative group">
+          <div
+            class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:border-blue-500/40 transition-all duration-300"
+          >
+            <div class="text-white text-4xl mb-4">04</div>
+
+            <h3 class="font-semibold text-lg">Export</h3>
+            <p class="text-muted mt-2 text-sm">
+              Download professional PDF reports that are ready to share, review,
+              and use without any extra work.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="mt-16">
+    <svg viewBox="0 0 1440 120" class="w-full block">
+      <path d="M0,120 L1440,0 L1440,120 Z" fill="var(--color-bg-2)" />
+    </svg>
+  </div>
+
+  <!-- PRICING -->
+  {% include 'pricing.html' %}
 
   <!-- CTA -->
-  <section class="bg-[var(--color-bg-2)] text-black py-20">
-    <div class="container-main text-center">
-      <h2 class="heading-lg">Upgrade Your Scouting</h2>
+  <section class="bg-[var(--color-bg-2)] text-black pt-12 pb-28 text-center">
+    <div class="container-main max-w-2xl">
+      <h2 class="heading-lg mb-6">Implement a Structured Scouting System</h2>
 
-      <p class="text-muted mt-4">
-        Implement a structured reporting system aligned with professional football standards.
+      <p class="text-gray-600 mb-8">
+        Move from unstructured observations to consistent, professional
+        reporting aligned with modern football operations.
       </p>
 
-      <div class="mt-8">
-        <a href="#" class="btn-primary text-white shadow-md">
-          Upgrade Your Scouting
-        </a>
-      </div>
-
-      <p class="text-xs text-gray-500 mt-4">
-        One-time purchase. Fully standalone software. No subscriptions.
-      </p>
+      <a href="#" class="btn-primary shadow-lg shadow-blue-500/20">
+        View Packages
+      </a>
     </div>
   </section>
-
 </div>
 
 {% endblock %}

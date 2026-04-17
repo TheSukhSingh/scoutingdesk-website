@@ -21,7 +21,7 @@ def hash_device(device_id):
 # 🔐 Verify request signature
 def verify_signature(key, device_id, timestamp, signature):
     message = f"{key}{device_id}{timestamp}".encode()
-    secret = settings.SECRET_KEY.encode()
+    secret = settings.CLIENT_SECRET.encode()
     expected = hmac.new(secret, message, hashlib.sha256).hexdigest()
     return hmac.compare_digest(expected, signature)
 
@@ -65,7 +65,7 @@ def activate_license(request):
             return JsonResponse({"valid": False, "error": "Too many attempts"})
 
         try:
-            license = License.objects.get(key=key, user=request.user)
+            license = License.objects.get(key=key)
         except License.DoesNotExist:
             LicenseActivity.objects.create(
                 license=None,
@@ -190,7 +190,7 @@ def reset_device(request):
         data = json.loads(request.body)
         key = data.get("activation_key")
 
-        license = License.objects.get(key=key, user=request.user)
+        license = License.objects.get(key=key)
 
         license.device_id = None
         license.session_token = None
@@ -229,7 +229,7 @@ def dashboard_reset_device(request):
         data = json.loads(request.body)
         key = data.get("activation_key")
 
-        license = License.objects.get(key=key, user=request.user)
+        license = License.objects.get(key=key)
 
         license.device_id = None
         license.session_token = None
@@ -257,7 +257,7 @@ def regenerate_key(request):
         data = json.loads(request.body)
         key = data.get("activation_key")
 
-        license = License.objects.get(key=key, user=request.user)
+        license = License.objects.get(key=key)
 
         # 🔥 generate new key
         new_key = generate_unique_key()

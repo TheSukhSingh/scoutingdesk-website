@@ -17,8 +17,6 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 logger = logging.getLogger(__name__)
 
-
-# 🛒 CREATE CHECKOUT SESSION
 @login_required
 def create_checkout_session(request, package_type):
     package = settings.STRIPE_PRICES.get(package_type)

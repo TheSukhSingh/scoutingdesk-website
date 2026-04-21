@@ -7,11 +7,14 @@ from django.http import HttpResponse
 def home(request):
     return render(request, 'core/home.html')
 
-def feature_page(request):
-    return render(request, 'core/features.html')
+# def feature_page(request):
+#     return render(request, 'core/features.html')
 
 def terms(request):
     return render(request, 'docs/terms.html')
+
+def cookie(request):
+    return render(request, 'docs/cookie.html')
 
 def privacy(request):
     return render(request, 'docs/privacy.html')

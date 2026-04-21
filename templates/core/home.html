@@ -1,8 +1,6 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 
-<div
-  class="bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]"
->
+<div class="bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]">
   <!-- HERO -->
   <section class="relative overflow-hidden">
     <!-- GLOW EFFECT -->
@@ -10,8 +8,7 @@
     <!-- <div class="glow bottom-[-120px] right-[-120px]"></div> -->
 
     <div
-      class="container-main relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12 pt-16 pb-8 lg:pt-20"
-    >
+      class="container-main relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12 pt-16 pb-8 lg:pt-20">
       <!-- LEFT CONTENT -->
       <div class="max-w-xl text-center lg:text-left">
         <h1 class="heading-lg w-4/5 text-white">
@@ -28,9 +25,7 @@
           consistency.
         </p>
 
-        <div
-          class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-        >
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
           <a href="#" class="btn-primary shadow-lg shadow-blue-500/20">
             Purchase Software
           </a>
@@ -41,21 +36,14 @@
 
       <!-- RIGHT IMAGE -->
       <div class="flex justify-center">
-        <img
-          src="{% static 'images/laptop.webp' %}"
-          class="w-full max-w-md lg:max-w-lg rounded-lg"
-        />
+        <img src="{% static 'images/laptop.webp' %}" class="w-full max-w-md lg:max-w-lg rounded-lg" />
       </div>
     </div>
   </section>
 
   <!-- STRIP -->
-  <div
-    class="max-w-2xl mx-auto bg-[var(--color-yellow)] text-black shadow-md mt-4 mb-16"
-  >
-    <div
-      class="grid grid-cols-1 sm:grid-cols-[7fr_9fr_7fr] text-center text-xs sm:text-sm font-medium"
-    >
+  <div class="max-w-2xl mx-auto bg-[var(--color-yellow)] text-black shadow-md mt-4 mb-16">
+    <div class="grid grid-cols-1 sm:grid-cols-[7fr_9fr_7fr] text-center text-xs sm:text-sm font-medium">
       <div class="py-4 px-4 sm:border-r border-black/30">
         ✔ ONE-TIME PURCHASE
       </div>
@@ -68,27 +56,15 @@
     </div>
   </div>
 
-  <!-- DIVIDER -->
-  <!-- <div class="mt-16">
-    <svg viewBox="0 0 1440 120" class="w-full block">
-      <path d="M0,120 L720,0 L1440,120 Z" fill="var(--color-bg-2)" />
-    </svg>
-  </div> -->
-
   <!-- SECTION 2 -->
   <section class="bg-[var(--color-bg-2)]">
     <div class="container-main">
       <div class="grid lg:grid-cols-[1fr_1.2fr] items-center py-16 lg:py-24">
         <div class="flex justify-center lg:justify-start">
-          <img
-            src="{% static 'images/control.webp' %}"
-            class="w-[85%] max-w-[420px] rounded-full"
-          />
+          <img src="{% static 'images/control.webp' %}" class="w-[85%] max-w-[420px] rounded-full" />
         </div>
 
-        <div
-          class="max-w-lg mx-auto lg:mx-0 text-center lg:text-left text-black"
-        >
+        <div class="max-w-lg mx-auto lg:mx-0 text-center lg:text-left text-black">
           <h2 class="heading-lg leading-tight">
             Scouting Reports
             <span class="text-blue-600 font-semibold block mt-1">
@@ -130,61 +106,6 @@
       </div>
     </div>
   </section>
-
-  <!-- SECTION 3 -->
-  <!-- <section class="bg-[var(--color-bg-2)]">
-    <div class="container-main">
-      <div class="grid lg:grid-cols-[1.2fr_1fr] items-center py-16 lg:py-24">
-        <div
-          class="max-w-lg mx-auto lg:mx-0 text-center lg:text-left text-black"
-        >
-          <h2 class="heading-lg leading-tight">
-            A Structured Report
-            <span class="text-blue-600 font-semibold block mt-1">
-              Engine for Modern Football Operations
-            </span>
-          </h2>
-
-          <p class="text-body mt-6 text-gray-600 leading-relaxed">
-            Football decisions happen fast. Transfer windows close. Contract
-            negotiations have deadlines. You need reporting tools that keep pace
-            with the game.
-          </p>
-
-          <p class="text-body mt-6 text-gray-600 leading-relaxed">
-            ScoutingDesk provides a systematic framework that transforms raw
-            observations into actionable intelligence. Every attribute rated.
-            Every detail documented. Every report professionally formatted.
-          </p>
-
-          <div
-            class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-          >
-            <a
-              href=""
-              class="btn-primary shadow-lg shadow-blue-500/20 text-white"
-            >
-              Explore More
-            </a>
-          </div>
-        </div>
-
-        <div class="flex justify-center lg:justify-end">
-          <img
-            src="{% static 'images/control-2.webp' %}"
-            class="w-[85%] max-w-[420px] rounded-full"
-          />
-        </div>
-      </div>
-    </div>
-  </section> -->
-
-  <!-- DIVIDER -->
-  <!-- <div class="">
-    <svg viewBox="0 0 1440 120" class="w-full block">
-      <path d="M0,0 L1000,120 L1440,0 Z" fill="var(--color-bg-2)" />
-    </svg>
-  </div> -->
 
   <!-- FEATURES -->
   <section class="py-16 lg:py-24 relative overflow-hidden">
@@ -275,74 +196,8 @@
     </div>
   </section>
 
-  <!-- DIVIDER -->
-  <!-- <div class="mt-12">
-    <svg viewBox="0 0 1440 120" class="w-full block">
-      <path d="M0,120 L420,0 L1440,120 Z" fill="var(--color-bg-2)" />
-    </svg>
-  </div> -->
-
   <!-- PRICING -->
   {% include 'pricing.html' %}
-
-  <!-- DEMO -->
-  <section
-    class="bg-[var(--color-primary)] text-white py-20 lg:py-28 relative overflow-hidden"
-  >
-    <div
-      class="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary)]/90 to-transparent z-0"
-    ></div>
-
-    <div
-      class="container-main grid sm:grid-cols-2 gap-12 items-center relative z-10"
-    >
-      <!-- LEFT -->
-      <div class="relative flex justify-center lg:justify-start h-full">
-        <img
-          src="{% static 'images/demo.png' %}"
-          class="h-[450px] w-auto object-cover rounded-lg"
-        />
-      </div>
-
-      <!-- RIGHT -->
-      <div class="text-center lg:text-left max-w-lg mx-auto lg:mx-0">
-        <h2 class="heading-lg leading-tight">
-          Unlock the Power
-          <span class="text-white/80 block mt-1">of ScoutingDesk</span>
-        </h2>
-
-        <p class="text-body mt-6 text-gray-300 leading-relaxed">
-          Discover how ScoutingDesk can benefit clubs, agencies and players by
-          creating and accessing professional football scouting reports.
-        </p>
-
-        <ul class="mt-6 space-y-2 text-sm text-gray-300 leading-relaxed">
-          <li>• Structured report generation</li>
-          <li>• Clean, professional formatting</li>
-          <li>• Comprehensive attribute tracking</li>
-          <li>• Instant PDF export</li>
-          <li>• Offline functionality</li>
-          <li>• Lifetime access</li>
-        </ul>
-
-        <div class="mt-8">
-          <a
-            href="{% url 'inside' %}"
-            class="btn-secondary inline-block text-sm"
-          >
-            Explore Features
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DIVIDER -->
-  <!-- <div class="bg-[var(--color-primary)]">
-    <svg viewBox="0 0 1440 120" class="w-full block">
-      <path d="M0,120 L720,0 L1440,120 Z" fill="var(--color-bg-2)" />
-    </svg>
-  </div> -->
 
   <!-- CTA -->
   <section class="bg-[var(--color-bg-2)] text-black pt-6 pb-16 lg:pb-24">
@@ -363,7 +218,7 @@
         <a href="#" class="btn-primary text-white shadow-md">
           Purchase Software
         </a>
-<!-- 
+        <!-- 
         <a
           href="#"
           class="px-6 py-3 border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100 transition"

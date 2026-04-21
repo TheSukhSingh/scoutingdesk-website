@@ -1,44 +1,88 @@
 {% load static %}
 <!doctype html>
 <html>
-  <head>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link href="{% static 'css/output.css' %}" rel="stylesheet" />
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-  </head>
-  <body>
-    {% include 'header.html' %}
 
-    {% block content %}{% endblock %}
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="{% static 'css/output.css' %}" rel="stylesheet" />
+  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+</head>
 
-    {% include 'footer.html' %}
-  </body>
-  <script>
-    const btn = document.getElementById("menu-btn");
-    const menu = document.getElementById("mobile-menu");
+<body>
+  {% include 'header.html' %}
 
-    if (btn && menu) {
-      btn.addEventListener("click", () => {
-        menu.classList.toggle("hidden");
-      });
+  {% block content %}{% endblock %}
+
+  {% include 'footer.html' %}
+
+  <!-- COOKIE NOTICE -->
+  <div id="cookie-banner"
+    class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-3xl bg-[var(--color-primary)] text-white px-6 py-4 rounded-xl shadow-xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 z-[9999] opacity-0 pointer-events-none transition-all duration-300">
+
+    <p class="text-sm text-gray-300 leading-relaxed text-center sm:text-left">
+      We use essential cookies to ensure the website functions properly.
+      <a href="/cookie/" class="text-blue-400 hover:underline ml-1">Learn more</a>
+    </p>
+
+    <button id="cookie-accept"
+      class="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-sm px-5 py-2 rounded-lg transition">
+      Got it
+    </button>
+  </div>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const banner = document.getElementById("cookie-banner");
+    const acceptBtn = document.getElementById("cookie-accept");
+
+    // check if already accepted
+    const seen = localStorage.getItem("cookie_notice_seen");
+
+    if (!seen) {
+      // show banner
+      setTimeout(() => {
+        banner.classList.remove("opacity-0", "pointer-events-none");
+        banner.classList.add("opacity-100");
+      }, 300);
     }
 
-    function togglePassword(inputId, btn) {
-      const input = document.getElementById(inputId);
-      const svg = btn.querySelector("svg");
+    // on click accept
+    acceptBtn?.addEventListener("click", () => {
+      localStorage.setItem("cookie_notice_seen", "true");
 
-      // ✨ animate icon (scale down → up)
-      svg.classList.add("scale-75", "opacity-50");
+      banner.classList.remove("opacity-100");
+      banner.classList.add("opacity-0");
 
       setTimeout(() => {
-        if (input.type === "password") {
-          input.type = "text";
+        banner.classList.add("pointer-events-none");
+      }, 300);
+    });
+  });
+</script>
+<script>
+  const btn = document.getElementById("menu-btn");
+  const menu = document.getElementById("mobile-menu");
 
-          // cross eye
-          svg.innerHTML = `
+  if (btn && menu) {
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  }
+
+  function togglePassword(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const svg = btn.querySelector("svg");
+
+    // ✨ animate icon (scale down → up)
+    svg.classList.add("scale-75", "opacity-50");
+
+    setTimeout(() => {
+      if (input.type === "password") {
+        input.type = "text";
+
+        // cross eye
+        svg.innerHTML = `
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M13.875 18.825A10.05 10.05 0 0112 19
           c-4.478 0-8.268-2.943-9.542-7
@@ -48,11 +92,11 @@
           12a3 3 0 11-6 0 3 3 0 016 0zm6
           6L3 3"/>
       `;
-        } else {
-          input.type = "password";
+      } else {
+        input.type = "password";
 
-          // normal eye
-          svg.innerHTML = `
+        // normal eye
+        svg.innerHTML = `
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -61,39 +105,40 @@
           -1.274 4.057-5.065 7-9.542 7
           -4.477 0-8.268-2.943-9.542-7z"/>
       `;
-        }
+      }
 
-        // ✨ animate back
-        svg.classList.remove("scale-75", "opacity-50");
-        svg.classList.add("scale-100", "opacity-100");
-      }, 120); // small delay for smooth effect
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-      const setupCaps = (inputId, warningId) => {
-        const input = document.getElementById(inputId);
-        const warning = document.getElementById(warningId);
+      // ✨ animate back
+      svg.classList.remove("scale-75", "opacity-50");
+      svg.classList.add("scale-100", "opacity-100");
+    }, 120); // small delay for smooth effect
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    const setupCaps = (inputId, warningId) => {
+      const input = document.getElementById(inputId);
+      const warning = document.getElementById(warningId);
 
-        if (!input || !warning) return;
+      if (!input || !warning) return;
 
-        input.addEventListener("keyup", (e) => {
-          if (e.getModifierState("CapsLock")) {
-            warning.classList.remove("hidden");
-          } else {
-            warning.classList.add("hidden");
-          }
-        });
-
-        input.addEventListener("blur", () => {
+      input.addEventListener("keyup", (e) => {
+        if (e.getModifierState("CapsLock")) {
+          warning.classList.remove("hidden");
+        } else {
           warning.classList.add("hidden");
-        });
-      };
+        }
+      });
 
-      // login
-      setupCaps("password", "caps-warning");
+      input.addEventListener("blur", () => {
+        warning.classList.add("hidden");
+      });
+    };
 
-      // signup
-      setupCaps("password1", "caps-warning-1");
-      setupCaps("password2", "caps-warning-2");
-    });
-  </script>
+    // login
+    setupCaps("password", "caps-warning");
+
+    // signup
+    setupCaps("password1", "caps-warning-1");
+    setupCaps("password2", "caps-warning-2");
+  });
+</script>
+
 </html>

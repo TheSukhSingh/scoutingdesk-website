@@ -935,6 +935,10 @@ video {
   height: 1px;
 }
 
+.h-\[300px\] {
+  height: 300px;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -989,6 +993,10 @@ video {
 
 .w-px {
   width: 1px;
+}
+
+.w-\[600px\] {
+  width: 600px;
 }
 
 .max-w-2xl {
@@ -1115,6 +1123,10 @@ video {
 
 .gap-8 {
   gap: 2rem;
+}
+
+.gap-20 {
+  gap: 5rem;
 }
 
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
@@ -1440,6 +1452,11 @@ video {
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+
+.py-28 {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
 }
 
 .pb-16 {
@@ -1999,6 +2016,10 @@ body {
 
   .lg\:grid-cols-\[1fr_1\.2fr\] {
     grid-template-columns: 1fr 1.2fr;
+  }
+
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .lg\:flex-row {

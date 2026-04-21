@@ -1,13 +1,10 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
-from django.conf import settings
 
 import json
 import hashlib
-import hmac
-import time
-import uuid
+import uuid 
 
 from .models import License, LicenseActivity
 from .utils import get_client_ip
@@ -16,14 +13,6 @@ from .utils import get_client_ip
 # 🔐 Hash device
 def hash_device(device_id):
     return hashlib.sha256(device_id.encode()).hexdigest()
-
-
-# 🔐 Verify request signature
-def verify_signature(key, device_id, timestamp, signature):
-    message = f"{key}{device_id}{timestamp}".encode()
-    secret = settings.CLIENT_SECRET.encode()
-    expected = hmac.new(secret, message, hashlib.sha256).hexdigest()
-    return hmac.compare_digest(expected, signature)
 
 
 # 🔑 ACTIVATE LICENSE
@@ -37,19 +26,9 @@ def activate_license(request):
 
         key = data.get("activation_key")
         device_id = data.get("device_id")
-        timestamp = data.get("timestamp")
-        signature = data.get("signature")
 
-        if not key or not device_id or not timestamp or not signature:
+        if not key or not device_id:
             return JsonResponse({"valid": False, "error": "Missing data"})
-
-        # ⏳ Prevent replay attack
-        if abs(time.time() - int(timestamp)) > 300:
-            return JsonResponse({"valid": False, "error": "Request expired"})
-
-        # 🔐 Verify signature
-        if not verify_signature(key, device_id, timestamp, signature):
-            return JsonResponse({"valid": False, "error": "Invalid signature"})
 
         hashed_device = hash_device(device_id)
         ip = get_client_ip(request)
@@ -77,16 +56,13 @@ def activate_license(request):
 
         if not license.is_active:
             return JsonResponse({"valid": False, "error": "License inactive"})
-
-        # 🚨 Device switch limit
-        recent_switches = LicenseActivity.objects.filter(
-            license=license,
-            action='switch',
-            created_at__gte=timezone.now() - timezone.timedelta(hours=1)
-        ).count()
-
-        if recent_switches >= 5:
-            return JsonResponse({"valid": False, "error": "Too many device switches"})
+        
+        # 🔒 Device locking (TEMP — will improve in next step)
+        if license.device_id and license.device_id != hashed_device:
+            return JsonResponse({
+                "valid": False,
+                "error": "License already used on another device"
+            })
 
         # 🔑 Generate session token
         token = str(uuid.uuid4())
@@ -95,17 +71,6 @@ def activate_license(request):
 
         # 🟢 First activation
         if not license.device_id:
-            license.device_id = hashed_device
-            license.activated_at = timezone.now()
-
-        # 🔄 Soft lock (replace device)
-        elif license.device_id != hashed_device:
-            LicenseActivity.objects.create(
-                license=license,
-                action='switch',
-                device_id=hashed_device,
-                ip_address=ip
-            )
             license.device_id = hashed_device
             license.activated_at = timezone.now()
 
@@ -180,27 +145,6 @@ def validate_license(request):
         return JsonResponse({"valid": False, "error": str(e)})
 
 
-# 🔁 RESET DEVICE
-@csrf_exempt
-def reset_device(request):
-    if request.method != "POST":
-        return JsonResponse({"success": False})
-
-    try:
-        data = json.loads(request.body)
-        key = data.get("activation_key")
-
-        license = License.objects.get(key=key)
-
-        license.device_id = None
-        license.session_token = None
-        license.save()
-
-        return JsonResponse({"success": True})
-
-    except Exception as e:
-        return JsonResponse({"success": False, "error": str(e)})
-
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -223,22 +167,31 @@ def get_user_licenses(request):
 @login_required
 def dashboard_reset_device(request):
     if request.method != "POST":
-        return JsonResponse({"success": False})
+        return JsonResponse({"success": False, "error": "Invalid request"})
 
     try:
         data = json.loads(request.body)
         key = data.get("activation_key")
 
-        license = License.objects.get(key=key)
+        if not key:
+            return JsonResponse({"success": False, "error": "Missing key"})
+        
+        try:
+            license = License.objects.get(key=key)
+        except License.DoesNotExist:
+            return JsonResponse({"success": False, "error": "License not found"})
 
+        if license.user != request.user:
+            return JsonResponse({"success": False, "error": "Not allowed"})
+        
         license.device_id = None
         license.session_token = None
         license.save()
 
         return JsonResponse({"success": True})
 
-    except License.DoesNotExist:
-        return JsonResponse({"success": False, "error": "Not allowed"})
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})
     
 import uuid
 
@@ -251,14 +204,23 @@ def generate_unique_key():
 @login_required
 def regenerate_key(request):
     if request.method != "POST":
-        return JsonResponse({"success": False})
+        return JsonResponse({"success": False, "error": "Invalid request"})
 
     try:
         data = json.loads(request.body)
         key = data.get("activation_key")
 
-        license = License.objects.get(key=key)
+        if not key:
+            return JsonResponse({"success": False, "error": "Missing key"})
+        
+        try:
+            license = License.objects.get(key=key)
+        except License.DoesNotExist:
+            return JsonResponse({"success": False, "error": "License not found"})
 
+        if license.user != request.user:
+            return JsonResponse({"success": False, "error": "Not allowed"})
+        
         # 🔥 generate new key
         new_key = generate_unique_key()
 
@@ -272,5 +234,5 @@ def regenerate_key(request):
             "new_key": new_key
         })
 
-    except License.DoesNotExist:
-        return JsonResponse({"success": False, "error": "Not allowed"})
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})

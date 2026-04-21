@@ -42,7 +42,7 @@
       <!-- RIGHT IMAGE -->
       <div class="flex justify-center">
         <img
-          src="{% static 'images/laptop.png' %}"
+          src="{% static 'images/laptop.webp' %}"
           class="w-full max-w-md lg:max-w-lg rounded-lg"
         />
       </div>
@@ -81,7 +81,7 @@
       <div class="grid lg:grid-cols-[1fr_1.2fr] items-center py-16 lg:py-24">
         <div class="flex justify-center lg:justify-start">
           <img
-            src="{% static 'images/control.png' %}"
+            src="{% static 'images/control.webp' %}"
             class="w-[85%] max-w-[420px] rounded-full"
           />
         </div>
@@ -171,7 +171,7 @@
 
         <div class="flex justify-center lg:justify-end">
           <img
-            src="{% static 'images/control-2.png' %}"
+            src="{% static 'images/control-2.webp' %}"
             class="w-[85%] max-w-[420px] rounded-full"
           />
         </div>
@@ -284,6 +284,58 @@
 
   <!-- PRICING -->
   {% include 'pricing.html' %}
+
+  <!-- DEMO -->
+  <section
+    class="bg-[var(--color-primary)] text-white py-20 lg:py-28 relative overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary)]/90 to-transparent z-0"
+    ></div>
+
+    <div
+      class="container-main grid sm:grid-cols-2 gap-12 items-center relative z-10"
+    >
+      <!-- LEFT -->
+      <div class="relative flex justify-center lg:justify-start h-full">
+        <img
+          src="{% static 'images/demo.png' %}"
+          class="h-[450px] w-auto object-cover rounded-lg"
+        />
+      </div>
+
+      <!-- RIGHT -->
+      <div class="text-center lg:text-left max-w-lg mx-auto lg:mx-0">
+        <h2 class="heading-lg leading-tight">
+          Unlock the Power
+          <span class="text-white/80 block mt-1">of ScoutingDesk</span>
+        </h2>
+
+        <p class="text-body mt-6 text-gray-300 leading-relaxed">
+          Discover how ScoutingDesk can benefit clubs, agencies and players by
+          creating and accessing professional football scouting reports.
+        </p>
+
+        <ul class="mt-6 space-y-2 text-sm text-gray-300 leading-relaxed">
+          <li>• Structured report generation</li>
+          <li>• Clean, professional formatting</li>
+          <li>• Comprehensive attribute tracking</li>
+          <li>• Instant PDF export</li>
+          <li>• Offline functionality</li>
+          <li>• Lifetime access</li>
+        </ul>
+
+        <div class="mt-8">
+          <a
+            href="{% url 'inside' %}"
+            class="btn-secondary inline-block text-sm"
+          >
+            Explore Features
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- DIVIDER -->
   <!-- <div class="bg-[var(--color-primary)]">

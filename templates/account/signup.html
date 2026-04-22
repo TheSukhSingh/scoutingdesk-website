@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load socialaccount %} {% block content %}
+{% extends "base.html" %}  {% block content %}
 
 <div class="min-h-screen flex relative overflow-hidden">
   <!-- 🔵 LEFT SIDE (UNCHANGED) -->
@@ -233,27 +233,6 @@
           Create Account
         </button>
       </form>
-
-      <!-- DIVIDER -->
-      <div class="flex items-center my-6">
-        <div class="flex-1 h-px bg-gray-200"></div>
-        <span class="px-3 text-xs text-gray-400">OR</span>
-        <div class="flex-1 h-px bg-gray-200"></div>
-      </div>
-
-      <!-- GOOGLE -->
-      <a href="{% provider_login_url 'google' %}">
-        <button
-          type="button"
-          class="w-full flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition text-sm text-black"
-        >
-          <img
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            class="w-4 h-4"
-          />
-          Continue with Google
-        </button>
-      </a>
 
       <!-- FOOT -->
       <p class="text-sm text-gray-500 text-center mt-6">

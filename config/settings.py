@@ -102,6 +102,9 @@ INSTALLED_APPS = [
 
     'allauth',
     'allauth.account',
+]
+
+ALL_AUTH_f = [ # include in installed apps to use google authentication
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 ]

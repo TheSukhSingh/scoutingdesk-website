@@ -18,7 +18,15 @@ urlpatterns = [
     path('download/', download_page, name='download'),
     path('api/license/', include('activation.urls')),
 ]
+from django.http import HttpResponseForbidden
 
+def block_social(request):
+    return HttpResponseForbidden("Social login disabled")
+
+urlpatterns += [
+    path('accounts/google/login/', block_social),
+    path('accounts/google/login/callback/', block_social),
+]
 from core import dev_views as core_views
 
 urlpatterns += [

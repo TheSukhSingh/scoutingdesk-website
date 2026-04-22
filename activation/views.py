@@ -93,6 +93,8 @@ def activate_license(request):
     except Exception as e:
         return JsonResponse({"valid": False, "error": str(e)})
 
+MAX_VALIDATE_ATTEMPTS = 30
+VALIDATE_WINDOW_MINUTES = 5
 
 # 🔁 VALIDATE USING TOKEN (NOT KEY)
 @csrf_exempt
@@ -111,7 +113,18 @@ def validate_license(request):
 
         hashed_device = hash_device(device_id)
         ip = get_client_ip(request)
+        # RATE LIMIT: IP + TOKEN
+        recent_attempts = LicenseActivity.objects.filter(
+            action='validate',
+            ip_address=ip,
+            created_at__gte=timezone.now() - timezone.timedelta(minutes=VALIDATE_WINDOW_MINUTES)
+        ).count()
 
+        if recent_attempts >= MAX_VALIDATE_ATTEMPTS:
+            return JsonResponse({
+                "valid": False,
+                "error": "Too many requests. Try again later."
+            })
         try:
             license = License.objects.get(session_token=token)
         except License.DoesNotExist:
@@ -125,7 +138,20 @@ def validate_license(request):
 
         if license.device_id != hashed_device:
             return JsonResponse({"valid": False, "error": "Device mismatch"})
+        
+        #  RATE LIMIT: TOKEN ABUSE
+        token_attempts = LicenseActivity.objects.filter(
+            action='validate',
+            license=license,
+            created_at__gte=timezone.now() - timezone.timedelta(minutes=VALIDATE_WINDOW_MINUTES)
+        ).count()
 
+        if token_attempts >= MAX_VALIDATE_ATTEMPTS:
+            return JsonResponse({
+                "valid": False,
+                "error": "Too many validation attempts for this license."
+            })
+        
         license.last_seen = timezone.now()
         license.save()
 

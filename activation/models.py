@@ -2,6 +2,8 @@ import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from payments.models import Order
+
 User = get_user_model()
 
 
@@ -38,7 +40,7 @@ class License(models.Model):
     session_token = models.CharField(max_length=255, null=True, blank=True)
     token_expires_at = models.DateTimeField(null=True, blank=True)
     # 💰 Link to order
-    order_id = models.IntegerField(null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.email} - {self.package} - {self.key}"

@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 
 from .models import Order
-from activation.utils import create_license, deactivate_license_by_order
+from activation.utils import create_license, deactivate_license_by_order_object
 from activation.models import License
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -41,7 +41,7 @@ def create_checkout_session(request, package_type):
         success_url=request.build_absolute_uri('/payments/success/?session_id={CHECKOUT_SESSION_ID}'),
         cancel_url=request.build_absolute_uri('/payments/cancel/'),
         metadata={
-            'order_id': order.id
+            'order': order.id
         }
     )
 
@@ -85,16 +85,16 @@ def stripe_webhook(request):
     # 🟢 PAYMENT SUCCESS
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        order_id = session.get('metadata', {}).get('order_id')
+        order = session.get('metadata', {}).get('order')
 
-        if not order_id:
-            logger.error("No order_id in metadata")
+        if not order:
+            logger.error("No order in metadata")
             return HttpResponse(status=200)
 
         try:
-            order = Order.objects.get(id=order_id)
+            order = Order.objects.get(id=order)
         except Order.DoesNotExist:
-            logger.error(f"Order not found: {order_id}")
+            logger.error(f"Order not found: {order}")
             return HttpResponse(status=200)
 
         if order.status != 'paid':
@@ -112,13 +112,13 @@ def stripe_webhook(request):
             profile.save()
 
             # 🔑 Prevent duplicate license
-            existing_license = License.objects.filter(order_id=order.id).first()
+            existing_license = License.objects.filter(order=order).first()
 
             if not existing_license:
                 license = create_license(
                     user=user,
                     package=order.package,
-                    order_id=order.id
+                    order=order
                 )
 
                 # 📩 Send email
@@ -148,7 +148,7 @@ ScoutingDesk Team
             else:
                 logger.warning(f"License already exists for order {order.id}")
 
-    # 🔴 REFUND / CANCEL (SAFE HANDLING FOR NOW)
+    # REFUND / CANCEL (SAFE HANDLING FOR NOW)
     elif event['type'] == 'charge.refunded':
         charge = event['data']['object']
 
@@ -164,10 +164,14 @@ ScoutingDesk Team
 
                 if sessions.data:
                     session = sessions.data[0]
-                    order_id = session.metadata.get("order_id")
+                    order_id = session.metadata.get("order")
 
                     if order_id:
-                        deactivate_license_by_order(order_id)
+                        try:
+                            order = Order.objects.get(id=order_id)
+                            deactivate_license_by_order_object(order)
+                        except Order.DoesNotExist:
+                            logger.error(f"Order not found during refund: {order_id}")
 
             except Exception as e:
                 logger.error(f"Refund handling error: {str(e)}")

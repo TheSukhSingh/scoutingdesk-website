@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 
-<div class="bg-[var(--color-bg-2)] min-h-screen py-20">
+<div
+  class=" bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]  pt-20 pb-28">
   <div class="container-main text-[var(--color-text-dark)]">
 
     <!-- TOP GRID -->
@@ -8,11 +9,11 @@
 
       <!-- LEFT SIDE -->
       <div class="text-left">
-        <h1 class="heading-lg font-semibold">
+        <h1 class="heading-lg font-semibold text-white">
           From Download to First Report In Minutes
         </h1>
 
-        <p class="text-body mt-6 text-[var(--color-text-muted)] max-w-lg leading-relaxed">
+        <p class="text-body mt-6 text-[var(--color-text-light)] max-w-lg leading-relaxed">
           Access the ScoutingDesk desktop application and start generating
           structured, professional scouting reports in minutes. Built for clubs,
           agencies, and players who demand elite-level analysis.
@@ -42,11 +43,15 @@
 
     </div>
 
+  </div>
+</div>
+<div class="bg-[var(--color-bg-2)] py-16">
+  <div class="container-main text-[var(--color-text-dark)]">
     <!-- HOW IT WORKS -->
-    <div class="mt-24 max-w-5xl mx-auto">
+    <div class=" max-w-5xl mx-auto">
 
       <div class="text-center mb-14">
-        <p class="text-sm text-[var(--color-text-muted)] mt-4 max-w-xl mx-auto">
+        <p class="text-sm text-[var(--color-text-muted)]  max-w-xl mx-auto">
           ScoutingDesk is built for speed and simplicity. Get up and running
           instantly without complex setup or configuration.
         </p>

@@ -17,6 +17,8 @@ class UserProfile(models.Model):
     plan_updated_at = models.DateTimeField(null=True, blank=True)
     failed_attempts = models.IntegerField(default=0)
     is_locked = models.BooleanField(default=False)
+    last_failed_at = models.DateTimeField(null=True, blank=True)
+    locked_until = models.DateTimeField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 

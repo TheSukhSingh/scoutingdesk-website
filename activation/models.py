@@ -52,6 +52,7 @@ class LicenseActivity(models.Model):
         ('validate', 'Validate'),
         ('failed', 'Failed Attempt'),
         ('switch', 'Device Switch'),
+        ('login_failed', 'Login Failed'),
     ]
 
     license = models.ForeignKey(
@@ -70,7 +71,9 @@ class LicenseActivity(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.license.key} - {self.action}"
+        if self.license:
+            return f"{self.license.key} - {self.action}"
+        return f"No License - {self.action}"
 
 
 

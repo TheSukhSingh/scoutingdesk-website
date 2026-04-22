@@ -7,13 +7,12 @@ from activation.models import LicenseActivity
 User = get_user_model()
 MAX_LOGIN_ATTEMPTS = 10
 LOGIN_WINDOW_MINUTES = 10
+
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         return x_forwarded_for.split(',')[0]
     return request.META.get('REMOTE_ADDR')
-
-
 
 def custom_login(request):
     if request.method == "POST":

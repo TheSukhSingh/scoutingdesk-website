@@ -1,18 +1,22 @@
+  
+  {% load static %}
   <nav class="bg-[var(--color-primary)] border-b border-white/15">
     <div class="container-main flex items-center justify-between py-5">
       <!-- LOGO -->
       <a href="{% url 'home' %}">
 
-        <h1 class="heading-md text-white">Scouting<span class="font-bold">Desk</span></h1>
+<img src="{% static 'favicon.png' %}" class="h-10 w-10">
+
+        <!-- <h1 class="heading-md text-white">Scouting<span class="font-bold">Desk</span></h1> -->
       </a>
 
       <!-- DESKTOP MENU -->
       <div class="hidden lg:flex gap-8 text-sm text-gray-300">
         <a href="#" class="hover:text-white transition">Product</a>
-        <a href="#" class="hover:text-white transition">Solutions</a>
+        <a href="#" class="hover:text-white transition">Features</a>
         <a href="#" class="hover:text-white transition">Packages</a>
+        <a href="#" class="hover:text-white transition">Download</a>
         <a href="#" class="hover:text-white transition">Demo</a>
-        <a href="#" class="hover:text-white transition">Resources</a>
       </div>
 
       <!-- RIGHT SIDE -->

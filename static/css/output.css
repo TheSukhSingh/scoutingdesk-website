@@ -897,6 +897,14 @@ video {
   height: 1px;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
 .min-h-\[70vh\] {
   min-height: 70vh;
 }
@@ -955,6 +963,14 @@ video {
 
 .w-px {
   width: 1px;
+}
+
+.w-8 {
+  width: 2rem;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .max-w-2xl {

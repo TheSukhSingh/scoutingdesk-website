@@ -85,16 +85,17 @@ def stripe_webhook(request):
     # 🟢 PAYMENT SUCCESS
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        order = session.get('metadata', {}).get('order')
+        metadata = session["metadata"] if "metadata" in session else {}
+        order_id = metadata.get("order")
 
-        if not order:
+        if not order_id:
             logger.error("No order in metadata")
             return HttpResponse(status=200)
 
         try:
-            order = Order.objects.get(id=order)
+            order = Order.objects.get(id=order_id)
         except Order.DoesNotExist:
-            logger.error(f"Order not found: {order}")
+            logger.error(f"Order not found: {order_id}")
             return HttpResponse(status=200)
 
         if order.status != 'paid':

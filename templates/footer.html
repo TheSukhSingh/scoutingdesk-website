@@ -1,67 +1,79 @@
+{% load static %}
 <footer class="bg-[var(--color-primary)] text-white pt-16 pb-6">
-    <div class="container-main">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            <div>
-                <h2 class="text-xl tracking-tight">
-                    Scouting<span class="font-bold">Desk</span>
-                </h2>
-
-                <p class="text-sm text-gray-400 mt-4 leading-relaxed">
-                    Structured desktop software for generating executive-level A4
-                    scouting reports. Built for professional football clubs, agencies,
-                    and players.
-                </p>
-            </div>
-
-            <div>
-                <h3 class="font-semibold mb-4 text-white">Navigation</h3>
-                <ul class="space-y-2 text-sm text-gray-400">
-                    <li>
-                        <a href="/#product" class="hover:text-white transition">Product Overview</a>
-                    </li>
-                    <li>
-                        <a href="/#features" class="hover:text-white transition">Features</a>
-                    </li>
-                    <li>
-                        <a href="/#packages" class="hover:text-white transition">Packages</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'download' %}"  class="hover:text-white transition">Download</a>
-                    </li>
-
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="font-semibold mb-4 text-white">Legal & Policies</h3>
-                <ul class="space-y-2 text-sm text-gray-400">
-                     <li>
-                        <a href="{% url 'privacy' %}" class=" hover:text-white transition">Privacy Policy</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'terms' %}" class="hover:text-white transition">Terms & Conditions</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'cookie' %}" class="hover:text-white transition">Cookie Policy</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="font-semibold mb-4 text-white">Support</h3>
-                <ul class="space-y-2 text-sm text-gray-400">
-                    <li class="text-white">info@scoutingdesk.com</li>
-
-
-                   
-                </ul>
-            </div>
+  <div class="container-main">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
+      <div>
+        <div class="flex items-center gap-2">
+          <img src="{% static 'favicon.png' %}" class="h-10 w-10" />
+          <img src="{% static 'images/logo_text.png' %}" class="h-8" />
         </div>
 
-        <div
-            class="border-t border-white/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400">
-            <p>Copyright@2026. All Rights Reserved</p>
-            <p class="mt-2 sm:mt-0">C 72</p>
-        </div>
+        <p class="text-sm text-gray-400 mt-4 leading-relaxed">
+          Structured desktop software for generating executive-level A4 scouting 
+          reports. Built for professional football clubs, agencies, and players.
+        </p>
+      </div>
+
+      <div class="mt-2">
+        <h3 class="font-semibold mb-4 text-white">Navigation</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li>
+            <a href="/#product" class="hover:text-white transition"
+              >Product Overview</a
+            >
+          </li>
+          <li>
+            <a href="/#features" class="hover:text-white transition"
+              >Features</a
+            >
+          </li>
+          <li>
+            <a href="/#packages" class="hover:text-white transition"
+              >Packages</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'download' %}" class="hover:text-white transition"
+              >Download</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="mt-2">
+        <h3 class="font-semibold mb-4 text-white">Legal & Policies</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li>
+            <a href="{% url 'privacy' %}" class="hover:text-white transition"
+              >Privacy Policy</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'terms' %}" class="hover:text-white transition"
+              >Terms & Conditions</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'cookie' %}" class="hover:text-white transition"
+              >Cookie Policy</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="mt-2">
+        <h3 class="font-semibold mb-4 text-white">Support</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li class="text-white">info@scoutingdesk.com</li>
+        </ul>
+      </div>
     </div>
+
+    <div
+      class="border-t border-white/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400"
+    >
+      <p>Copyright@2026. All Rights Reserved</p>
+      <p class="mt-2 sm:mt-0">C 72</p>
+    </div>
+  </div>
 </footer>

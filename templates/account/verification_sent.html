@@ -1,12 +1,126 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-<div class="min-h-screen flex items-center justify-center text-center">
-  <div class="glass p-8 rounded-xl">
-    <h2 class="heading-md mb-4">Verify Your Email Address</h2>
-    <p class="text-muted">
-      We have sent an email to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification email in your main inbox, check your spam folder. Please contact us if you do not receive the verification email within a few minutes.
+
+<div class="min-h-screen flex relative overflow-hidden">
+
+  <!-- 🔵 LEFT SIDE -->
+  <div class="hidden lg:flex w-1/2 flex-col justify-between
+    bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]
+    text-white p-16 relative overflow-hidden">
+
+    <!-- BACKGROUND PATTERN -->
+    <div class="absolute inset-0 opacity-[0.04]
+      bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)]
+      [background-size:30px_30px]"></div>
+
+    <!-- GLOW -->
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/20 blur-3xl rounded-full"></div>
+
+    <!-- LOGO -->
+    <div class="flex items-center gap-2">
+  
+    </div>
+
+
+    <!-- CONTENT -->
+    <div class="max-w-lg relative z-10">
+      <h2 class="text-4xl font-semibold leading-tight">
+        Check Your Email.<br>
+        <span class="text-blue-400">You're Almost Done.</span>
+      </h2>
+
+      <p class="mt-6 text-sm text-gray-300 leading-relaxed">
+        We have sent an email to you for verification. Follow the link provided to finalize the signup process.
+      </p>
+
+      <!-- FEATURE BLOCKS -->
+      <div class="mt-10 space-y-6">
+
+        <div class="flex gap-3 group">
+          <div class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"></div>
+          <div>
+            <h3 class="text-sm font-medium">Secure Email Verification</h3>
+            <p class="text-xs text-gray-400 mt-1">
+              Only verified email owners can authenticate.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 group">
+          <div class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"></div>
+          <div>
+            <h3 class="text-sm font-medium">Time-Limited Access</h3>
+            <p class="text-xs text-gray-400 mt-1">
+              Verification links expire automatically for added security.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 group">
+          <div class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"></div>
+          <div>
+            <h3 class="text-sm font-medium">Quick Recovery</h3>
+            <p class="text-xs text-gray-400 mt-1">
+              Get back into your account in just a few steps.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <p class="text-xs text-gray-600 relative z-10">
+            Designed to keep your account secure without slowing you down.
+
     </p>
   </div>
+
+  <!-- DIVIDER -->
+  <div class="hidden lg:block w-px bg-white/10"></div>
+
+  <!-- ⚪ RIGHT SIDE -->
+  <div class="w-full lg:w-1/2 flex items-center justify-center bg-gray-50 px-6 relative overflow-hidden">
+
+    <div class="absolute inset-0 opacity-[0.03]
+      bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)]
+      [background-size:30px_30px]"></div>
+
+    <div class="absolute w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
+
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-8 text-center relative z-10">
+
+      <!-- TITLE -->
+      <h2 class="text-2xl font-semibold text-gray-900">
+        Verify Your Email Address
+      </h2>
+
+      <!-- MAIN TEXT -->
+      <p class="text-sm text-gray-500 mt-4 leading-relaxed">
+        We have sent an email to you for verification. Follow the link provided to finalize the signup process.
+      </p>
+
+      <!-- HELP TEXT -->
+      <p class="text-xs text-gray-400 mt-4 leading-relaxed">
+        If you do not see the verification email in your main inbox, check your spam folder.
+
+        Please contact us if you do not receive the verification email within a few minutes.
+      </p>
+
+      <!-- CTA -->
+      <a href="{% url 'account_login' %}" class="mt-6 inline-block w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)]
+        text-white py-3 rounded-xl text-sm font-medium
+        shadow-md hover:shadow-lg active:scale-[0.98]
+        transition-all duration-200">
+
+        Back to Login
+      </a>
+
+    </div>
+
+  </div>
+
 </div>
+
 {% endblock %}

@@ -6,7 +6,8 @@
     <div class="mb-14">
       <h1 class="heading-lg font-semibold">Your Dashboard</h1>
       <p class="text-[var(--color-text-muted)] mt-3 max-w-xl">
-        Manage your licenses, access downloads, and control your ScoutingDesk usage.
+        Manage your licenses, access downloads, and control your ScoutingDesk
+        usage.
       </p>
     </div>
 
@@ -97,10 +98,6 @@
           <!-- ACTIONS -->
           <div class="mt-6 flex flex-wrap gap-3">
 
-            <button onclick="copyKey('${l.key}')"
-              class="text-sm px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
-              Copy
-            </button>
 
             <button onclick="resetDevice('${l.key}')"
               class="text-sm px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
@@ -112,10 +109,6 @@
               Regenerate
             </button>
 
-            <a href="/download/"
-              class="btn-primary text-sm px-4 py-2">
-              Download
-            </a>
 
           </div>
 
@@ -137,7 +130,10 @@
   async function resetDevice(key) {
     await fetch("/api/license/reset-device/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCSRFToken(),
+      },
       body: JSON.stringify({ activation_key: key }),
     });
 
@@ -148,7 +144,10 @@
   async function regenKey(key) {
     const res = await fetch("/api/license/regenerate-key/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCSRFToken(),
+      },
       body: JSON.stringify({ activation_key: key }),
     });
 

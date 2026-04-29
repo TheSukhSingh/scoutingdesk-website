@@ -4,10 +4,11 @@ from django.utils import timezone
 
 import json
 import hashlib
-import uuid 
+import uuid
+
+from activation.utils import get_client_ip
 
 from .models import License, LicenseActivity
-from .utils import get_client_ip
 
 
 # 🔐 Hash device

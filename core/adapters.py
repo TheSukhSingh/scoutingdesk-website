@@ -1,5 +1,7 @@
 from allauth.account.adapter import DefaultAccountAdapter
 
+from activation.utils import get_client_ip
+
 class CustomAccountAdapter(DefaultAccountAdapter):
     def populate_username(self, request, user):
         user.username = user.email

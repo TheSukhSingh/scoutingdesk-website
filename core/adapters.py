@@ -5,7 +5,5 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         user.username = user.email
 
     def is_open_for_signup(self, request):
-        return True
-    def is_open_for_signup(self, request):
         print("🔥 SIGNUP CHECK HIT")
         return True

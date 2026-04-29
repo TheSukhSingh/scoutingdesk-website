@@ -103,6 +103,8 @@ INSTALLED_APPS = [
 
     'allauth',
     'allauth.account',
+
+    'core.middleware.DebugMiddleware',
 ]
 
 ALL_AUTH_f = [ # include in installed apps to use google authentication

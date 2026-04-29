@@ -30,6 +30,11 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 
 SITE_ID = 1
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://scoutingdesk.com",
+    "https://www.scoutingdesk.com",
+]
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',

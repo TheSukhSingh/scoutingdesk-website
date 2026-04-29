@@ -33,6 +33,8 @@ SITE_ID = 1
 CSRF_TRUSTED_ORIGINS = [
     "https://scoutingdesk.com",
     "https://www.scoutingdesk.com",
+    "http://scoutingdesk.com",
+    "http://www.scoutingdesk.com",
 ]
 
 AUTHENTICATION_BACKENDS = [

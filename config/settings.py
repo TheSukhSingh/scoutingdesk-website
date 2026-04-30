@@ -97,6 +97,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'payments',
     "activation",
+    "corsheaders"
 
     
     'django.contrib.sites',
@@ -135,6 +136,7 @@ STRIPE_PRICES = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'allauth.account.middleware.AccountMiddleware',
@@ -143,6 +145,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
+
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "authorization",
 ]
 
 ROOT_URLCONF = 'config.urls'

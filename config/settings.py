@@ -77,7 +77,7 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http" if DEBUG else "https"
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[ScoutingDesk] "
-DEFAULT_FROM_EMAIL = "ScoutingDesk <your@email.com>"
+DEFAULT_FROM_EMAIL = "ScoutingDesk"
 
 ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR = 'django.contrib.auth.tokens.PasswordResetTokenGenerator'
 
@@ -97,9 +97,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'payments',
     "activation",
-    "corsheaders",
-
-    
+    "corsheaders",    
     'django.contrib.sites',
 
     'allauth',

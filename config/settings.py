@@ -97,7 +97,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'payments',
     "activation",
-    "corsheaders"
+    "corsheaders",
 
     
     'django.contrib.sites',

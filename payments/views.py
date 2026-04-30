@@ -167,7 +167,8 @@ ScoutingDesk Team
 
                 if sessions.data:
                     session = sessions.data[0]
-                    order_id = session.metadata.get("order")
+                    metadata = session.metadata.to_dict() if session.metadata else {}
+                    order_id = metadata.get("order")
 
                     if order_id:
                         try:

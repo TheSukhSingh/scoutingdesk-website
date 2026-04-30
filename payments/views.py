@@ -87,7 +87,7 @@ def stripe_webhook(request):
     # 🟢 PAYMENT SUCCESS
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        metadata = session.metadata or {}
+        metadata = session.metadata.to_dict() if session.metadata else {}
         order_id = metadata.get("order")
 
         if not order_id:

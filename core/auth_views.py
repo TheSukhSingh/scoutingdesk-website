@@ -6,8 +6,8 @@ from datetime import timedelta
 from activation.models import LicenseActivity
 from activation.utils import get_client_ip
 User = get_user_model()
-MAX_LOGIN_ATTEMPTS = 10
-LOGIN_WINDOW_MINUTES = 10
+MAX_LOGIN_ATTEMPTS = 20
+LOGIN_WINDOW_MINUTES = 20
 
 def custom_login(request):
     if request.method == "POST":

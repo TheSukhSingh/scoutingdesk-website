@@ -17,8 +17,10 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 logger = logging.getLogger(__name__)
 
-@login_required
+# @login_required
 def create_checkout_session(request, package_type):
+    if not request.user.is_authenticated:
+        return redirect(f"/accounts/signup/?next=/payments/checkout/{package_type}/")
     package = settings.STRIPE_PRICES.get(package_type)
 
     if not package:

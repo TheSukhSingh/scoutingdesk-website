@@ -25,3 +25,18 @@ def dashboard(request):
 
 def download_page(request):
     return render(request, "download.html")
+
+from django.http import FileResponse
+import os
+
+def download_app(request):
+    file_path = "/var/www/scoutingdesk/ScoutingDesk_Setup.exe"
+    
+    if os.path.exists(file_path):
+        return FileResponse(
+            open(file_path, "rb"),
+            as_attachment=True,
+            filename="ScoutingDesk_Setup.exe"
+        )
+    
+    return HttpResponse("File not found", status=404)

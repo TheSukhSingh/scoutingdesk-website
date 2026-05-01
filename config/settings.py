@@ -44,7 +44,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 ACCOUNT_ADAPTER = "core.adapters.CustomAccountAdapter"
 ACCOUNT_USERNAME_REQUIRED = False
-
+ACCOUNT_FORMS = {
+    'signup': 'core.forms.CustomSignupForm',
+}
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"

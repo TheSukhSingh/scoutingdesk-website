@@ -1,7 +1,64 @@
-<h2>✅ Payment Successful</h2>
+{% extends "base.html" %}
+{% block content %}
 
-<p>Your plan has been activated:</p>
+<div class="min-h-screen flex items-center justify-center bg-[var(--color-bg-2)] relative overflow-hidden">
 
-<h3>{{ plan|title }}</h3>
+  <!-- BACKGROUND GLOW -->
+  <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
+  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
 
-<a href="/">Go to Dashboard</a>
+  <div class="container-main flex justify-center">
+
+    <div class="w-full max-w-lg bg-white border border-gray-200 rounded-2xl shadow-xl p-10 text-center relative z-10">
+
+      <!-- TITLE -->
+      <h1 class="text-2xl font-semibold text-[var(--color-text-dark)]">
+        Payment Successful
+      </h1>
+
+      <!-- SUBTEXT -->
+      <p class="text-sm text-[var(--color-text-muted)] mt-3 leading-relaxed">
+        Your purchase has been completed successfully.
+        Your license and software access are now available.
+      </p>
+
+      <!-- PLAN CARD -->
+      <div class="mt-8 bg-[var(--color-bg-2)] border border-gray-200 rounded-xl p-6">
+
+        <p class="text-xs text-gray-500 uppercase tracking-wide">
+          Activated Plan
+        </p>
+
+        <p class="mt-2 text-lg font-semibold text-[var(--color-text-dark)]">
+          {{ plan|title }}
+        </p>
+
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+
+        <a href="{% url 'dashboard' %}"
+          class="btn-primary px-6 py-3 rounded-lg text-sm text-center">
+          Go to Dashboard
+        </a>
+
+        <a href="{% url 'download' %}"
+          class="px-6 py-3 rounded-lg text-sm border border-gray-200 hover:bg-gray-50 transition text-center">
+          Download App
+        </a>
+
+      </div>
+
+      <!-- EXTRA INFO -->
+      <p class="text-xs text-gray-500 mt-6">
+        You can manage your licenses and access downloads anytime from your dashboard.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

@@ -30,7 +30,7 @@ body {
   }
 
   .heading-lg {
-    @apply text-4xl;
+    @apply text-6xl md:text-4xl;
   }
 
   .heading-md {

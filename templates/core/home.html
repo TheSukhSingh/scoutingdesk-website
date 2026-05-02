@@ -3,15 +3,11 @@
 <div class="bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]">
   <!-- HERO -->
   <section class="relative overflow-hidden min-h-[70vh] lg:min-h-[75vh] flex items-center">
-    <!-- GLOW EFFECT -->
-    <!-- <div class="glow top-[-120px] left-[-120px]"></div> -->
-    <!-- <div class="glow bottom-[-120px] right-[-120px]"></div> -->
-
     <div
       class="container-main relative z-10 grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] items-center gap-10 lg:gap-16 pt-12 pb-8">
 
       <!-- LEFT CONTENT -->
-      <div class="max-w-xl text-center lg:text-left">
+      <div class="md:max-w-xl text-center lg:text-left">
         <h1 class="heading-lg text-white w-full leading-tight">
           The Leading Software for
           <span class="text-blue-400 font-semibold">
@@ -30,8 +26,6 @@
           <a href="/#packages" class="btn-primary shadow-lg shadow-blue-500/20">
             Purchase Software
           </a>
-
-          <!-- <a href="" class="btn-secondary"> Learn More </a> -->
         </div>
       </div>
 
@@ -80,17 +74,6 @@
             </li>
             <li>• Complete offline functionality. No Internet Required.</li>
           </ul>
-
-          <!-- <div
-            class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
-          >
-            <a
-              href=""
-              class="btn-primary shadow-lg shadow-blue-500/20 text-white"
-            >
-              Explore More
-            </a>
-          </div> -->
         </div>
       </div>
     </div>
@@ -103,7 +86,7 @@
         <h2 class="heading-lg text-white">Our Core Features</h2>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
         <div class="glass p-6 sm:p-8 rounded-xl card-hover">
           <div class="flex items-center gap-3 mb-4">
             <span class="text-xl">📄</span>
@@ -188,34 +171,6 @@
   <!-- PRICING -->
   {% include 'pricing.html' %}
 
-  <!-- CTA -->
-  <!-- <section class="bg-[var(--color-bg-2)] text-black pt-6 pb-16 lg:pb-24">
-    <div class="container-main text-center">
-      <h2 class="heading-lg leading-tight max-w-2xl mx-auto text-2xl sm:text-3xl lg:text-4xl">
-        Evaluate the Structure.
-        <span class="text-blue-600 font-semibold block mt-1">
-          Decide with Confidence.
-        </span>
-      </h2>
-
-      <p class="text-body text-gray-600 mt-6 max-w-xl mx-auto leading-relaxed">
-        Review the framework, assess the formatting, and implement a reporting
-        system aligned with professional standards.
-      </p>
-
-      <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-        <a href="#" class="btn-primary text-white shadow-md">
-          Purchase Software
-        </a>
-        <a
-          href="#"
-          class="px-6 py-3 border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100 transition"
-        >
-          Request a Demo
-        </a> 
-      </div>
-    </div>
-  </section> -->
 </div>
 
 {% endblock %}

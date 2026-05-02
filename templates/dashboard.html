@@ -4,39 +4,11 @@
   <div class="container-main text-[var(--color-text-dark)]">
     <!-- HEADER -->
     <div class="mb-14">
-      <h1 class="heading-lg font-semibold">Your Dashboard</h1>
-      <p class="text-[var(--color-text-muted)] mt-3 max-w-xl">
-        Manage your licenses, access downloads, and control your ScoutingDesk
-        usage.
-      </p>
-    </div>
-
-    <!-- PLAN CARD -->
-    <div
-      class="bg-white border border-gray-200 shadow-sm rounded-2xl p-8 mb-14"
-    >
-      <h2 class="heading-sm font-semibold mb-6">Current Plan</h2>
-
-      <div class="flex items-center justify-between flex-wrap gap-6">
-        <div>
-          <p class="text-2xl font-semibold text-[var(--color-text-dark)]">
-            {{ request.user.profile.plan|default:"No Plan"|upper }}
-          </p>
-
-          {% if request.user.profile.plan_updated_at %}
-          <p class="text-sm text-[var(--color-text-muted)] mt-1">
-            Updated: {{ request.user.profile.plan_updated_at|date:"M d, Y" }}
-          </p>
-          {% endif %}
-        </div>
-      </div>
+      <h1 class="heading-lg font-semibold">Your Licenses</h1>
     </div>
 
     <!-- LICENSE SECTION -->
     <div>
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="heading-md">Your Licenses</h2>
-      </div>
 
       <div id="licenses-container" class="grid md:grid-cols-2 gap-8">
         <!-- Loading State -->
@@ -78,7 +50,7 @@
           <div>
 
             <p class="text-xs text-gray-500 uppercase tracking-wide">
-              ${l.package}
+              Package - ${l.package}
             </p>
 
             <p class="mt-3 text-lg font-semibold text-[var(--color-text-dark)] break-all">
@@ -97,12 +69,6 @@
 
           <!-- ACTIONS -->
           <div class="mt-6 flex flex-wrap gap-3">
-
-
-            <button onclick="resetDevice('${l.key}')"
-              class="text-sm px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
-              Reset Device
-            </button>
 
             <button onclick="regenKey('${l.key}')"
               class="text-sm px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition">

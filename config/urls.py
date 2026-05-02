@@ -18,6 +18,7 @@ urlpatterns = [
     path('download/', download_page, name='download'),
     path('download/app/', download_app, name='download_app'),
     path('api/license/', include('activation.urls')),
+
 ]
 from django.http import HttpResponseForbidden
 

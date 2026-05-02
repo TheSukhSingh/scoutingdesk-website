@@ -9,9 +9,9 @@ class CustomSignupForm(SignupForm):
     def clean_email(self):
         email = self.cleaned_data.get("email")
 
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError(
-                "Email already registered. Please login instead."
+                "This email is already registered. Try logging in or resetting your password."
             )
 
         return email

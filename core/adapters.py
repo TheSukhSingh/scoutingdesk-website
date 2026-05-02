@@ -1,10 +1,7 @@
 from allauth.account.adapter import DefaultAccountAdapter
 
 from activation.utils import get_client_ip
-from django.contrib import messages
-from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
-
 User = get_user_model()
 
 class CustomAccountAdapter(DefaultAccountAdapter):
@@ -17,7 +14,3 @@ class CustomAccountAdapter(DefaultAccountAdapter):
     
     def get_client_ip(self, request):
         return get_client_ip(request)
-    def clean_email(self, email):
-        if User.objects.filter(email=email).exists():
-            raise ValueError("Email already registered. Please login.")
-        return email

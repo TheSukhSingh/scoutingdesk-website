@@ -1,22 +1,15 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
-
 import json
 import hashlib
 import uuid
-
 from activation.utils import get_client_ip
-
 from .models import License, LicenseActivity
 
-
-# 🔐 Hash device
 def hash_device(device_id):
     return hashlib.sha256(device_id.encode()).hexdigest()
 
-
-# 🔑 ACTIVATE LICENSE
 @csrf_exempt
 def activate_license(request):
     if request.method != "POST":
@@ -34,7 +27,7 @@ def activate_license(request):
         hashed_device = hash_device(device_id)
         ip = get_client_ip(request)
 
-        # 🚨 Failed attempts protection
+        # Failed attempts protection
         failed_attempts = LicenseActivity.objects.filter(
             action='failed',
             ip_address=ip,
@@ -221,7 +214,7 @@ def dashboard_reset_device(request):
         return JsonResponse({"success": False, "error": str(e)})
     
 import uuid
-
+from datetime import timedelta
 def generate_unique_key():
     while True:
         key = f"SD-{uuid.uuid4().hex[:12].upper()}"
@@ -247,13 +240,25 @@ def regenerate_key(request):
 
         if license.user != request.user:
             return JsonResponse({"success": False, "error": "Not allowed"})
-        
+
+        if license.last_key_regenerated_at:
+            cooldown_end = license.last_key_regenerated_at + timedelta(days=7)
+
+            if timezone.now() < cooldown_end:
+                remaining_seconds = (cooldown_end - timezone.now()).total_seconds()
+                remaining_days = int(remaining_seconds // 86400) + 1
+                return JsonResponse({
+                    "success": False,
+                    "error": f"You can regenerate key after {remaining_days} days"
+                })
+
         # 🔥 generate new key
         new_key = generate_unique_key()
 
         license.key = new_key
         license.device_id = None
         license.session_token = None
+        license.last_key_regenerated_at = timezone.now()
         license.save()
 
         return JsonResponse({

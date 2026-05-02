@@ -1,19 +1,15 @@
 import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
-
 from payments.models import Order
 
 User = get_user_model()
-
-
 
 def generate_activation_key():
     while True:
         key = f"SD-{uuid.uuid4().hex[:12].upper()}"
         if not License.objects.filter(key=key).exists():
             return key
-
 
 class License(models.Model):
     PACKAGE_CHOICES = [
@@ -23,7 +19,7 @@ class License(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="licenses")
-
+    last_key_regenerated_at = models.DateTimeField(null=True, blank=True)
     key = models.CharField(max_length=32, unique=True, default=generate_activation_key)
 
     package = models.CharField(max_length=20, choices=PACKAGE_CHOICES)

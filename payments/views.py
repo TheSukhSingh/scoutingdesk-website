@@ -40,8 +40,10 @@ def create_checkout_session(request, package_type):
             'quantity': 1,
         }],
         mode='payment',
-        success_url=request.build_absolute_uri('/payments/success/?session_id={CHECKOUT_SESSION_ID}'),
-        cancel_url=request.build_absolute_uri('/payments/cancel/'),
+        # success_url=request.build_absolute_uri('/payments/success/?session_id={CHECKOUT_SESSION_ID}'),
+        # cancel_url=request.build_absolute_uri('/payments/cancel/'),
+        success_url='https://scoutingdesk.com/payments/success/?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url='https://scoutingdesk.com/payments/cancel/',
         metadata={
             'order': order.id
         }

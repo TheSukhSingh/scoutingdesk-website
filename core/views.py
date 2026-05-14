@@ -7,6 +7,9 @@ from django.http import HttpResponse
 def home(request):
     return render(request, 'core/home.html')
 
+def home_v2(request):
+    return render(request, 'v2/core/home.html')
+
 # def feature_page(request):
 #     return render(request, 'core/features.html')
 

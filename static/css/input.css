@@ -4,7 +4,8 @@
 
 /* GLOBAL DESIGN SYSTEM */
 :root {
-  --color-primary: #0b1c2c;
+  /* --color-primary: #0b1c2c; */
+  --color-primary: #020c12;
   --color-secondary: #0e2236;
   --color-bg-2: #f6f7fa;
   --color-accent: #2563eb;

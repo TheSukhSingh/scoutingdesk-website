@@ -9,6 +9,7 @@ urlpatterns = [
     path('accounts/login/', custom_login, name='account_login'),
     path('accounts/', include('allauth.urls')),
     path('', home, name="home"),
+    path('v2/', home_v2, name='home_v2'),
     # path('inside/', feature_page, name="inside"),
     path('terms/', terms, name="terms"),
     path('cookie/', cookie, name="cookie"),

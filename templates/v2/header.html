@@ -1,0 +1,119 @@
+{% load static %}
+
+<nav class="navbar">
+
+    <!-- TOP BAR -->
+    <div class="container-main navbar-inner">
+
+        <!-- LOGO -->
+        <a href="{% url 'home_v2' %}">
+            <div class="navbar-logo-group">
+
+                <img
+                    src="{% static 'favicon.png' %}"
+                    class="navbar-logo-icon" />
+
+                <img
+                    src="{% static 'images/logo_text.png' %}"
+                    class="navbar-logo-text" />
+
+            </div>
+        </a>
+
+        <!-- DESKTOP NAV -->
+        <div class="hidden lg:flex items-center gap-8">
+
+            <a href="#product" class="nav-link">
+                Product
+            </a>
+
+            <a href="#features" class="nav-link">
+                Features
+            </a>
+
+            <a href="#packages" class="nav-link">
+                Packages
+            </a>
+
+            <a href="{% url 'download' %}" class="nav-link">
+                Download
+            </a>
+
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'dashboard' %}"
+                class="nav-link font-semibold">
+                Dashboard
+            </a>
+            {% endif %}
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="flex items-center gap-3">
+
+            <a href="#packages"
+                class="btn-primary navbar-cta hidden sm:inline-flex">
+                Purchase Software
+            </a>
+
+            <!-- HAMBURGER -->
+            <button id="menu-btn" class="navbar-menu-btn">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="navbar-menu-icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2.3"
+                        d="M4 6h16M4 12h16M4 18h16" />
+
+                </svg>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="mobile-menu">
+
+        <div class="container-main mobile-menu-inner">
+
+            <a href="#product" class="mobile-nav-link">
+                Product
+            </a>
+
+            <a href="#features" class="mobile-nav-link">
+                Features
+            </a>
+
+            <a href="#packages" class="mobile-nav-link">
+                Packages
+            </a>
+
+            <a href="{% url 'download' %}" class="mobile-nav-link">
+                Download
+            </a>
+
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'dashboard' %}"
+                class="mobile-nav-link font-semibold">
+                Dashboard
+            </a>
+            {% endif %}
+
+            <a href="#packages"
+                class="btn-primary w-full justify-center mt-4">
+                Purchase Software
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>

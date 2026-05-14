@@ -10,7 +10,8 @@
     "tailwindcss": "^3.4.19"
   },
   "scripts": {
-    "dev": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch"
+    "dev": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch",
+    "dev:v2": "tailwindcss -i ./static/css/input_v2.css -o ./static/css/output_v2.css --config tailwind.config.v2.js --watch"
   },
   "repository": {
     "type": "git",

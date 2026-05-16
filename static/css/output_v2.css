@@ -589,13 +589,13 @@ video {
   font-weight: 500;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-  background: var(--color-blue);
+  background: var(--btn-blue);
   border-radius: var(--radius-xs);
   transition: var(--transition-default);
 }
 
 .btn-primary:hover {
-  background: var(--color-blue-hover);
+  background: var(--btn-blue-hover);
 }
 
 .btn-secondary {
@@ -839,10 +839,10 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-.hero-feature-icon {
+.hero-feature-item svg {
   height: 2.25rem;
   width: 2.25rem;
-  color: var(--color-blue);
+  color: var(--text-blue);
 }
 
 @media (min-width: 1024px) {
@@ -1060,7 +1060,7 @@ video {
   font-size: 1.9rem;
   font-weight: 700;
   line-height: 1;
-  color: #3d6ee5;
+  color: var(--text-blue);
   white-space: nowrap;
 }
 
@@ -1084,7 +1084,7 @@ video {
 .pricing-features li::before {
   content: "✓";
   margin-right: 0.7rem;
-  color: #3d6ee5;
+  color: var(--text-blue);
   font-weight: bold;
 }
 
@@ -1098,7 +1098,7 @@ video {
   margin-top: auto;
   min-height: 52px;
   border-radius: 12px;
-  background: var(--color-blue);
+  background: var(--btn-blue);
   font-size: 0.95rem;
   font-weight: 600;
   color: white;
@@ -1106,7 +1106,7 @@ video {
 }
 
 .pricing-button:hover {
-  background: var(--color-blue-hover);
+  background: var(--btn-blue-hover);
   transform: translateY(-1px);
 }
 
@@ -1129,6 +1129,751 @@ video {
   .pricing-description {
     font-size: 1rem;
     line-height: 1.7;
+  }
+}
+
+.report-showcase-section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 1024px) {
+  .report-showcase-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+.report-showcase-section {
+  position: relative;
+  background:
+            radial-gradient(circle at center,
+                rgba(61, 110, 229, 0.08),
+                transparent 55%);
+}
+
+.report-showcase-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 1200px) {
+  .report-showcase-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .report-showcase-content {
+    max-width: 700px;
+  }
+}
+
+.report-showcase-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(61, 110, 229, 0.25);
+  background: rgba(61, 110, 229, 0.08);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: #93c5fd;
+  margin-bottom: 1.5rem;
+}
+
+.report-showcase-heading {
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: white;
+}
+
+.report-showcase-heading span {
+  display: inline;
+  margin-top: 0.2rem;
+}
+
+.report-showcase-description {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #94a3b8;
+}
+
+/* FEATURES */
+
+.report-showcase-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.report-showcase-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.report-showcase-feature-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(61, 110, 229, 0.12);
+  border: 1px solid rgba(61, 110, 229, 0.22);
+  color: var(--text-blue);
+  font-weight: 700;
+}
+
+.report-showcase-feature h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+}
+
+.report-showcase-feature p {
+  margin-top: 0.3rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #94a3b8;
+}
+
+/* RIGHT */
+
+.report-showcase-preview {
+  position: relative;
+  min-width: 0;
+}
+
+/* PAGES */
+
+.report-pages-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.report-page-label {
+  margin-bottom: 0.8rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--text-blue);
+  text-align: center;
+}
+
+.report-image-card {
+  position: relative;
+  aspect-ratio: 0.707;
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.report-image-card img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
+  display: block;
+}
+
+/* MOBILE */
+
+@media (max-width: 640px) {
+  .report-showcase-heading {
+    font-size: 1.7rem;
+    line-height: 1.4;
+  }
+
+  .report-showcase-description {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .report-pages-wrap {
+    gap: 1rem;
+  }
+}
+
+/* =========================================================
+   REPORT CONTROLS
+========================================================= */
+
+/* =========================================================
+        REPORT TOOLBAR
+    ========================================================= */
+
+.report-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.5rem;
+  border-radius: 22px;
+  overflow-x: hidden;
+  background:
+            linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.035),
+                rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  margin-bottom: 2rem;
+  min-width: 0;
+  position: relative;
+  left: -15px;
+  width: calc(100% + 50px);
+}
+
+/* LEFT */
+
+.report-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 0;
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.report-toolbar-left::-webkit-scrollbar {
+  display: none;
+}
+
+/* TAB */
+
+.report-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 54px;
+  padding: 0 1.15rem;
+  border-radius: 14px;
+  color: #dbe4f0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.report-tab:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.report-tab.active {
+  background:
+            linear-gradient(135deg,
+                #3553d0,
+                #4266f5);
+  color: white;
+  box-shadow:
+            0 10px 30px rgba(53, 83, 208, 0.28);
+}
+
+.report-tab-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.95;
+}
+
+/* RIGHT */
+
+.report-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  padding-left: 0.5rem;
+}
+
+/* SWITCH */
+
+.report-mode-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem;
+  border-radius: 999px;
+  background:
+            linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.04),
+                rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.report-mode-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  color: #94a3b8;
+  transition: all 0.25s ease;
+}
+
+.report-mode-btn.active {
+  background:
+            linear-gradient(135deg,
+                #3553d0,
+                #4266f5);
+  color: white;
+}
+
+.report-mode-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ACTIVE */
+
+.report-mode-btn.active {
+  background:
+            linear-gradient(135deg,
+                #3553d0,
+                #4266f5);
+  color: white;
+  box-shadow:
+            0 6px 20px rgba(53, 83, 208, 0.32);
+}
+
+/* HOVER */
+
+.report-mode-btn:hover {
+  color: white;
+}
+
+/* MOBILE */
+
+@media (max-width: 1024px) {
+  .report-toolbar-right {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .report-toolbar {
+    padding: 0.45rem;
+  }
+
+  .report-tab {
+    min-height: 48px;
+    padding: 0 1rem;
+    font-size: 0.82rem;
+  }
+
+  .report-tab-icon {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+/* MODE ROW */
+
+.report-mode-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -0.75rem;
+  margin-bottom: 2rem;
+}
+
+.report-page-block {
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .report-pages-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .report-mode-row {
+    justify-content: flex-start;
+    margin-top: -0.5rem;
+  }
+}
+
+.workflow-section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 1024px) {
+  .workflow-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+.workflow-section {
+  position: relative;
+  overflow: hidden;
+  background:
+            radial-gradient(circle at top center,
+                rgba(61, 110, 229, 0.08),
+                transparent 45%),
+
+            linear-gradient(to bottom,
+                #030b14,
+                #020912);
+}
+
+.workflow-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  background:
+            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+          mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+}
+
+/* HEADER */
+
+.workflow-header {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  max-width: 860px;
+}
+
+.workflow-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(61, 110, 229, 0.25);
+  background: rgba(61, 110, 229, 0.08);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: #93c5fd;
+  margin-bottom: 1.5rem;
+}
+
+.workflow-heading {
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.22;
+  color: white;
+}
+
+.workflow-description {
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #94a3b8;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* GRID */
+
+.workflow-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.workflow-line {
+  position: absolute;
+  top: 61px;
+  left: 10%;
+  right: 10%;
+  height: 2.5px;
+  border-radius: 999px;
+  background:
+            linear-gradient(to right,
+                rgba(53, 83, 208, 0.22),
+                rgba(71, 123, 255, 0.9) 50%,
+                rgba(53, 83, 208, 0.22));
+  box-shadow:
+            0 0 6px rgba(71, 123, 255, 0.22);
+  z-index: 0;
+  overflow: hidden;
+}
+
+.workflow-line::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+            repeating-linear-gradient(to right,
+
+                transparent 0px,
+                transparent 142px,
+
+                rgba(214, 226, 255, 0.95) 142px,
+                rgba(214, 226, 255, 0.95) 144px,
+
+                transparent 144px,
+                transparent 148px,
+
+                rgba(180, 205, 255, 0.72) 148px,
+                rgba(180, 205, 255, 0.72) 150px,
+
+                transparent 150px,
+                transparent 154px,
+
+                rgba(120, 160, 255, 0.38) 154px,
+                rgba(120, 160, 255, 0.38) 156px,
+
+                transparent 156px,
+                transparent 310px);
+  opacity: 0.95;
+}
+
+/* CARD */
+
+.workflow-card {
+  position: relative;
+  z-index: 1;
+}
+
+/* ICON */
+
+.workflow-icon-wrap {
+  position: relative;
+  width: 124px;
+  height: 124px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.workflow-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  background:
+            radial-gradient(circle at 50% 30%,
+                rgba(255, 255, 255, 0.02),
+                rgba(255, 255, 255, 0.005));
+  border: 1.5px solid rgba(71, 123, 255, 0.26);
+  backdrop-filter: blur(10px);
+  box-shadow:
+            inset 0 0 18px rgba(255, 255, 255, 0.01),
+            0 0 10px rgba(71, 123, 255, 0.08);
+}
+
+.workflow-icon::after {
+  content: "";
+  position: absolute;
+  inset: -13px;
+  border-radius: 999px;
+  border: 1px solid rgba(71, 123, 255, 0.05);
+  opacity: 1;
+}
+
+.workflow-icon svg {
+  width: 56px;
+  height: 56px;
+  color: var(--text-blue);
+  filter:
+            drop-shadow(0 0 3px rgba(71, 123, 255, 0.12));
+}
+
+/* NUMBER */
+
+.workflow-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 56px;
+  height: 32px;
+  padding: 0 0.95rem;
+  margin-top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  border: 1px solid rgba(71, 123, 255, 0.14);
+  background:
+            linear-gradient(to bottom,
+                rgba(53, 83, 208, 0.07),
+                rgba(53, 83, 208, 0.02));
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #d7e3ff;
+  box-shadow:
+            0 0 6px rgba(71, 123, 255, 0.04);
+}
+
+/* TEXT */
+
+.workflow-card-title {
+  margin-top: 1.8rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+}
+
+.workflow-card-description {
+  margin-top: 1rem;
+  font-size: 0.96rem;
+  line-height: 1.8;
+  text-align: center;
+  color: #94a3b8;
+}
+
+/* MOCKS */
+
+.workflow-mock-card,
+    .workflow-form-mock,
+    .workflow-analysis-card,
+    .workflow-export-card {
+  margin-top: 2rem;
+  border-radius: 20px;
+  background:
+            linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.04),
+                rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+/* STEP 1 */
+
+.workflow-mock-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.workflow-mock-item {
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 0.92rem;
+  color: #dbe4f0;
+}
+
+.workflow-mock-item.active {
+  border-color: rgba(61, 110, 229, 0.35);
+  background: rgba(61, 110, 229, 0.12);
+}
+
+/* STEP 2 */
+
+.workflow-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.workflow-input {
+  padding: 0.9rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+
+/* STEP 3 */
+
+.workflow-analysis-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.workflow-analysis-item {
+  font-size: 0.92rem;
+  color: #dbe4f0;
+}
+
+/* STEP 4 */
+
+.workflow-export-preview {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.workflow-export-page {
+  flex: 1;
+  aspect-ratio: 0.72;
+  border-radius: 12px;
+  background:
+            linear-gradient(to bottom,
+                #f8fafc,
+                #dbe4f0);
+}
+
+.workflow-export-status {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.18);
+  font-size: 0.9rem;
+  color: #86efac;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1200px) {
+  .workflow-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .workflow-line {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .workflow-section {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .workflow-heading {
+    font-size: 1.7rem;
+    line-height: 1.4;
+  }
+
+  .workflow-description {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .workflow-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+
+  .workflow-card-title {
+    font-size: 1.2rem;
   }
 }
 
@@ -1332,11 +2077,6 @@ video {
   line-height: 1.625;
 }
 
-.text-\[\#3d6ee5\] {
-  --tw-text-opacity: 1;
-  color: rgb(61 110 229 / var(--tw-text-opacity, 1));
-}
-
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity, 1));
@@ -1380,12 +2120,14 @@ video {
   --color-text: #ffffff;
   --color-text-muted: #94a3b8;
   --color-text-soft: #cbd5e1;
-  /* BRAND */
-  --color-blue: #3553d0;
-  --color-blue-hover: #3858da;
-  /* ACCENT */
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
+  /* BLUE COLORS */
+  --btn-blue: linear-gradient(135deg,
+            #3553d0,
+            #4266f5);
+  --btn-blue-hover: linear-gradient(135deg,
+            #3553d0,
+            hsla(228, 90%, 61%, 0.98));
+  --text-blue: #477bff;
   /* BORDERS */
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-light: rgba(255, 255, 255, 0.14);
@@ -1489,12 +2231,24 @@ body {
   color: var(--color-text-muted);
 }
 
+.hero-blue-text {
+  color: var(--text-blue);
+}
+
 /* =========================================================
    HERO SECTION
 ========================================================= */
 
 /* =========================================================
    PRICING SECTION
+========================================================= */
+
+/* =========================================================
+   REPORT SHOWCASE SECTION
+========================================================= */
+
+/* =========================================================
+   WORKFLOW SECTION
 ========================================================= */
 
 .hover\:text-white:hover {

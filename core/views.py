@@ -22,12 +22,24 @@ def cookie(request):
 def privacy(request):
     return render(request, 'docs/privacy.html')
 
+def terms_v2(request):
+    return render(request, 'v2/docs/terms.html')
+
+def cookie_v2(request):
+    return render(request, 'v2/docs/cookie.html')
+
+def privacy_v2(request):
+    return render(request, 'v2/docs/privacy.html')
+
 @login_required
 def dashboard(request):
     return render(request, "dashboard.html")
 
 def download_page(request):
     return render(request, "download.html")
+
+def download_page_v2(request):
+    return render(request, "v2/core/download.html")
 
 from django.http import FileResponse
 import os

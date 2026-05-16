@@ -8,15 +8,24 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/login/', custom_login, name='account_login'),
     path('accounts/', include('allauth.urls')),
+    
     path('', home, name="home"),
     path('v2/', home_v2, name='home_v2'),
-    # path('inside/', feature_page, name="inside"),
+
     path('terms/', terms, name="terms"),
     path('cookie/', cookie, name="cookie"),
     path('privacy/', privacy, name="privacy"),
+    
+    path('v2/terms/', terms_v2, name="terms_v2"),
+    path('v2/cookie/', cookie_v2, name="cookie_v2"),
+    path('v2/privacy/', privacy_v2, name="privacy_v2"),
+    
+    path('download/', download_page, name='download'),
+    path('v2/download/', download_page_v2, name='download_v2'),
+    
+    
     path('payments/', include('payments.urls')),
     path('dashboard/', dashboard, name='dashboard'),
-    path('download/', download_page, name='download'),
     path('download/app/', download_app, name='download_app'),
     path('api/license/', include('activation.urls')),
 

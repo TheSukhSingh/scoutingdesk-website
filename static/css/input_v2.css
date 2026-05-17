@@ -16,7 +16,7 @@
     --color-surface-light: #122131;
 
     --color-bg-2: #f6f7fa;
-    
+
     /* TEXT */
     --color-text: #ffffff;
     --color-text-muted: #94a3b8;
@@ -55,10 +55,14 @@
    BASE
 ========================================================= */
 
-body {
-    font-family: "Poppins", sans-serif;
-    background: var(--color-primary);
-    color: var(--color-text);
+@layer base {
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background: var(--color-primary);
+        color: var(--color-text);
+    }
+
 }
 
 
@@ -301,7 +305,14 @@ body {
 
 }
 
+.cookie-btn {
+    background: var(--btn-blue);
+    transition: var(--transition-default);
+}
 
+.cookie-btn:hover {
+    background: var(--btn-blue-hover);
+}
 /* =========================================================
    MOBILE MENU
 ========================================================= */

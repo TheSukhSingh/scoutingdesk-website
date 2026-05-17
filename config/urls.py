@@ -23,12 +23,15 @@ urlpatterns = [
     path('download/', download_page, name='download'),
     path('v2/download/', download_page_v2, name='download_v2'),
     
+    path('dashboard/', dashboard, name='dashboard'),
+    path('v2/dashboard/', dashboard_v2, name='dashboard_v2'),
     
     path('payments/', include('payments.urls')),
-    path('dashboard/', dashboard, name='dashboard'),
     path('download/app/', download_app, name='download_app'),
     path('api/license/', include('activation.urls')),
 
+    path('api/profile/', get_profile_data),
+    path('api/profile/update/', update_profile_data),
 ]
 from django.http import HttpResponseForbidden
 

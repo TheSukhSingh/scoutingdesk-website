@@ -169,20 +169,36 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def get_user_licenses(request):
-    licenses = License.objects.filter(user=request.user)
+
+    licenses = License.objects.filter(
+        user=request.user
+    ).order_by("-created_at")
 
     data = []
 
     for l in licenses:
+
         data.append({
             "key": l.key,
+
             "package": l.package,
+
             "is_active": l.is_active,
+
             "device_bound": bool(l.device_id),
-            "created_at": l.created_at
+
+            "created_at": l.created_at,
+
+            "activated_at": l.activated_at,
+
+            "last_seen": l.last_seen,
+
+            "can_regenerate": True,
         })
 
-    return JsonResponse({"licenses": data})
+    return JsonResponse({
+        "licenses": data
+    })
 
 @login_required
 def dashboard_reset_device(request):

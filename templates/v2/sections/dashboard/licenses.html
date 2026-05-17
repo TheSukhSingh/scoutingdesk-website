@@ -1,0 +1,321 @@
+<div>
+
+    <div class="flex items-center justify-between mb-10">
+
+        <div>
+            <h1 class="text-4xl font-bold">
+                Licenses
+            </h1>
+
+            <p class="text-zinc-400 mt-2">
+                Manage your ScoutingDesk licenses and devices.
+            </p>
+        </div>
+
+    </div>
+
+
+
+    <!-- LICENSE LIST -->
+    <div
+        id="licenses-container"
+        class="space-y-6"
+    >
+    </div>
+
+</div>
+
+
+
+<script>
+
+async function loadLicenses() {
+
+    const response = await fetch(
+        "/api/license/my-licenses/"
+    )
+
+    const data = await response.json()
+
+    const container =
+        document.getElementById(
+            "licenses-container"
+        )
+
+    container.innerHTML = ""
+
+
+
+    if (!data.licenses.length) {
+
+        container.innerHTML = `
+            <div class="border border-zinc-800 rounded-2xl p-6">
+                <p class="text-zinc-400">
+                    No licenses found.
+                </p>
+            </div>
+        `
+
+        return
+    }
+
+
+
+    data.licenses.forEach(license => {
+
+        container.innerHTML += `
+
+            <div class="border border-zinc-800 rounded-2xl p-6">
+
+                <div class="flex items-start justify-between gap-6">
+
+                    <div class="space-y-5 flex-1">
+
+                        <!-- PACKAGE -->
+                        <div>
+                            <p class="text-sm text-zinc-500 mb-1">
+                                Package
+                            </p>
+
+                            <h2 class="text-2xl font-semibold capitalize">
+                                ${license.package}
+                            </h2>
+                        </div>
+
+
+
+                        <!-- KEY -->
+                        <div>
+                            <p class="text-sm text-zinc-500 mb-1">
+                                Activation Key
+                            </p>
+
+                            <div class="flex items-center gap-3">
+
+                                <code class="bg-zinc-900 px-4 py-3 rounded-xl text-sm">
+                                    ${license.key}
+                                </code>
+
+                                <button
+                                    onclick="copyKey('${license.key}')"
+                                    class="bg-zinc-900 hover:bg-zinc-800 transition px-4 py-2 rounded-xl text-sm"
+                                >
+                                    Copy
+                                </button>
+
+                            </div>
+                        </div>
+
+
+
+                        <!-- STATUS -->
+                        <div class="grid grid-cols-3 gap-5">
+
+                            <div>
+                                <p class="text-sm text-zinc-500 mb-1">
+                                    Status
+                                </p>
+
+                                <p class="${
+                                    license.is_active
+                                    ? 'text-green-400'
+                                    : 'text-red-400'
+                                }">
+                                    ${
+                                        license.is_active
+                                        ? 'Active'
+                                        : 'Inactive'
+                                    }
+                                </p>
+                            </div>
+
+
+
+                            <div>
+                                <p class="text-sm text-zinc-500 mb-1">
+                                    Device
+                                </p>
+
+                                <p>
+                                    ${
+                                        license.device_bound
+                                        ? 'Connected'
+                                        : 'Not Connected'
+                                    }
+                                </p>
+                            </div>
+
+
+
+                            <div>
+                                <p class="text-sm text-zinc-500 mb-1">
+                                    Created
+                                </p>
+
+                                <p>
+                                    ${
+                                        new Date(
+                                            license.created_at
+                                        ).toLocaleDateString()
+                                    }
+                                </p>
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- LAST SEEN -->
+                        ${
+                            license.last_seen
+                            ? `
+                                <div>
+                                    <p class="text-sm text-zinc-500 mb-1">
+                                        Last Seen
+                                    </p>
+
+                                    <p>
+                                        ${
+                                            new Date(
+                                                license.last_seen
+                                            ).toLocaleString()
+                                        }
+                                    </p>
+                                </div>
+                            `
+                            : ''
+                        }
+
+                    </div>
+
+
+
+                    <!-- ACTIONS -->
+                    <div class="flex flex-col gap-3">
+
+                        <button
+                            onclick="resetDevice('${license.key}')"
+                            class="bg-zinc-900 hover:bg-zinc-800 transition px-5 py-3 rounded-xl"
+                        >
+                            Reset Device
+                        </button>
+
+
+
+                        <button
+                            onclick="regenerateKey('${license.key}')"
+                            class="bg-white text-black px-5 py-3 rounded-xl font-medium"
+                        >
+                            Regenerate Key
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+        `
+    })
+}
+
+
+
+async function resetDevice(key) {
+
+    if (!confirm(
+        "Reset device for this license?"
+    )) {
+        return
+    }
+
+    const response = await fetch(
+        "/api/license/reset-device/",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            body: JSON.stringify({
+                activation_key: key
+            })
+        }
+    )
+
+    const data = await response.json()
+
+    if (data.success) {
+
+        alert("Device reset successful")
+
+        loadLicenses()
+
+    } else {
+
+        alert(
+            data.error || "Something went wrong"
+        )
+    }
+}
+
+
+
+async function regenerateKey(key) {
+
+    if (!confirm(
+        "Generate new activation key?"
+    )) {
+        return
+    }
+
+    const response = await fetch(
+        "/api/license/regenerate-key/",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            body: JSON.stringify({
+                activation_key: key
+            })
+        }
+    )
+
+    const data = await response.json()
+
+    if (data.success) {
+
+        alert(
+            "New Key Generated:\n\n" +
+            data.new_key
+        )
+
+        loadLicenses()
+
+    } else {
+
+        alert(
+            data.error || "Something went wrong"
+        )
+    }
+}
+
+
+
+function copyKey(key) {
+
+    navigator.clipboard.writeText(key)
+
+    alert("Key copied")
+}
+
+
+
+loadLicenses()
+
+</script>

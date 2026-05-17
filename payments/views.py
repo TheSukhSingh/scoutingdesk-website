@@ -12,6 +12,8 @@ from django.core.mail import send_mail
 from .models import Order
 from activation.utils import create_license, deactivate_license_by_order_object
 from activation.models import License
+from django.http import JsonResponse
+from django.db.models import Count, Sum
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -182,3 +184,72 @@ ScoutingDesk Team
             except Exception as e:
                 logger.error(f"Refund handling error: {str(e)}")
     return HttpResponse(status=200)
+from django.db.models import Q
+
+@login_required
+def billing_history(request):
+
+    orders = Order.objects.filter(
+        user=request.user
+    ).order_by("-created_at")
+
+
+    summary = orders.aggregate(
+
+        total_orders=Count("id"),
+
+        successful_payments=Count(
+            "id",
+            filter=Q(status="paid")
+        ),
+
+        failed_payments=Count(
+            "id",
+            filter=Q(status="failed")
+        ),
+
+        total_spent=Sum(
+            "amount",
+            filter=Q(status="paid")
+        )
+    )
+
+
+    data = []
+
+    for order in orders:
+
+        data.append({
+            "package": order.package,
+
+            "amount": order.amount / 100,
+
+            "status": order.status,
+
+            "created_at": order.created_at,
+
+            "session_id": (
+                order.stripe_session_id[:20] + "..."
+                if order.stripe_session_id
+                else "-"
+            )
+        })
+
+
+    return JsonResponse({
+        "summary": {
+            "total_orders":
+                summary["total_orders"] or 0,
+
+            "successful_payments":
+                summary["successful_payments"] or 0,
+
+            "failed_payments":
+                summary["failed_payments"] or 0,
+
+            "total_spent":
+                (summary["total_spent"] or 0) / 100,
+        },
+
+        "orders": data
+    })

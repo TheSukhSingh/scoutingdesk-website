@@ -19,7 +19,8 @@ class UserProfile(models.Model):
     is_locked = models.BooleanField(default=False)
     last_failed_at = models.DateTimeField(null=True, blank=True)
     locked_until = models.DateTimeField(null=True, blank=True)
-
+    club = models.CharField(max_length=255, null=True, blank=True)
+    role = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -2,102 +2,450 @@
 {% load static %}
 
 {% block content %}
-<div class="min-h-screen bg-black text-white flex">
 
-    <!-- SIDEBAR -->
-    <aside class="w-72 border-r border-zinc-800 p-6">
+<section class="relative overflow-hidden">
 
-        <nav class="space-y-2">
+    <!-- BACKGROUND -->
+    <div class="absolute inset-0
+        bg-gradient-to-br
+        from-[var(--color-primary)]
+        via-[var(--color-secondary)]
+        to-[var(--color-primary)]">
+    </div>
 
-            <button onclick="showSection('overview-section')"
-                class="dashboard-tab w-full text-left px-4 py-3 rounded-xl bg-zinc-900">
-                Dashboard
-            </button>
+    <!-- BLUE GLOW -->
+    <div class="absolute
+        top-[-180px]
+        left-[-120px]
+        w-[420px]
+        h-[420px]
+        rounded-full
+        bg-[var(--text-blue)]
+        opacity-[0.12]
+        blur-[140px]">
+    </div>
 
-            <button onclick="showSection('licenses-section')"
-                class="dashboard-tab w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-900">
-                Licenses
-            </button>
+    <div class="relative z-10">
 
-            <button onclick="showSection('billing-section')"
-                class="dashboard-tab w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-900">
-                Billing History
-            </button>
+        <!-- WORKSPACE -->
+        <div class="dashboard-workspace">
 
-            <button onclick="showSection('profile-section')"
-                class="dashboard-tab w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-900">
-                Profile & Security
-            </button>
+            <!-- SIDEBAR -->
+            <aside class="dashboard-sidebar">
 
-            <a href="/accounts/logout/" class="block px-4 py-3 rounded-xl hover:bg-zinc-900">
-                Logout
-            </a>
+                <div class="dashboard-sidebar-inner">
 
-        </nav>
+                    <!-- HEADER -->
+                    <div class="mb-10">
 
-    </aside>
+                        <h1 class="heading-sm text-white">
+                            Dashboard
+                        </h1>
+
+                        <p class="text-sm text-muted mt-2 leading-relaxed">
+                            Manage your licenses, billing and account settings.
+                        </p>
+
+                    </div>
+
+                    <!-- NAV -->
+                    <nav class="space-y-2">
+
+                        <!-- OVERVIEW -->
+                        <button onclick="showSection('overview-section', this)"
+                            class="dashboard-tab active-dashboard-tab">
+
+                            <div class="dashboard-tab-inner">
+                                Overview
+                            </div>
+
+                        </button>
+
+                        <!-- LICENSES -->
+                        <button onclick="showSection('licenses-section', this)" class="dashboard-tab">
+
+                            <div class="dashboard-tab-inner">
+                                Licenses
+                            </div>
+
+                        </button>
+
+                        <!-- BILLING -->
+                        <button onclick="showSection('billing-section', this)" class="dashboard-tab">
+
+                            <div class="dashboard-tab-inner">
+                                Billing History
+                            </div>
+
+                        </button>
+
+                        <!-- PROFILE -->
+                        <button onclick="showSection('profile-section', this)" class="dashboard-tab">
+
+                            <div class="dashboard-tab-inner">
+                                Profile & Security
+                            </div>
+
+                        </button>
+
+                    </nav>
+
+                    <!-- FOOT -->
+                    <div class="mt-auto pt-6">
+
+                        <a href="/accounts/logout/" class="dashboard-logout-btn">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-7.5A2.25 2.25 0 003.75 5.25v13.5A2.25 2.25 0 006 21h7.5a2.25 2.25 0 002.25-2.25V15m-3-3h8.25m0 0l-3-3m3 3l-3 3" />
+
+                            </svg>
+
+                            Logout
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </aside>
 
 
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-1 p-10 overflow-y-auto">
+            <!-- CONTENT -->
+            <main class="dashboard-content">
 
-        <!-- OVERVIEW -->
-        <section id="overview-section" class="dashboard-section">
-            {% include "v2/sections/dashboard/overview.html" %}
-        </section>
+                <!-- CONTENT GLOW -->
+                <div class="absolute
+                    top-[10%]
+                    right-[-120px]
+                    w-[260px]
+                    h-[260px]
+                    rounded-full
+                    bg-[var(--text-blue)]
+                    opacity-[0.08]
+                    blur-[120px]">
+                </div>
+
+                <div class="relative z-10">
+
+                    <!-- OVERVIEW -->
+                    <section id="overview-section" class="dashboard-section">
+
+                        {% include "v2/sections/dashboard/overview.html" %}
+
+                    </section>
+
+                    <!-- LICENSES -->
+                    <section id="licenses-section" class="dashboard-section hidden">
+
+                        {% include "v2/sections/dashboard/licenses.html" %}
+
+                    </section>
+
+                    <!-- BILLING -->
+                    <section id="billing-section" class="dashboard-section hidden">
+
+                        {% include "v2/sections/dashboard/billing.html" %}
+
+                    </section>
+
+                    <!-- PROFILE -->
+                    <section id="profile-section" class="dashboard-section hidden">
+
+                        {% include "v2/sections/dashboard/profile_security.html" %}
+
+                    </section>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+</section>
 
 
-        <!-- LICENSES -->
-        <section id="licenses-section" class="dashboard-section hidden">
-            {% include "v2/sections/dashboard/licenses.html" %}
-        </section>
+<style>
+    .dashboard-workspace {
+
+        display: grid;
+
+        grid-template-columns: 260px minmax(0, 1fr);
+
+        min-height: calc(100vh - 78px);
+    }
 
 
-        <!-- PROFILE -->
-        <section id="profile-section" class="dashboard-section hidden">
-            {% include "v2/sections/dashboard/profile_security.html" %}
-        </section>
+
+    /* SIDEBAR */
+
+    .dashboard-sidebar {
+
+        position: sticky;
+
+        top: 78px;
+
+        height: calc(100vh - 78px);
+
+        border-right: 1px solid var(--color-border);
+
+        background:
+            linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.015),
+                rgba(255, 255, 255, 0.008));
+
+        backdrop-filter: blur(16px);
+
+        overflow: hidden;
+    }
+
+    .dashboard-sidebar-inner {
+
+        display: flex;
+
+        flex-direction: column;
+
+        height: 100%;
+
+        padding: 1.7rem 1.15rem;
+    }
 
 
-        <!-- BILLING -->
-        <section id="billing-section" class="dashboard-section hidden">
-            {% include "v2/sections/dashboard/billing.html" %}
-        </section>
 
-    </main>
+    /* CONTENT */
 
-</div>
+    .dashboard-content {
 
+        position: relative;
+
+        min-width: 0;
+
+        width: 100%;
+
+        padding: 2rem;
+
+        height: calc(100vh - 78px);
+
+        overflow-y: auto;
+
+        overflow-x: hidden;
+    }
+
+    .dashboard-content>div {
+
+        min-width: 0;
+    }
+
+    .dashboard-section {
+
+        min-width: 0;
+    }
+
+
+
+    /* SCROLLBAR */
+
+    .dashboard-content::-webkit-scrollbar {
+
+        width: 7px;
+    }
+
+    .dashboard-content::-webkit-scrollbar-thumb {
+
+        background: rgba(255, 255, 255, 0.08);
+
+        border-radius: 999px;
+    }
+
+
+
+    /* TABS */
+
+    .dashboard-tab {
+
+        width: 100%;
+
+        text-align: left;
+
+        transition: all 0.22s ease;
+
+        padding-bottom: 0.65rem;
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .dashboard-tab-inner {
+
+        display: flex;
+
+        align-items: center;
+
+        min-height: 48px;
+
+        padding: 0 0.95rem;
+
+        border-radius: 14px;
+
+        font-size: 0.92rem;
+
+        font-weight: 500;
+
+        color: #dbe4f0;
+
+        transition: all 0.22s ease;
+    }
+
+    .dashboard-tab:hover .dashboard-tab-inner {
+
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .active-dashboard-tab .dashboard-tab-inner {
+
+        background:
+            rgba(71, 123, 255, 0.12);
+
+        border:
+            1px solid rgba(71, 123, 255, 0.14);
+
+        color: white;
+    }
+
+
+
+    /* LOGOUT */
+
+    .dashboard-logout-btn {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 0.7rem;
+
+        width: 100%;
+
+        color: #f87171;
+
+        font-size: 0.92rem;
+
+        font-weight: 500;
+
+        transition: all 0.22s ease;
+    }
+
+    .dashboard-logout-btn:hover {
+
+        color: #fca5a5;
+    }
+
+    .dashboard-logout-btn svg {
+
+        width: 18px;
+
+        height: 18px;
+    }
+
+
+
+    /* MOBILE */
+
+    @media (max-width: 1024px) {
+
+        .dashboard-workspace {
+
+            grid-template-columns: 1fr;
+        }
+
+        .dashboard-sidebar {
+
+            position: relative;
+
+            top: 0;
+
+            height: auto;
+
+            border-right: none;
+
+            border-bottom:
+                1px solid var(--color-border);
+        }
+
+        .dashboard-sidebar-inner {
+
+            height: auto;
+        }
+
+        .dashboard-content {
+
+            height: auto;
+
+            overflow: visible;
+
+            padding: 1.5rem;
+        }
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+        .dashboard-sidebar-inner {
+
+            padding: 1.2rem;
+        }
+
+        .dashboard-content {
+
+            padding: 1.1rem;
+        }
+
+        .dashboard-tab-inner {
+
+            min-height: 44px;
+
+            font-size: 0.88rem;
+        }
+
+    }
+</style>
 
 
 <script>
 
-    function showSection(sectionId) {
+    function showSection(sectionId, buttonElement) {
 
-        // hide all sections
-        document.querySelectorAll(".dashboard-section")
+        document
+            .querySelectorAll(".dashboard-section")
             .forEach(section => {
                 section.classList.add("hidden")
             })
 
-        // show selected section
         document
             .getElementById(sectionId)
             .classList.remove("hidden")
 
-
-        // reset active tab styles
-        document.querySelectorAll(".dashboard-tab")
+        document
+            .querySelectorAll(".dashboard-tab")
             .forEach(tab => {
-                tab.classList.remove("bg-zinc-900")
+                tab.classList.remove("active-dashboard-tab")
             })
 
-        // activate clicked tab
-        event.target.classList.add("bg-zinc-900")
+        buttonElement.classList.add(
+            "active-dashboard-tab"
+        )
     }
 
 </script>
-
 
 {% endblock %}

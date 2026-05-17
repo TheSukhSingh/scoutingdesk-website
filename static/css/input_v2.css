@@ -313,6 +313,7 @@
 .cookie-btn:hover {
     background: var(--btn-blue-hover);
 }
+
 /* =========================================================
    MOBILE MENU
 ========================================================= */
@@ -1177,9 +1178,8 @@
         min-width: 0;
         position: relative;
 
-        left: -15px;
-
-        width: calc(100% + 50px);
+        left: -25px;
+        width: fit-content;
     }
 
     /* LEFT */

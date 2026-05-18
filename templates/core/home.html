@@ -1,176 +1,20 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %}
+{% load static %}
 
-<div class="bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)]">
-  <!-- HERO -->
-  <section class="relative overflow-hidden min-h-[70vh] lg:min-h-[75vh] flex items-center">
-    <div
-      class="container-main relative z-10 grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] items-center gap-10 lg:gap-16 pt-12 pb-8">
+{% block content %}
 
-      <!-- LEFT CONTENT -->
-      <div class="md:max-w-xl text-center lg:text-left">
-        <h1 class="heading-lg text-white w-full leading-tight">
-          The Leading Software for
-          <span class="text-blue-400 font-semibold">
-            Professional Football Scouting
-          </span>
-          Reports
-        </h1>
+<!-- SECTION 1 - HERO SECTION -->
+{% include 'sections/home/hero.html' %}
 
-        <p class="text-body mt-6 text-[var(--color-text-light)]">
-          ScoutingDesk enables clubs, agencies and players to generate
-          structured, professional scouting reports with clarity, precision and
-          consistency.
-        </p>
+<!-- SECTION 2 - SHOWING HOW REPORTS LOOK LIKE -->
+{% include 'sections/home/report_showcase.html' %}
 
-        <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-          <a href="/#packages" class="btn-primary shadow-lg shadow-blue-500/20">
-            Purchase Software
-          </a>
-        </div>
-      </div>
+<!-- SECTION 3 - MOTIVE: THIS SECTION WILL TELL HOW A USER CAN GENERATE A REPORT EASILY AND SOME OTHER FEATURES -->
+{% include 'sections/home/workflow.html' %}
 
-      <!-- RIGHT IMAGE -->
-      <div class="flex justify-center w-full">
-        <img src="{% static 'images/laptopnew.webp' %}"
-          class="w-[90%] sm:w-[80%] md:w-full max-w-sm sm:max-w-md lg:max-w-lg rounded-lg" />
-      </div>
-    </div>
-  </section>
+<!-- SECTION 4 - MOTIVE: THIS SECTION WILL TELL HOW A USER NEEDS TO PURCHASE KEY TO USE IT AND HOW KEY REGENERATION WORKS  -->
 
-  <!-- SECTION 2 -->
-  <section id="product" class="bg-[var(--color-bg-2)] relative overflow-hidden min-h-[75vh] flex items-center">
-
-    <div class="container-main">
-      <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 py-12 sm:py-16 lg:py-24">
-        <div class="flex justify-center lg:justify-start">
-          <img src="{% static 'images/control.webp' %}"
-            class="w-[80%] sm:w-[60%] lg:w-[85%] max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] rounded-full" />
-        </div>
-
-        <div class="w-full max-w-lg mx-auto lg:mx-0 text-center lg:text-left text-black">
-          <h2 class="heading-lg leading-tight">
-            Scouting Reports
-            <span class="text-blue-600 font-semibold block mt-1">
-              Should Reflect the Level of the Organization
-            </span>
-          </h2>
-
-          <p class="text-body mt-6 text-gray-600 leading-relaxed">
-            Whether you're a professional club analyzing opposition, an agent
-            building player portfolios, or a player showcasing your abilities —
-            your reports need to look the part.
-          </p>
-
-          <ul class="text-body mt-6 space-y-3 text-gray-700">
-            <li>
-              • Industry-standard report templates used by professional scouts
-            </li>
-            <li>• Clean, modern formatting that commands attention</li>
-            <li>
-              • Structured data collection that ensures nothing is overlooked
-            </li>
-            <li>
-              • Exportable reports ready for presentations and negotiations
-            </li>
-            <li>• Complete offline functionality. No Internet Required.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features" class="py-16 lg:py-24 relative overflow-hidden">
-    <div class="container-main relative z-10">
-      <div class="text-center mb-12">
-        <h2 class="heading-lg text-white">Our Core Features</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
-        <div class="glass p-6 sm:p-8 rounded-xl card-hover">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xl">📄</span>
-            <h3 class="text-white heading-sm font-semibold">
-              Structured Report Framework
-            </h3>
-          </div>
-          <p class="text-body text-gray-300 leading-relaxed">
-            Pre-built templates covering individual players, match analysis, and
-            opposition scouting designed by industry professionals.
-          </p>
-        </div>
-
-        <div class="glass p-8 rounded-xl border border-white/30 card-hover">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xl">📊</span>
-            <h3 class="text-white heading-sm font-semibold">
-              Performance Evaluation Modules
-            </h3>
-          </div>
-          <p class="text-body text-gray-300 leading-relaxed">
-            Comprehensive attribute ratings across technical, physical and
-            mental categories with automatic averaging and overall scores.
-          </p>
-        </div>
-
-        <div class="glass p-6 sm:p-8 rounded-xl card-hover">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xl">⚙️</span>
-            <h3 class="text-white heading-sm font-semibold">
-              Automated Formatting Engine
-            </h3>
-          </div>
-          <p class="text-body text-gray-300 leading-relaxed">
-            Your data automatically populates professional report layouts — no
-            design skills required.
-          </p>
-        </div>
-
-        <div class="glass p-6 sm:p-8 rounded-xl card-hover">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xl">📑</span>
-            <h3 class="text-white heading-sm font-semibold">
-              A4 Executive PDF Export
-            </h3>
-          </div>
-          <p class="text-body text-gray-300 leading-relaxed">
-            Generate print-ready documents perfect for boardroom presentations,
-            agent meetings, or player portfolios.
-          </p>
-        </div>
-
-        <div class="glass p-6 sm:p-8 rounded-xl card-hover">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xl">💻</span>
-            <h3 class="text-white heading-sm font-semibold">
-              Offline Desktop Software
-            </h3>
-          </div>
-          <p class="text-body text-gray-300 leading-relaxed">
-            Work anywhere — training grounds, stadiums, airports. No internet
-            connection needed.
-          </p>
-        </div>
-
-        <div class="glass p-6 sm:p-8 rounded-xl card-hover">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xl">🔒</span>
-            <h3 class="text-white heading-sm font-semibold">
-              Secure On-Device Storage
-            </h3>
-          </div>
-          <p class="text-body text-gray-300 leading-relaxed">
-            Your scouting data stays on your device. Complete privacy and data
-            ownership.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  {% include 'pricing.html' %}
-
-</div>
+<!-- SECTION 5 - PRICING -->
+{% include 'sections/home/pricing.html' %}
 
 {% endblock %}

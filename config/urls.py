@@ -9,22 +9,22 @@ urlpatterns = [
     path('accounts/login/', custom_login, name='account_login'),
     path('accounts/', include('allauth.urls')),
     
-    path('', home, name="home"),
-    path('v2/', home_v2, name='home_v2'),
+    # path('', home, name="home"),
+    path('', home, name='home'),
 
+    # path('terms/', terms, name="terms"),
+    # path('cookie/', cookie, name="cookie"),
+    # path('privacy/', privacy, name="privacy"),
+    
     path('terms/', terms, name="terms"),
     path('cookie/', cookie, name="cookie"),
     path('privacy/', privacy, name="privacy"),
     
-    path('v2/terms/', terms_v2, name="terms_v2"),
-    path('v2/cookie/', cookie_v2, name="cookie_v2"),
-    path('v2/privacy/', privacy_v2, name="privacy_v2"),
-    
+    # path('download/', download_page, name='download'),
     path('download/', download_page, name='download'),
-    path('v2/download/', download_page_v2, name='download_v2'),
     
+    # path('dashboard/', dashboard, name='dashboard'),
     path('dashboard/', dashboard, name='dashboard'),
-    path('v2/dashboard/', dashboard_v2, name='dashboard_v2'),
     
     path('payments/', include('payments.urls')),
     path('download/app/', download_app, name='download_app'),

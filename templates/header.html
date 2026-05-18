@@ -1,55 +1,106 @@
 {% load static %}
-<nav class="bg-[var(--color-primary)] border-b border-white/15">
-  <div class="container-main flex items-center justify-between py-10">
-    <!-- LOGO -->
-    <a href="{% url 'home' %}">
-      <div class="flex items-center  gap-2">
-        <img src="{% static 'favicon.webp' %}" class="h-10 w-10" />
-        <img src="{% static 'images/logo_text.webp' %}" class="h-8" />
-      </div>
-    </a>
 
-    <!-- DESKTOP MENU -->
-    <div class="hidden lg:flex gap-8 text-sm text-gray-300">
-      <a href="/#product" class="hover:text-white transition">Product</a>
-      <a href="/#features" class="hover:text-white transition">Features</a>
-      <a href="/#packages" class="hover:text-white transition">Packages</a>
-      <a href="{% url 'download' %}" class="hover:text-white transition">Download</a>
-      {% if request.user.is_authenticated %}
-      <a href="{% url 'dashboard' %}" class="hover:text-white transition font-medium text-white">
-        Dashboard
-      </a>
-      {% endif %}
-      <!-- <a href="#" class="hover:text-white transition">Demo</a> -->
+<nav class="navbar fade-in">
+
+    <!-- TOP BAR -->
+    <div class="container-main navbar-inner">
+
+        <!-- LOGO -->
+        <a href="{% url 'home' %}" aria-label="Go to ScoutingDesk homepage">
+            <div class="navbar-logo-group">
+
+                <img src="{% static 'favicon.webp' %}" alt="ScoutingDesk logo icon" class="navbar-logo-icon" />
+
+                <img src="{% static 'images/logo_text.webp' %}" alt="ScoutingDesk" class="navbar-logo-text" />
+
+            </div>
+        </a>
+
+        <!-- DESKTOP NAV -->
+        <div class="hidden lg:flex items-center gap-8">
+
+            <a href="#product" class="nav-link">
+                Product
+            </a>
+
+            <a href="#features" class="nav-link">
+                Features
+            </a>
+
+            <a href="#packages" class="nav-link">
+                Packages
+            </a>
+
+            <a href="{% url 'download' %}" class="nav-link">
+                Download
+            </a>
+
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="nav-link font-semibold">
+                Dashboard
+            </a>
+            {% endif %}
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="flex items-center gap-3">
+
+            <a href="#packages" class="btn-primary navbar-cta hidden sm:inline-flex">
+                Purchase Software
+            </a>
+
+            <!-- HAMBURGER -->
+            <button id="menu-btn" class="navbar-menu-btn" aria-label="Open mobile menu" aria-expanded="false"
+                aria-controls="mobile-menu">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="navbar-menu-icon" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"
+                        d="M4 6h16M4 12h16M4 18h16" />
+
+                </svg>
+
+            </button>
+
+        </div>
+
     </div>
 
-    <!-- RIGHT SIDE -->
-    <div class="flex items-center gap-8">
-      <a href="/#packages" class="btn-primary hidden sm:inline-block text-sm">
-        Purchase Software
-      </a>
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="mobile-menu">
 
-      <button id="menu-btn" class="lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="white">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+        <div class="container-main mobile-menu-inner">
+
+            <a href="#product" class="mobile-nav-link">
+                Product
+            </a>
+
+            <a href="#features" class="mobile-nav-link">
+                Features
+            </a>
+
+            <a href="#packages" class="mobile-nav-link">
+                Packages
+            </a>
+
+            <a href="{% url 'download' %}" class="mobile-nav-link">
+                Download
+            </a>
+
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="mobile-nav-link font-semibold">
+                Dashboard
+            </a>
+            {% endif %}
+
+            <a href="#packages" class="btn-primary w-full justify-center mt-4">
+                Purchase Software
+            </a>
+
+        </div>
+
     </div>
-  </div>
 
-  <!-- MOBILE MENU -->
-  <div id="mobile-menu" class="hidden lg:hidden px-8 pb-8">
-    <div class="flex flex-col gap-8 text-gray-300 text-xl">
-      <a href="/#product" class="hover:text-white transition">Product</a>
-      <a href="/#features" class="hover:text-white transition">Features</a>
-      <a href="/#packages" class="hover:text-white transition">Packages</a>
-      <a href="{% url 'download' %}" class="hover:text-white transition">Download</a>
-      {% if request.user.is_authenticated %}
-      <a href="{% url 'dashboard' %}" class="hover:text-white transition font-medium text-white">
-        Dashboard
-      </a>
-      {% endif %}
-
-    </div>
-  </div>
 </nav>

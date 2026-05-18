@@ -1,67 +1,59 @@
 {% load static %}
-<footer class="bg-[var(--color-primary)] text-white pt-16 pb-6">
+<footer class="bg-[var(--color-primary)] text-white py-12 fade-in fade-delay-1">
   <div class="container-main">
-    <div class="grid sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
-      <div>
+    <div class="grid
+    grid-cols-1
+    sm:grid-cols-2
+    lg:grid-cols-[340px_auto_auto_auto]
+    gap-12
+    lg:gap-16
+    lg:justify-between">
+      <div class="flex flex-col items-center text-center sm:items-start sm:text-left">
         <div class="flex items-center gap-2">
-          <img src="{% static 'favicon.webp' %}" class="h-10 w-10" />
-          <img src="{% static 'images/logo_text.webp' %}" class="h-8" />
+          <img src="{% static 'favicon.webp' %}"     alt="ScoutingDesk icon" class="h-10 w-10" />
+          <img src="{% static 'images/logo_text.webp' %}"    alt="ScoutingDesk" class="h-8" />
         </div>
 
         <p class="text-sm text-gray-400 mt-4 leading-relaxed">
-          Structured desktop software for generating executive-level A4 scouting 
+          Structured desktop software for generating executive-level A4 scouting
           reports. Built for professional football clubs, agencies, and players.
         </p>
       </div>
 
-      <div class="mt-2">
+      <div class="mt-2 text-center sm:text-left flex flex-col items-center sm:items-start">
         <h3 class="font-semibold mb-4 text-white">Navigation</h3>
         <ul class="space-y-2 text-sm text-gray-400">
           <li>
-            <a href="/#product" class="hover:text-white transition"
-              >Product Overview</a
-            >
+            <a href="/#product" class="hover:text-white transition">Product Overview</a>
           </li>
           <li>
-            <a href="/#features" class="hover:text-white transition"
-              >Features</a
-            >
+            <a href="/#features" class="hover:text-white transition">Features</a>
           </li>
           <li>
-            <a href="/#packages" class="hover:text-white transition"
-              >Packages</a
-            >
+            <a href="/#packages" class="hover:text-white transition">Packages</a>
           </li>
           <li>
-            <a href="{% url 'download' %}" class="hover:text-white transition"
-              >Download</a
-            >
+            <a href="{% url 'download' %}" class="hover:text-white transition">Download</a>
           </li>
         </ul>
       </div>
 
-      <div class="mt-2">
+      <div class="mt-2 text-center sm:text-left flex flex-col items-center sm:items-start">
         <h3 class="font-semibold mb-4 text-white">Legal & Policies</h3>
         <ul class="space-y-2 text-sm text-gray-400">
           <li>
-            <a href="{% url 'privacy' %}" class="hover:text-white transition"
-              >Privacy Policy</a
-            >
+            <a href="{% url 'privacy' %}" class="hover:text-white transition">Privacy Policy</a>
           </li>
           <li>
-            <a href="{% url 'terms' %}" class="hover:text-white transition"
-              >Terms & Conditions</a
-            >
+            <a href="{% url 'terms' %}" class="hover:text-white transition">Terms & Conditions</a>
           </li>
           <li>
-            <a href="{% url 'cookie' %}" class="hover:text-white transition"
-              >Cookie Policy</a
-            >
+            <a href="{% url 'cookie' %}" class="hover:text-white transition"  aria-label="Learn more about our cookie policy">Cookie Policy</a>
           </li>
         </ul>
       </div>
 
-      <div class="mt-2">
+      <div class="mt-2 text-center sm:text-left flex flex-col items-center sm:items-start">
         <h3 class="font-semibold mb-4 text-white">Support</h3>
         <ul class="space-y-2 text-sm text-gray-400">
           <li class="text-white">info@scoutingdesk.com</li>
@@ -70,8 +62,7 @@
     </div>
 
     <div
-      class="border-t border-white/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400"
-    >
+      class="border-t border-white/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400 text-center sm:text-left gap-2">
       <p>Copyright@2026. All Rights Reserved</p>
       <p class="mt-2 sm:mt-0">C 72</p>
     </div>

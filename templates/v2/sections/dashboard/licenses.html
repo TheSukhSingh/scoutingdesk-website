@@ -4,7 +4,7 @@
     <div class="flex items-start justify-between gap-6 mb-8 flex-wrap">
 
         <div>
-            <h1 class="text-5xl font-semibold leading-tight">
+            <h1 class="text-4xl font-medium leading-tight">
                 Licenses
             </h1>
 
@@ -103,7 +103,7 @@
         </button>
 
     </div>
-
+    <div id="toast-container"></div>
 </div>
 
 
@@ -779,34 +779,11 @@
 
 <script>
 
-    /*
-        PAGINATION NOTE:
-
-        THIS IS CURRENTLY FRONTEND PAGINATION ONLY.
-
-        Backend is still returning ALL licenses.
-
-        Proper backend pagination should ideally be:
-        /api/license/my-licenses/?page=1&page_size=25
-
-        Then backend should return:
-        {
-            licenses: [],
-            total_pages: 12,
-            current_page: 1
-        }
-
-        BUT FOR NOW:
-        Frontend pagination is handling it.
-    */
-
 
 
     let allLicenses = []
 
     let currentPage = 1
-
-    const perPage = 25
 
     let currentAction = null
 
@@ -817,19 +794,21 @@
     async function loadLicenses() {
 
         const response = await fetch(
-            "/api/license/my-licenses/"
+            `/api/license/my-licenses/?page=${currentPage}`
         )
 
         const data = await response.json()
 
         allLicenses = data.licenses
 
+        window.paginationData = data.pagination
+
         renderLicenses()
     }
 
 
 
-    function renderLicenses() {
+  function renderLicenses() {
 
         const container =
             document.getElementById(
@@ -882,21 +861,7 @@
 
 
 
-        const totalPages =
-            Math.ceil(filtered.length / perPage)
 
-        if (currentPage > totalPages) {
-            currentPage = 1
-        }
-
-        const start =
-            (currentPage - 1) * perPage
-
-        const paginated =
-            filtered.slice(
-                start,
-                start + perPage
-            )
 
 
 
@@ -904,7 +869,7 @@
 
 
 
-        paginated.forEach(license => {
+        filtered.forEach(license => {
 
             container.innerHTML += `
 
@@ -1031,7 +996,7 @@
         document.getElementById(
             "pagination-info"
         ).innerText =
-            `Page ${currentPage} of ${totalPages || 1}`
+           `Page ${paginationData.current_page} of ${paginationData.total_pages || 1}`
     }
 
 
@@ -1186,11 +1151,23 @@
 
         if (data.success) {
 
+            showToast(
+                "success",
+                "Device Reset",
+                "Device unlink request completed successfully."
+            )
+
             loadLicenses()
+
+        } else {
+
+            showToast(
+                "error",
+                "Reset Failed",
+                data.error || "Something went wrong."
+            )
         }
     }
-
-
 
     async function regenerateKey(key) {
 
@@ -1218,76 +1195,84 @@
 
         if (data.success) {
 
+            showToast(
+                "success",
+                "Key Regenerated",
+                "A new activation key was generated successfully."
+            )
+
             loadLicenses()
+
+        } else {
+
+            showToast(
+                "error",
+                "Regeneration Failed",
+                data.error || "Something went wrong."
+            )
         }
     }
-
-
 
     /* =========================================================
        FILTERS
     ========================================================= */
 
-    document.getElementById(
-        "license-search"
-    ).addEventListener(
-        "input",
-        () => {
+document.getElementById(
+    "license-search"
+).addEventListener(
+    "input",
+    () => {
 
-            currentPage = 1
+        currentPage = 1
 
-            renderLicenses()
+        renderLicenses()
+    }
+)
+document.getElementById(
+    "package-filter"
+).addEventListener(
+    "change",
+    renderLicenses
+)
+
+document.getElementById(
+    "status-filter"
+).addEventListener(
+    "change",
+    renderLicenses
+)
+
+
+
+  document.getElementById(
+    "prev-page"
+).addEventListener(
+    "click",
+    () => {
+
+        if (paginationData.has_previous) {
+
+            currentPage--
+
+            loadLicenses()
         }
-    )
+    }
+)
 
+document.getElementById(
+    "next-page"
+).addEventListener(
+    "click",
+    () => {
 
-
-    document.getElementById(
-        "package-filter"
-    ).addEventListener(
-        "change",
-        renderLicenses
-    )
-
-
-
-    document.getElementById(
-        "status-filter"
-    ).addEventListener(
-        "change",
-        renderLicenses
-    )
-
-
-
-    document.getElementById(
-        "prev-page"
-    ).addEventListener(
-        "click",
-        () => {
-
-            if (currentPage > 1) {
-
-                currentPage--
-
-                renderLicenses()
-            }
-        }
-    )
-
-
-
-    document.getElementById(
-        "next-page"
-    ).addEventListener(
-        "click",
-        () => {
+        if (paginationData.has_next) {
 
             currentPage++
 
-            renderLicenses()
+            loadLicenses()
         }
-    )
+    }
+)
 
 
 

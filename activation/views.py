@@ -167,16 +167,34 @@ def validate_license(request):
 
 from django.contrib.auth.decorators import login_required
 
+from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+
+
 @login_required
 def get_user_licenses(request):
 
-    licenses = License.objects.filter(
-        user=request.user
-    ).order_by("-created_at")
+    page = request.GET.get("page", 1)
+
+    PER_PAGE = 20
+
+    licenses_queryset = (
+        License.objects
+        .filter(user=request.user)
+        .order_by("-created_at")
+    )
+
+    paginator = Paginator(
+        licenses_queryset,
+        PER_PAGE
+    )
+
+    current_page = paginator.get_page(page)
 
     data = []
 
-    for l in licenses:
+    for l in current_page.object_list:
 
         data.append({
             "key": l.key,
@@ -197,7 +215,21 @@ def get_user_licenses(request):
         })
 
     return JsonResponse({
-        "licenses": data
+        "licenses": data,
+
+        "pagination": {
+            "current_page": current_page.number,
+
+            "total_pages": paginator.num_pages,
+
+            "total_items": paginator.count,
+
+            "has_next": current_page.has_next(),
+
+            "has_previous": current_page.has_previous(),
+
+            "per_page": PER_PAGE,
+        }
     })
 
 @login_required

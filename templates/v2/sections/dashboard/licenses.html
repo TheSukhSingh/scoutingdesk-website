@@ -1,13 +1,14 @@
-<div>
+<div class="licenses-page">
 
-    <div class="flex items-center justify-between mb-10">
+    <!-- HEADER -->
+    <div class="flex items-start justify-between gap-6 mb-8 flex-wrap">
 
         <div>
-            <h1 class="text-4xl font-bold">
+            <h1 class="text-5xl font-semibold leading-tight">
                 Licenses
             </h1>
 
-            <p class="text-zinc-400 mt-2">
+            <p class="text-zinc-400 mt-3 text-lg">
                 Manage your ScoutingDesk licenses and devices.
             </p>
         </div>
@@ -16,306 +17,1280 @@
 
 
 
-    <!-- LICENSE LIST -->
-    <div
-        id="licenses-container"
-        class="space-y-6"
-    >
+    <!-- TOOLBAR -->
+    <div class="licenses-toolbar mb-6">
+
+        <!-- SEARCH -->
+        <div class="licenses-search-wrap">
+
+            <input type="text" id="license-search" placeholder="Search activation keys..."
+                class="licenses-search-input">
+
+        </div>
+
+
+
+        <!-- FILTERS -->
+        <div class="licenses-filters">
+
+            <select id="package-filter" class="licenses-select">
+                <option value="all">All Packages</option>
+                <option value="club">Club</option>
+                <option value="agency">Agency</option>
+                <option value="player">Player</option>
+            </select>
+
+            <select id="status-filter" class="licenses-select">
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TABLE -->
+    <div class="licenses-table-wrap">
+
+        <div class="overflow-x-auto">
+
+            <table class="licenses-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Package</th>
+                        <th>Activation Key</th>
+                        <th>Status</th>
+                        <th>Device</th>
+                        <th>Created</th>
+                        <th>Last Seen</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="licenses-container">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- PAGINATION -->
+    <div class="licenses-pagination">
+
+        <button id="prev-page" class="pagination-btn">
+            Previous
+        </button>
+
+        <div id="pagination-info" class="text-zinc-400 text-sm">
+            Page 1
+        </div>
+
+        <button id="next-page" class="pagination-btn">
+            Next
+        </button>
+
     </div>
 
 </div>
 
 
 
+<!-- =========================================================
+     MODAL
+========================================================= -->
+
+<div id="modal-overlay" class="custom-modal-overlay hidden">
+
+    <div class="custom-modal">
+
+        <div class="custom-modal-top">
+
+            <h3 id="modal-title">
+                Confirm Action
+            </h3>
+
+            <button onclick="closeModal()" class="custom-modal-close">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+
+        <p id="modal-description" class="custom-modal-description">
+
+        </p>
+
+
+
+        <!-- CONFIRM INPUT -->
+        <div id="confirm-input-wrap" class="hidden mt-5">
+
+            <label class="block text-sm text-zinc-400 mb-2">
+                Type "confirm" to continue
+            </label>
+
+            <input type="text" id="confirm-input" class="confirm-input" placeholder="confirm">
+
+        </div>
+
+
+
+        <div class="custom-modal-actions">
+
+            <button onclick="closeModal()" class="modal-btn secondary">
+
+                Cancel
+
+            </button>
+
+            <button id="modal-confirm-btn" class="modal-btn primary">
+
+                Continue
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<style>
+    /* =========================================================
+       TOOLBAR
+    ========================================================= */
+
+    .licenses-toolbar {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 1rem;
+
+        flex-wrap: wrap;
+    }
+
+    .licenses-search-wrap {
+
+        position: relative;
+
+        flex: 1;
+
+        min-width: 260px;
+    }
+
+    .licenses-search-icon {
+
+        position: absolute;
+
+        left: 16px;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        width: 18px;
+        height: 18px;
+
+        color: #64748b;
+    }
+
+    .licenses-search-input {
+
+        width: 100%;
+
+        height: 52px;
+
+        padding-left: 48px;
+        padding-right: 18px;
+
+        border-radius: 18px;
+
+        background:
+            linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.04),
+                rgba(255, 255, 255, 0.02));
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        color: white;
+
+        outline: none;
+
+        transition: all 0.25s ease;
+
+        backdrop-filter: blur(10px);
+    }
+
+    .licenses-search-input:focus {
+
+        border-color:
+            rgba(71, 123, 255, 0.35);
+
+        box-shadow:
+            0 0 0 4px rgba(71, 123, 255, 0.08);
+    }
+
+    .licenses-filters {
+
+        display: flex;
+
+        gap: 0.8rem;
+
+        flex-wrap: wrap;
+    }
+
+    .licenses-select {
+
+        height: 52px;
+
+        padding: 0 1rem;
+
+        border-radius: 16px;
+
+        background:
+            linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.04),
+                rgba(255, 255, 255, 0.02));
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        color: white;
+
+        outline: none;
+
+        min-width: 170px;
+
+        appearance: none;
+
+        cursor: pointer;
+    }
+
+    .licenses-select option {
+
+        background: #0f172a;
+
+        color: white;
+    }
+
+
+
+    /* =========================================================
+       TABLE
+    ========================================================= */
+
+    .licenses-table-wrap {
+
+        overflow: hidden;
+
+        border-radius: 28px;
+
+        background:
+            linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.035),
+                rgba(255, 255, 255, 0.015));
+
+        border:
+            1px solid rgba(255, 255, 255, 0.08);
+
+        backdrop-filter: blur(14px);
+    }
+
+    .licenses-table {
+
+        width: 100%;
+
+        min-width: 100%;
+
+        border-collapse: collapse;
+    }
+
+    .licenses-table thead {
+
+        background:
+            linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.04),
+                rgba(255, 255, 255, 0.02));
+    }
+
+    .licenses-table th {
+
+        text-align: left;
+
+        padding: 1.2rem 1.4rem;
+
+        font-size: 0.82rem;
+
+        font-weight: 500;
+
+        color: #94a3b8;
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .licenses-table td {
+
+        padding: 1.15rem 1rem;
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.05);
+
+        vertical-align: middle;
+    }
+
+    .licenses-table tbody tr {
+
+        transition: all 0.25s ease;
+    }
+
+    .licenses-table tbody tr:hover {
+
+        background:
+            rgba(255, 255, 255, 0.025);
+    }
+
+
+
+    /* =========================================================
+       KEY
+    ========================================================= */
+
+    .license-key {
+
+        position: relative;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        cursor: pointer;
+
+        font-family: monospace;
+
+        font-size: 0.82rem;
+
+        color: #dbe4f0;
+
+        transition: all 0.25s ease;
+    }
+
+    .license-key:hover {
+
+        color: #7aa2ff;
+    }
+
+    .license-key::after {
+
+        content: "Click to copy";
+
+        position: absolute;
+
+        top: -34px;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        padding: 0.4rem 0.7rem;
+
+        border-radius: 10px;
+
+        background: #0f172a;
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        font-size: 0.72rem;
+
+        color: #cbd5e1;
+
+        opacity: 0;
+
+        pointer-events: none;
+
+        transition: all 0.2s ease;
+
+        white-space: nowrap;
+    }
+
+    .license-key:hover::after {
+
+        opacity: 1;
+    }
+
+
+
+    /* =========================================================
+       STATUS
+    ========================================================= */
+
+    .license-status {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        padding: 0.45rem 0.9rem;
+
+        border-radius: 999px;
+
+        font-size: 0.78rem;
+
+        font-weight: 500;
+    }
+
+    .license-status.active {
+
+        background:
+            rgba(34, 197, 94, 0.08);
+
+        border:
+            1px solid rgba(34, 197, 94, 0.16);
+
+        color: #86efac;
+    }
+
+    .license-status.inactive {
+
+        background:
+            rgba(239, 68, 68, 0.08);
+
+        border:
+            1px solid rgba(239, 68, 68, 0.16);
+
+        color: #fca5a5;
+    }
+
+
+
+    /* =========================================================
+       SMALL TEXT
+    ========================================================= */
+
+    .license-small-text {
+
+        font-size: 0.82rem;
+
+        color: #cbd5e1;
+
+        line-height: 1.7;
+    }
+
+    .license-muted-text {
+
+        font-size: 0.8rem;
+
+        color: #64748b;
+
+        margin-top: 0.35rem;
+
+        line-height: 1.6;
+    }
+
+
+    /* =========================================================
+   INLINE ACTIONS
+========================================================= */
+
+    .license-actions-inline {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 0.65rem;
+
+        flex-wrap: nowrap;
+    }
+
+
+
+    /* BUTTON */
+
+    .license-btn {
+
+        height: 38px;
+
+        padding: 0 0.9rem;
+
+        border-radius: 12px;
+
+        font-size: 0.78rem;
+
+        font-weight: 500;
+
+        white-space: nowrap;
+
+        transition: all 0.25s ease;
+    }
+
+
+
+    /* RESET */
+
+    .license-btn.secondary {
+
+        background:
+            rgba(255, 255, 255, 0.03);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.08);
+
+        color: white;
+    }
+
+    .license-btn.secondary:hover {
+
+        background:
+            rgba(255, 255, 255, 0.06);
+    }
+
+
+
+    /* REGENERATE */
+
+    .license-btn.danger {
+
+        background:
+            rgba(239, 68, 68, 0.07);
+
+        border:
+            1px solid rgba(239, 68, 68, 0.14);
+
+        color: #fca5a5;
+    }
+
+    .license-btn.danger:hover {
+
+        background:
+            rgba(239, 68, 68, 0.12);
+    }
+
+
+    /* =========================================================
+       PAGINATION
+    ========================================================= */
+
+    .licenses-pagination {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 1rem;
+
+        margin-top: 2rem;
+    }
+
+    .pagination-btn {
+
+        height: 48px;
+
+        padding: 0 1.25rem;
+
+        border-radius: 14px;
+
+        background:
+            rgba(255, 255, 255, 0.03);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.08);
+
+        transition: all 0.25s ease;
+    }
+
+    .pagination-btn:hover {
+
+        background:
+            rgba(255, 255, 255, 0.06);
+    }
+
+
+
+    /* =========================================================
+       MODAL
+    ========================================================= */
+
+    .custom-modal-overlay {
+
+        position: fixed;
+
+        inset: 0;
+
+        background:
+            rgba(2, 10, 18, 0.78);
+
+        backdrop-filter: blur(10px);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        z-index: 9999;
+
+        padding: 1rem;
+    }
+
+    .custom-modal {
+
+        width: 100%;
+
+        max-width: 520px;
+
+        border-radius: 28px;
+
+        background:
+            linear-gradient(to bottom,
+                rgba(11, 23, 34, 0.98),
+                rgba(6, 13, 20, 0.98));
+
+        border:
+            1px solid rgba(255, 255, 255, 0.08);
+
+        padding: 1.8rem;
+    }
+
+    .custom-modal-top {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+    }
+
+    .custom-modal-top h3 {
+
+        font-size: 1.4rem;
+
+        font-weight: 600;
+    }
+
+    .custom-modal-close {
+
+        width: 40px;
+        height: 40px;
+
+        border-radius: 12px;
+
+        background:
+            rgba(255, 255, 255, 0.03);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .custom-modal-description {
+
+        margin-top: 1rem;
+
+        color: #94a3b8;
+
+        line-height: 1.8;
+    }
+
+    .custom-modal-actions {
+
+        display: flex;
+
+        justify-content: flex-end;
+
+        gap: 0.8rem;
+
+        margin-top: 2rem;
+    }
+
+    .modal-btn {
+
+        height: 48px;
+
+        padding: 0 1.2rem;
+
+        border-radius: 14px;
+    }
+
+    .modal-btn.secondary {
+
+        background:
+            rgba(255, 255, 255, 0.03);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .modal-btn.primary {
+
+        background:
+            linear-gradient(135deg,
+                #3553d0,
+                #4266f5);
+    }
+
+    .confirm-input {
+
+        width: 100%;
+
+        height: 52px;
+
+        padding: 0 1rem;
+
+        border-radius: 16px;
+
+        background:
+            rgba(255, 255, 255, 0.03);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.08);
+
+        color: white;
+
+        outline: none;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+
+
+
 <script>
 
-async function loadLicenses() {
+    /*
+        PAGINATION NOTE:
 
-    const response = await fetch(
-        "/api/license/my-licenses/"
-    )
+        THIS IS CURRENTLY FRONTEND PAGINATION ONLY.
 
-    const data = await response.json()
+        Backend is still returning ALL licenses.
 
-    const container =
+        Proper backend pagination should ideally be:
+        /api/license/my-licenses/?page=1&page_size=25
+
+        Then backend should return:
+        {
+            licenses: [],
+            total_pages: 12,
+            current_page: 1
+        }
+
+        BUT FOR NOW:
+        Frontend pagination is handling it.
+    */
+
+
+
+    let allLicenses = []
+
+    let currentPage = 1
+
+    const perPage = 25
+
+    let currentAction = null
+
+    let currentKey = null
+
+
+
+    async function loadLicenses() {
+
+        const response = await fetch(
+            "/api/license/my-licenses/"
+        )
+
+        const data = await response.json()
+
+        allLicenses = data.licenses
+
+        renderLicenses()
+    }
+
+
+
+    function renderLicenses() {
+
+        const container =
+            document.getElementById(
+                "licenses-container"
+            )
+
+        const search =
+            document.getElementById(
+                "license-search"
+            ).value.toLowerCase()
+
+        const packageFilter =
+            document.getElementById(
+                "package-filter"
+            ).value
+
+        const statusFilter =
+            document.getElementById(
+                "status-filter"
+            ).value
+
+
+
+        let filtered =
+            allLicenses.filter(license => {
+
+                const matchesSearch =
+                    license.key.toLowerCase()
+                        .includes(search)
+
+                const matchesPackage =
+                    packageFilter === "all"
+                    || license.package.toLowerCase()
+                    === packageFilter
+
+                const matchesStatus =
+                    statusFilter === "all"
+                    || (
+                        statusFilter === "active"
+                            ? license.is_active
+                            : !license.is_active
+                    )
+
+                return (
+                    matchesSearch
+                    && matchesPackage
+                    && matchesStatus
+                )
+            })
+
+
+
+        const totalPages =
+            Math.ceil(filtered.length / perPage)
+
+        if (currentPage > totalPages) {
+            currentPage = 1
+        }
+
+        const start =
+            (currentPage - 1) * perPage
+
+        const paginated =
+            filtered.slice(
+                start,
+                start + perPage
+            )
+
+
+
+        container.innerHTML = ""
+
+
+
+        paginated.forEach(license => {
+
+            container.innerHTML += `
+
+                <tr>
+
+                    <td>
+
+                        <div class="font-semibold capitalize text-white">
+                            ${license.package}
+                        </div>
+
+                    </td>
+
+
+
+                    <td>
+
+                        <div
+                            class="license-key"
+                            onclick="copyKey('${license.key}')">
+
+                            ${license.key}
+
+                        </div>
+
+                    </td>
+
+
+
+                    <td>
+
+                        <div class="
+                            license-status
+                            ${license.is_active
+                    ? 'active'
+                    : 'inactive'}
+                        ">
+                            ${license.is_active
+                    ? 'Active'
+                    : 'Inactive'}
+                        </div>
+
+                    </td>
+
+
+
+                    <td>
+
+                        <div class="license-small-text">
+
+                            ${license.device_bound
+                    ? 'Connected'
+                    : 'Not Connected'}
+
+                        </div>
+
+                    </td>
+
+
+
+                    <td>
+
+                        <div class="license-small-text">
+
+                            ${new Date(
+                        license.created_at
+                    ).toLocaleDateString()}
+
+                        </div>
+
+                    </td>
+
+
+
+                    <td>
+
+                        <div class="license-small-text">
+
+                            ${license.last_seen
+                    ? new Date(
+                        license.last_seen
+                    ).toLocaleDateString()
+                    : '-'}
+
+                        </div>
+
+                    </td>
+
+
+
+                  <td>
+
+    <div class="license-actions-inline">
+
+        <button
+            onclick="openResetModal('${license.key}')"
+            class="license-btn secondary">
+
+            Reset
+
+        </button>
+
+
+
+        <button
+            onclick="openRegenerateModal('${license.key}')"
+            class="license-btn danger">
+
+            Regenerate
+
+        </button>
+
+    </div>
+
+</td>
+
+                </tr>
+
+            `
+        })
+
+
+
         document.getElementById(
-            "licenses-container"
+            "pagination-info"
+        ).innerText =
+            `Page ${currentPage} of ${totalPages || 1}`
+    }
+
+
+
+    function copyKey(key) {
+
+        const cleaned =
+            key.replace(/^SD-/, '')
+
+        navigator.clipboard.writeText(
+            cleaned
         )
-
-    container.innerHTML = ""
-
-
-
-    if (!data.licenses.length) {
-
-        container.innerHTML = `
-            <div class="border border-zinc-800 rounded-2xl p-6">
-                <p class="text-zinc-400">
-                    No licenses found.
-                </p>
-            </div>
-        `
-
-        return
     }
 
 
 
-    data.licenses.forEach(license => {
+    /* =========================================================
+       MODALS
+    ========================================================= */
 
-        container.innerHTML += `
+    function openResetModal(key) {
 
-            <div class="border border-zinc-800 rounded-2xl p-6">
+        currentAction = "reset"
 
-                <div class="flex items-start justify-between gap-6">
+        currentKey = key
 
-                    <div class="space-y-5 flex-1">
+        document.getElementById(
+            "modal-title"
+        ).innerText =
+            "Reset Device?"
 
-                        <!-- PACKAGE -->
-                        <div>
-                            <p class="text-sm text-zinc-500 mb-1">
-                                Package
-                            </p>
+        document.getElementById(
+            "modal-description"
+        ).innerText =
+            "This will unlink the currently connected device from this license key. You can only reset once every 7 days."
 
-                            <h2 class="text-2xl font-semibold capitalize">
-                                ${license.package}
-                            </h2>
-                        </div>
+        document.getElementById(
+            "confirm-input-wrap"
+        ).classList.add("hidden")
 
-
-
-                        <!-- KEY -->
-                        <div>
-                            <p class="text-sm text-zinc-500 mb-1">
-                                Activation Key
-                            </p>
-
-                            <div class="flex items-center gap-3">
-
-                                <code class="bg-zinc-900 px-4 py-3 rounded-xl text-sm">
-                                    ${license.key}
-                                </code>
-
-                                <button
-                                    onclick="copyKey('${license.key}')"
-                                    class="bg-zinc-900 hover:bg-zinc-800 transition px-4 py-2 rounded-xl text-sm"
-                                >
-                                    Copy
-                                </button>
-
-                            </div>
-                        </div>
-
-
-
-                        <!-- STATUS -->
-                        <div class="grid grid-cols-3 gap-5">
-
-                            <div>
-                                <p class="text-sm text-zinc-500 mb-1">
-                                    Status
-                                </p>
-
-                                <p class="${
-                                    license.is_active
-                                    ? 'text-green-400'
-                                    : 'text-red-400'
-                                }">
-                                    ${
-                                        license.is_active
-                                        ? 'Active'
-                                        : 'Inactive'
-                                    }
-                                </p>
-                            </div>
-
-
-
-                            <div>
-                                <p class="text-sm text-zinc-500 mb-1">
-                                    Device
-                                </p>
-
-                                <p>
-                                    ${
-                                        license.device_bound
-                                        ? 'Connected'
-                                        : 'Not Connected'
-                                    }
-                                </p>
-                            </div>
-
-
-
-                            <div>
-                                <p class="text-sm text-zinc-500 mb-1">
-                                    Created
-                                </p>
-
-                                <p>
-                                    ${
-                                        new Date(
-                                            license.created_at
-                                        ).toLocaleDateString()
-                                    }
-                                </p>
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- LAST SEEN -->
-                        ${
-                            license.last_seen
-                            ? `
-                                <div>
-                                    <p class="text-sm text-zinc-500 mb-1">
-                                        Last Seen
-                                    </p>
-
-                                    <p>
-                                        ${
-                                            new Date(
-                                                license.last_seen
-                                            ).toLocaleString()
-                                        }
-                                    </p>
-                                </div>
-                            `
-                            : ''
-                        }
-
-                    </div>
-
-
-
-                    <!-- ACTIONS -->
-                    <div class="flex flex-col gap-3">
-
-                        <button
-                            onclick="resetDevice('${license.key}')"
-                            class="bg-zinc-900 hover:bg-zinc-800 transition px-5 py-3 rounded-xl"
-                        >
-                            Reset Device
-                        </button>
-
-
-
-                        <button
-                            onclick="regenerateKey('${license.key}')"
-                            class="bg-white text-black px-5 py-3 rounded-xl font-medium"
-                        >
-                            Regenerate Key
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-        `
-    })
-}
-
-
-
-async function resetDevice(key) {
-
-    if (!confirm(
-        "Reset device for this license?"
-    )) {
-        return
+        document.getElementById(
+            "modal-overlay"
+        ).classList.remove("hidden")
     }
 
-    const response = await fetch(
-        "/api/license/reset-device/",
-        {
-            method: "POST",
 
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
 
-            body: JSON.stringify({
-                activation_key: key
-            })
+    function openRegenerateModal(key) {
+
+        currentAction = "regenerate"
+
+        currentKey = key
+
+        document.getElementById(
+            "modal-title"
+        ).innerText =
+            "Regenerate License Key?"
+
+        document.getElementById(
+            "modal-description"
+        ).innerText =
+            "This will permanently delete the current activation key and generate a completely new one. Use this only if the key was leaked or compromised. Cooldown: 30 days."
+
+        document.getElementById(
+            "confirm-input-wrap"
+        ).classList.remove("hidden")
+
+        document.getElementById(
+            "modal-overlay"
+        ).classList.remove("hidden")
+    }
+
+
+
+    function closeModal() {
+
+        document.getElementById(
+            "modal-overlay"
+        ).classList.add("hidden")
+
+        document.getElementById(
+            "confirm-input"
+        ).value = ""
+    }
+
+
+
+    document.getElementById(
+        "modal-confirm-btn"
+    ).addEventListener(
+        "click",
+        async () => {
+
+            if (
+                currentAction === "regenerate"
+            ) {
+
+                const value =
+                    document.getElementById(
+                        "confirm-input"
+                    ).value.trim()
+
+                if (value !== "confirm") {
+
+                    alert(
+                        'Please type "confirm"'
+                    )
+
+                    return
+                }
+
+                await regenerateKey(
+                    currentKey
+                )
+
+            } else {
+
+                await resetDevice(
+                    currentKey
+                )
+            }
+
+            closeModal()
         }
     )
 
-    const data = await response.json()
 
-    if (data.success) {
 
-        alert("Device reset successful")
+    async function resetDevice(key) {
 
-        loadLicenses()
+        const response = await fetch(
+            "/api/license/reset-device/",
+            {
+                method: "POST",
 
-    } else {
+                headers: {
+                    "Content-Type":
+                        "application/json",
 
-        alert(
-            data.error || "Something went wrong"
+                    "X-CSRFToken":
+                        "{{ csrf_token }}"
+                },
+
+                body: JSON.stringify({
+                    activation_key: key
+                })
+            }
         )
-    }
-}
 
+        const data =
+            await response.json()
 
+        if (data.success) {
 
-async function regenerateKey(key) {
-
-    if (!confirm(
-        "Generate new activation key?"
-    )) {
-        return
+            loadLicenses()
+        }
     }
 
-    const response = await fetch(
-        "/api/license/regenerate-key/",
-        {
-            method: "POST",
 
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
 
-            body: JSON.stringify({
-                activation_key: key
-            })
+    async function regenerateKey(key) {
+
+        const response = await fetch(
+            "/api/license/regenerate-key/",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+
+                    "X-CSRFToken":
+                        "{{ csrf_token }}"
+                },
+
+                body: JSON.stringify({
+                    activation_key: key
+                })
+            }
+        )
+
+        const data =
+            await response.json()
+
+        if (data.success) {
+
+            loadLicenses()
+        }
+    }
+
+
+
+    /* =========================================================
+       FILTERS
+    ========================================================= */
+
+    document.getElementById(
+        "license-search"
+    ).addEventListener(
+        "input",
+        () => {
+
+            currentPage = 1
+
+            renderLicenses()
         }
     )
 
-    const data = await response.json()
 
-    if (data.success) {
 
-        alert(
-            "New Key Generated:\n\n" +
-            data.new_key
-        )
-
-        loadLicenses()
-
-    } else {
-
-        alert(
-            data.error || "Something went wrong"
-        )
-    }
-}
+    document.getElementById(
+        "package-filter"
+    ).addEventListener(
+        "change",
+        renderLicenses
+    )
 
 
 
-function copyKey(key) {
+    document.getElementById(
+        "status-filter"
+    ).addEventListener(
+        "change",
+        renderLicenses
+    )
 
-    navigator.clipboard.writeText(key)
-
-    alert("Key copied")
-}
 
 
+    document.getElementById(
+        "prev-page"
+    ).addEventListener(
+        "click",
+        () => {
 
-loadLicenses()
+            if (currentPage > 1) {
+
+                currentPage--
+
+                renderLicenses()
+            }
+        }
+    )
+
+
+
+    document.getElementById(
+        "next-page"
+    ).addEventListener(
+        "click",
+        () => {
+
+            currentPage++
+
+            renderLicenses()
+        }
+    )
+
+
+
+    loadLicenses()
 
 </script>

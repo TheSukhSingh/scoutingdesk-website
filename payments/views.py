@@ -186,26 +186,30 @@ ScoutingDesk Team
     return HttpResponse(status=200)
 from django.db.models import Q
 
+
+from django.core.paginator import Paginator
+from django.db.models import Q, Count, Sum
+
+
 @login_required
 def billing_history(request):
 
-    orders = Order.objects.filter(
-        user=request.user
-    ).order_by("-created_at")
+    page = request.GET.get("page", 1)
+
+    orders_queryset = (
+        Order.objects
+        .filter(user=request.user)
+        .order_by("-created_at")
+    )
 
 
-    summary = orders.aggregate(
 
-        total_orders=Count("id"),
+    # SUMMARY
+    summary = orders_queryset.aggregate(
 
         successful_payments=Count(
             "id",
             filter=Q(status="paid")
-        ),
-
-        failed_payments=Count(
-            "id",
-            filter=Q(status="failed")
         ),
 
         total_spent=Sum(
@@ -215,18 +219,44 @@ def billing_history(request):
     )
 
 
+
+    # PAGINATION
+    paginator = Paginator(
+        orders_queryset,
+        10
+    )
+
+    orders = paginator.get_page(page)
+
+
+
     data = []
 
-    for order in orders:
+    start_index = (
+        (orders.number - 1)
+        * paginator.per_page
+    )
+
+
+
+    for index, order in enumerate(orders, start=1):
 
         data.append({
-            "package": order.package,
 
-            "amount": order.amount / 100,
+            "serial_number":
+                start_index + index,
 
-            "status": order.status,
+            "package":
+                order.package,
 
-            "created_at": order.created_at,
+            "amount":
+                order.amount / 100,
+
+            "status":
+                order.status,
+
+            "created_at":
+                order.created_at,
 
             "session_id": (
                 order.stripe_session_id[:20] + "..."
@@ -236,20 +266,36 @@ def billing_history(request):
         })
 
 
+
     return JsonResponse({
+
         "summary": {
-            "total_orders":
-                summary["total_orders"] or 0,
 
             "successful_payments":
                 summary["successful_payments"] or 0,
-
-            "failed_payments":
-                summary["failed_payments"] or 0,
 
             "total_spent":
                 (summary["total_spent"] or 0) / 100,
         },
 
-        "orders": data
+
+
+        "orders": data,
+
+
+
+        "pagination": {
+
+            "current_page":
+                orders.number,
+
+            "total_pages":
+                paginator.num_pages,
+
+            "has_next":
+                orders.has_next(),
+
+            "has_previous":
+                orders.has_previous(),
+        }
     })

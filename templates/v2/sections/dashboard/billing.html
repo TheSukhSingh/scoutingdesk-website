@@ -1,12 +1,13 @@
-<div>
+<div class="billing-page">
 
-    <div class="mb-10">
+    <!-- HEADER -->
+    <div class="mb-8">
 
-        <h1 class="text-4xl font-medium">
+        <h1 class="text-4xl font-medium leading-tight">
             Billing
         </h1>
 
-        <p class="text-zinc-400 mt-2">
+        <p class="text-zinc-400 mt-3 text-lg">
             View your payment history and purchases.
         </p>
 
@@ -17,125 +18,284 @@
     <!-- SUMMARY -->
     <div
         id="billing-summary"
-        class="grid grid-cols-4 gap-6 mb-10"
-    >
+        class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
     </div>
 
 
 
     <!-- TABLE -->
-    <div class="border border-zinc-800 rounded-2xl overflow-hidden">
+    <div class="licenses-table-wrap">
 
-        <table class="w-full">
+        <div class="overflow-x-auto">
 
-            <thead class="bg-zinc-900">
+            <table class="licenses-table">
 
-                <tr>
+                <thead>
 
-                    <th class="text-left p-5">
-                        Package
-                    </th>
+                    <tr>
 
-                    <th class="text-left p-5">
-                        Amount
-                    </th>
+                        <th>S.No</th>
+                        <th>Package</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Session</th>
 
-                    <th class="text-left p-5">
-                        Status
-                    </th>
+                    </tr>
 
-                    <th class="text-left p-5">
-                        Date
-                    </th>
+                </thead>
 
-                    <th class="text-left p-5">
-                        Session
-                    </th>
+                <tbody id="billing-table-body">
 
-                </tr>
+                </tbody>
 
-            </thead>
+            </table>
 
-            <tbody
-                id="billing-table-body"
-            >
-            </tbody>
+        </div>
 
-        </table>
+    </div>
+
+
+
+    <!-- PAGINATION -->
+    <div class="licenses-pagination">
+
+        <button
+            id="billing-prev-page"
+            class="pagination-btn">
+
+            Previous
+
+        </button>
+
+
+
+        <div
+            id="billing-pagination-info"
+            class="text-zinc-400 text-sm">
+
+            Page 1
+
+        </div>
+
+
+
+        <button
+            id="billing-next-page"
+            class="pagination-btn">
+
+            Next
+
+        </button>
 
     </div>
 
 </div>
+<style>
 
+.overview-stat-card {
+
+    padding: 1.35rem;
+
+    min-height: 100px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.035),
+            rgba(255,255,255,0.015)
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(14px);
+
+    transition: all 0.25s ease;
+}
+
+
+
+.overview-stat-card:hover {
+
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(71,123,255,0.16);
+}
+
+
+
+.overview-stat-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+}
+
+
+
+.overview-stat-icon {
+
+    width: 54px;
+    height: 54px;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 1.1rem;
+
+    flex-shrink: 0;
+}
+
+
+
+.overview-stat-icon.green {
+
+    background:
+        rgba(34,197,94,0.1);
+
+    border:
+        1px solid rgba(34,197,94,0.18);
+}
+
+
+
+.overview-stat-icon.purple {
+
+    background:
+        rgba(168,85,247,0.1);
+
+    border:
+        1px solid rgba(168,85,247,0.18);
+}
+
+
+
+.overview-stat-label {
+
+    color: #94a3b8;
+
+    font-size: 0.88rem;
+
+    margin-bottom: 0.35rem;
+}
+
+
+
+.overview-stat-value {
+
+    font-size: 1.7rem;
+
+    font-weight: 700;
+}
+
+</style>
 
 
 <script>
 
+let billingCurrentPage = 1
+
+let billingPagination = {}
+
+
+
 async function loadBilling() {
 
     const response = await fetch(
-        "/payments/billing-history/"
+        `/payments/billing-history/?page=${billingCurrentPage}`
     )
 
     const data = await response.json()
 
 
 
-    // SUMMARY
-    document.getElementById(
-        "billing-summary"
-    ).innerHTML = `
+    /* =========================================================
+       SUMMARY
+    ========================================================= */
 
-        <div class="border border-zinc-800 rounded-2xl p-6">
-            <p class="text-zinc-400 mb-2">
-                Total Purchases
-            </p>
+document.getElementById(
+    "billing-summary"
+).innerHTML = `
 
-            <h2 class="text-3xl font-bold">
-                ${data.summary.total_orders}
-            </h2>
+    <!-- SUCCESSFUL PURCHASES -->
+    <div class="overview-stat-card">
+
+        <div class="overview-stat-top">
+
+            <div class="overview-stat-icon green">
+                ✓
+            </div>
+
+            <div>
+
+                <p class="overview-stat-label">
+                    Successful Purchases
+                </p>
+
+                <h2 class="overview-stat-value">
+
+                    ${data.summary.successful_payments}
+
+                </h2>
+
+            </div>
+
         </div>
 
+    </div>
 
 
-        <div class="border border-zinc-800 rounded-2xl p-6">
-            <p class="text-zinc-400 mb-2">
-                Successful Payments
-            </p>
 
-            <h2 class="text-3xl font-bold text-green-400">
-                ${data.summary.successful_payments}
-            </h2>
+    <!-- TOTAL SPENT -->
+    <div class="overview-stat-card">
+
+        <div class="overview-stat-top">
+
+            <div class="overview-stat-icon purple">
+                €
+            </div>
+
+            <div>
+
+                <p class="overview-stat-label">
+                    Total Spent
+                </p>
+
+                <h2 class="overview-stat-value">
+
+                    €${data.summary.total_spent}
+
+                </h2>
+
+            </div>
+
         </div>
 
+    </div>
+`
 
 
-        <div class="border border-zinc-800 rounded-2xl p-6">
-            <p class="text-zinc-400 mb-2">
-                Failed Payments
-            </p>
+    /* =========================================================
+       TABLE
+    ========================================================= */
 
-            <h2 class="text-3xl font-bold text-red-400">
-                ${data.summary.failed_payments}
-            </h2>
-        </div>
-
-
-
-        <div class="border border-zinc-800 rounded-2xl p-6">
-            <p class="text-zinc-400 mb-2">
-                Total Spent
-            </p>
-
-            <h2 class="text-3xl font-bold">
-                $${data.summary.total_spent}
-            </h2>
-        </div>
-    `
-
-
-
-    // TABLE
     const tableBody =
         document.getElementById(
             "billing-table-body"
@@ -148,13 +308,17 @@ async function loadBilling() {
     if (!data.orders.length) {
 
         tableBody.innerHTML = `
+
             <tr>
+
                 <td
-                    colspan="5"
-                    class="p-10 text-center text-zinc-500"
-                >
+                    colspan="6"
+                    class="p-10 text-center text-zinc-500">
+
                     No payment history found.
+
                 </td>
+
             </tr>
         `
 
@@ -167,56 +331,134 @@ async function loadBilling() {
 
         tableBody.innerHTML += `
 
-            <tr class="border-t border-zinc-800">
+            <tr>
 
-                <td class="p-5 capitalize">
+                <td>
+                    ${order.serial_number}
+                </td>
+
+
+
+                <td class="capitalize">
                     ${order.package}
                 </td>
 
 
 
-                <td class="p-5">
-                    $${order.amount}
+                <td>
+                    €${order.amount}
                 </td>
 
 
 
-                <td class="p-5">
+                <td>
 
-                    <span class="${
-                        order.status === "paid"
-                        ? "text-green-400"
-                        : order.status === "failed"
-                        ? "text-red-400"
-                        : "text-yellow-400"
-                    }">
+                    <div class="
+                        license-status
+                        ${order.status === "paid"
+                            ? "active"
+                            : "inactive"}
+                    ">
 
                         ${order.status}
 
-                    </span>
+                    </div>
 
                 </td>
 
 
 
-                <td class="p-5">
-                    ${
-                        new Date(
-                            order.created_at
-                        ).toLocaleString()
-                    }
+                <td>
+
+                    ${new Date(
+                        order.created_at
+                    ).toLocaleDateString()}
+
                 </td>
 
 
 
-                <td class="p-5 text-zinc-500 text-sm">
+                <td class="license-small-text">
+
                     ${order.session_id}
+
                 </td>
 
             </tr>
         `
     })
+
+
+
+    /* =========================================================
+       PAGINATION
+    ========================================================= */
+
+    billingPagination = data.pagination
+
+
+
+    document.getElementById(
+        "billing-pagination-info"
+    ).innerText =
+        `Page ${billingPagination.current_page} of ${billingPagination.total_pages || 1}`
+
+
+
+    document.getElementById(
+        "billing-prev-page"
+    ).disabled =
+        !billingPagination.has_previous
+
+
+
+    document.getElementById(
+        "billing-next-page"
+    ).disabled =
+        !billingPagination.has_next
 }
+
+
+
+/* =========================================================
+   PAGINATION EVENTS
+========================================================= */
+
+document.getElementById(
+    "billing-prev-page"
+).addEventListener(
+    "click",
+    () => {
+
+        if (
+            billingPagination.has_previous
+        ) {
+
+            billingCurrentPage--
+
+            loadBilling()
+        }
+    }
+)
+
+
+
+document.getElementById(
+    "billing-next-page"
+).addEventListener(
+    "click",
+    () => {
+
+        if (
+            billingPagination.has_next
+        ) {
+
+            billingCurrentPage++
+
+            loadBilling()
+        }
+    }
+)
 
 
 

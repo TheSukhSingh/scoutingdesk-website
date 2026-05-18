@@ -1,37 +1,1165 @@
-<h1 class="text-4xl font-medium mb-8">
-    Overview
-</h1>
+<div class="overview-page">
 
-<div class="grid grid-cols-3 gap-6">
+    <!-- HEADER -->
+    <div class="mb-8">
 
-    <div class="border border-zinc-800 rounded-2xl p-6">
-        <p class="text-zinc-400 mb-2">
-            Welcome
+        <h1 class="text-4xl font-medium leading-tight">
+            Overview
+        </h1>
+
+        <p class="text-zinc-400 mt-3 text-lg">
+            Welcome back, {{ request.user.first_name|default:request.user.email }}!
+            Here's an overview of your account.
         </p>
 
-        <h2 class="text-2xl font-semibold">
-            {{ request.user.first_name|default:request.user.email }}
-        </h2>
     </div>
 
-    <div class="border border-zinc-800 rounded-2xl p-6">
-        <p class="text-zinc-400 mb-2">
-            Active Plans
-        </p>
 
-        <h2 class="text-2xl font-semibold">
-            1
-        </h2>
+
+    <!-- =========================================================
+         TOP STATS
+    ========================================================== -->
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-5">
+
+        <!-- TOTAL LICENSES -->
+        <div class="overview-stat-card">
+
+            <div class="overview-stat-top">
+
+                <div class="overview-stat-icon blue">
+                    🔑
+                </div>
+
+                <div>
+
+                    <p class="overview-stat-label">
+                        Total Licenses
+                    </p>
+
+                    <h2 id="overview-total-licenses" class="overview-stat-value">
+
+                        0
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ACTIVE LICENSES -->
+        <div class="overview-stat-card">
+
+            <div class="overview-stat-top">
+
+                <div class="overview-stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+
+                    <p class="overview-stat-label">
+                        Active Licenses
+                    </p>
+
+                    <h2 id="overview-active-licenses" class="overview-stat-value">
+
+                        0
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- INACTIVE LICENSES -->
+        <div class="overview-stat-card">
+
+            <div class="overview-stat-top">
+
+                <div class="overview-stat-icon red">
+                    ✕
+                </div>
+
+                <div>
+
+                    <p class="overview-stat-label">
+                        Inactive Licenses
+                    </p>
+
+                    <h2 id="overview-inactive-licenses" class="overview-stat-value">
+
+                        0
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TOTAL SPENT -->
+        <div class="overview-stat-card">
+
+            <div class="overview-stat-top">
+
+                <div class="overview-stat-icon purple">
+                    €
+                </div>
+
+                <div>
+
+                    <p class="overview-stat-label">
+                        Total Spent
+                    </p>
+
+                    <h2 id="overview-total-spent" class="overview-stat-value">
+
+                        €0
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="border border-zinc-800 rounded-2xl p-6">
-        <p class="text-zinc-400 mb-2">
-            Active Device
-        </p>
 
-        <h2 class="text-2xl font-semibold">
-            Connected
-        </h2>
+
+    <!-- =========================================================
+         RECENT SECTION
+    ========================================================== -->
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-5 mb-5">
+
+        <!-- RECENT LICENSES -->
+        <div class="licenses-table-wrap p-5">
+
+            <div class="flex items-center justify-between mb-3">
+
+                <h2 class="text-xl font-semibold">
+                    Recent Licenses
+                </h2>
+
+                <button onclick="showSection('licenses-section', document.querySelector('[onclick*=licenses-section]'))"
+                    class="overview-small-btn">
+
+                    View All
+
+                </button>
+
+            </div>
+
+
+
+            <div id="overview-recent-licenses" class="space-y-1">
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RECENT BILLING -->
+        <div class="licenses-table-wrap p-5">
+
+            <div class="flex items-center justify-between mb-3">
+
+                <h2 class="text-xl font-semibold">
+                    Recent Billing History
+                </h2>
+
+                <button onclick="showSection('billing-section', document.querySelector('[onclick*=billing-section]'))"
+                    class="overview-small-btn">
+
+                    View All
+
+                </button>
+
+            </div>
+
+
+
+            <div id="overview-recent-billing" class="space-y-1">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         BOTTOM SECTION
+    ========================================================== -->
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-5 items-start">
+
+        <!-- JOURNEY -->
+        <div class="licenses-table-wrap p-6">
+
+            <h2 class="text-xl font-semibold mb-6">
+                Your Journey with ScoutingDesk
+            </h2>
+
+
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+
+                <!-- MEMBER -->
+                <div class="overview-mini-card">
+
+                    <div class="overview-mini-icon blue">
+                        📅
+                    </div>
+
+                    <p class="overview-mini-label">
+                        Member Since
+                    </p>
+
+                    <h3 id="overview-member-since" class="overview-mini-value">
+
+                        -
+
+                    </h3>
+
+                </div>
+
+
+
+                <!-- KEYS -->
+                <div class="overview-mini-card">
+
+                    <div class="overview-mini-icon green">
+                        🔑
+                    </div>
+
+                    <p class="overview-mini-label">
+                        Keys Generated
+                    </p>
+
+                    <h3 id="overview-keys-generated" class="overview-mini-value">
+
+                        0
+
+                    </h3>
+
+                </div>
+
+
+
+                <!-- PURCHASES -->
+                <div class="overview-mini-card">
+
+                    <div class="overview-mini-icon purple">
+                        💳
+                    </div>
+
+                    <p class="overview-mini-label">
+                        Total Purchases
+                    </p>
+
+                    <h3 id="overview-total-purchases" class="overview-mini-value">
+
+                        0
+
+                    </h3>
+
+                </div>
+
+
+
+                <!-- TRUST -->
+                <div class="overview-mini-card">
+
+                    <div class="overview-mini-icon orange">
+                        🛡
+                    </div>
+
+                    <p class="overview-mini-label">
+                        Trusted Platform
+                    </p>
+
+                    <h3 class="overview-mini-value small">
+                        Secure & Reliable
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- QUICK ACTIONS -->
+        <div class="licenses-table-wrap p-6">
+
+            <h2 class="text-xl font-semibold mb-6">
+                Quick Actions
+            </h2>
+
+
+
+            <div class="space-y-3">
+
+                <!-- LICENSES -->
+                <button onclick="showSection('licenses-section', document.querySelector('[onclick*=licenses-section]'))"
+                    class="overview-action-row">
+
+                    <div class="overview-action-left">
+
+                        <div class="overview-action-icon blue">
+                            🔑
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                View Licenses
+                            </h3>
+
+                            <p>
+                                Manage your activation keys and devices
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <span>›</span>
+
+                </button>
+
+
+
+                <!-- BILLING -->
+                <button onclick="showSection('billing-section', document.querySelector('[onclick*=billing-section]'))"
+                    class="overview-action-row">
+
+                    <div class="overview-action-left">
+
+                        <div class="overview-action-icon green">
+                            💳
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Billing History
+                            </h3>
+
+                            <p>
+                                View all your payments and invoices
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <span>›</span>
+
+                </button>
+
+
+
+                <!-- PROFILE -->
+                <button onclick="showSection('profile-section', document.querySelector('[onclick*=profile-section]'))"
+                    class="overview-action-row">
+
+                    <div class="overview-action-left">
+
+                        <div class="overview-action-icon purple">
+                            👤
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Profile & Security
+                            </h3>
+
+                            <p>
+                                Update your account information
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <span>›</span>
+
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
 
 </div>
+
+
+
+<style>
+    /* =========================================================
+   STAT CARDS
+========================================================= */
+
+    .overview-stat-card {
+
+        padding: 1.35rem;
+
+        min-height: 100px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        border-radius: 24px;
+
+        background:
+            linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.035),
+                rgba(255, 255, 255, 0.015));
+
+        border:
+            1px solid rgba(255, 255, 255, 0.08);
+
+        backdrop-filter: blur(14px);
+
+        transition: all 0.25s ease;
+    }
+
+
+
+    .overview-stat-card:hover {
+
+        transform: translateY(-2px);
+
+        border-color:
+            rgba(71, 123, 255, 0.16);
+    }
+
+
+
+    .overview-stat-top {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 1rem;
+    }
+
+
+
+    .overview-stat-icon {
+
+        width: 54px;
+        height: 54px;
+
+        border-radius: 16px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 1.1rem;
+
+        flex-shrink: 0;
+    }
+
+
+
+    .overview-stat-icon.blue {
+
+        background:
+            rgba(71, 123, 255, 0.12);
+
+        border:
+            1px solid rgba(71, 123, 255, 0.18);
+    }
+
+
+
+    .overview-stat-icon.green {
+
+        background:
+            rgba(34, 197, 94, 0.1);
+
+        border:
+            1px solid rgba(34, 197, 94, 0.18);
+    }
+
+
+
+    .overview-stat-icon.red {
+
+        background:
+            rgba(239, 68, 68, 0.1);
+
+        border:
+            1px solid rgba(239, 68, 68, 0.18);
+    }
+
+
+
+    .overview-stat-icon.purple {
+
+        background:
+            rgba(168, 85, 247, 0.1);
+
+        border:
+            1px solid rgba(168, 85, 247, 0.18);
+    }
+
+
+
+    .overview-stat-label {
+
+        color: #94a3b8;
+
+        font-size: 0.88rem;
+
+        margin-bottom: 0.35rem;
+    }
+
+
+
+    .overview-stat-value {
+
+        font-size: 1.7rem;
+
+        font-weight: 700;
+    }
+
+
+
+    /* =========================================================
+   SMALL BUTTON
+========================================================= */
+
+    .overview-small-btn {
+
+        height: 38px;
+
+        padding: 0 1rem;
+
+        border-radius: 12px;
+
+        background:
+            rgba(255, 255, 255, 0.03);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.08);
+
+        transition: all 0.25s ease;
+    }
+
+
+
+    .overview-small-btn:hover {
+
+        background:
+            rgba(255, 255, 255, 0.06);
+    }
+
+
+
+    /* =========================================================
+   RECENT ITEMS
+========================================================= */
+
+    .overview-recent-item {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 1rem;
+
+        padding: 0.65rem 0;
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.05);
+    }
+
+
+    .overview-recent-item:last-child {
+
+        border-bottom: none;
+    }
+
+
+    .overview-recent-left {
+
+        min-width: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 0.9rem;
+    }
+
+
+    .overview-recent-title {
+
+        font-size: 0.95rem;
+
+        font-weight: 600;
+
+        white-space: nowrap;
+    }
+
+
+    .overview-recent-subtitle {
+
+        font-size: 0.82rem;
+
+        color: #64748b;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        max-width: 220px;
+    }
+
+
+
+    .overview-recent-right {
+
+        flex-shrink: 0;
+    }
+
+
+
+    .overview-recent-price {
+
+        font-size: 1rem;
+
+        font-weight: 600;
+    }
+
+
+
+    /* =========================================================
+   MINI CARDS
+========================================================= */
+
+    .overview-mini-card {
+
+        text-align: center;
+    }
+
+
+
+    .overview-mini-icon {
+
+        width: 52px;
+        height: 52px;
+
+        margin: 0 auto 0.8rem;
+
+        border-radius: 16px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+    }
+
+
+
+    .overview-mini-icon.blue {
+
+        background:
+            rgba(71, 123, 255, 0.12);
+    }
+
+
+
+    .overview-mini-icon.green {
+
+        background:
+            rgba(34, 197, 94, 0.1);
+    }
+
+
+
+    .overview-mini-icon.purple {
+
+        background:
+            rgba(168, 85, 247, 0.1);
+    }
+
+
+
+    .overview-mini-icon.orange {
+
+        background:
+            rgba(251, 146, 60, 0.1);
+    }
+
+
+
+    .overview-mini-label {
+
+        font-size: 0.82rem;
+
+        color: #94a3b8;
+
+        margin-bottom: 0.45rem;
+    }
+
+
+
+    .overview-mini-value {
+
+        font-size: 1rem;
+
+        font-weight: 600;
+    }
+
+
+
+    .overview-mini-value.small {
+
+        font-size: 0.82rem;
+
+        line-height: 1.5;
+    }
+
+
+
+    /* =========================================================
+   ACTIONS
+========================================================= */
+
+    .overview-action-row {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 1rem;
+
+        width: 100%;
+
+        padding: 1rem;
+
+        border-radius: 18px;
+
+        background:
+            rgba(255, 255, 255, 0.025);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.06);
+
+        transition: all 0.25s ease;
+
+        text-align: left;
+    }
+
+
+
+    .overview-action-row:hover {
+
+        background:
+            rgba(255, 255, 255, 0.04);
+
+        transform: translateY(-1px);
+    }
+
+
+
+    .overview-action-left {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 1rem;
+    }
+
+
+
+    .overview-action-icon {
+
+        width: 48px;
+        height: 48px;
+
+        border-radius: 14px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        flex-shrink: 0;
+    }
+
+
+
+    .overview-action-row h3 {
+
+        font-size: 0.95rem;
+
+        font-weight: 600;
+
+        margin-bottom: 0.25rem;
+    }
+
+
+
+    .overview-action-row p {
+
+        font-size: 0.82rem;
+
+        color: #94a3b8;
+    }
+
+
+
+    /* =========================================================
+   MOBILE
+========================================================= */
+
+    @media (max-width: 768px) {
+
+        .overview-stat-value {
+
+            font-size: 1.45rem;
+        }
+
+    }
+
+    .overview-mini-card {
+
+        text-align: center;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: flex-start;
+    }
+</style>
+
+
+
+<script>
+
+    async function loadOverview() {
+
+        try {
+
+            const licenseResponse =
+                await fetch(
+                    "/api/license/my-licenses/?page=1"
+                )
+
+            const licenseData =
+                await licenseResponse.json()
+
+
+
+            const billingResponse =
+                await fetch(
+                    "/payments/billing-history/?page=1"
+                )
+
+            const billingData =
+                await billingResponse.json()
+
+
+
+            const profileResponse =
+                await fetch(
+                    "/api/profile/"
+                )
+
+            const profileData =
+                await profileResponse.json()
+
+
+
+            const licenses =
+                licenseData.licenses || []
+
+
+
+            const activeLicenses =
+                licenses.filter(
+                    l => l.is_active
+                ).length
+
+
+
+            const inactiveLicenses =
+                licenses.length - activeLicenses
+
+
+
+            /* =========================================================
+               TOP STATS
+            ========================================================= */
+
+            document.getElementById(
+                "overview-total-licenses"
+            ).innerText =
+                licenses.length
+
+
+
+            document.getElementById(
+                "overview-active-licenses"
+            ).innerText =
+                activeLicenses
+
+
+
+            document.getElementById(
+                "overview-inactive-licenses"
+            ).innerText =
+                inactiveLicenses
+
+
+
+            document.getElementById(
+                "overview-total-spent"
+            ).innerText =
+                `€${billingData.summary.total_spent}`
+
+
+
+            /* =========================================================
+               JOURNEY
+            ========================================================= */
+
+            document.getElementById(
+                "overview-member-since"
+            ).innerText =
+                new Date(
+                    profileData.created_at
+                ).toLocaleDateString()
+
+
+
+            document.getElementById(
+                "overview-keys-generated"
+            ).innerText =
+                licenses.length
+
+
+
+            document.getElementById(
+                "overview-total-purchases"
+            ).innerText =
+                billingData.summary.successful_payments
+
+
+
+            /* =========================================================
+               RECENT LICENSES
+            ========================================================= */
+
+            const recentLicensesContainer =
+                document.getElementById(
+                    "overview-recent-licenses"
+                )
+
+
+
+            recentLicensesContainer.innerHTML = ""
+
+
+
+            const recentLicenses =
+                [...licenses]
+                    .reverse()
+                    .slice(0, 3)
+
+
+
+            if (!recentLicenses.length) {
+
+                recentLicensesContainer.innerHTML = `
+
+                <div class="text-zinc-500 py-10 text-center">
+
+                    No licenses found.
+
+                </div>
+            `
+
+            } else {
+
+                recentLicenses.forEach(license => {
+
+                    recentLicensesContainer.innerHTML += `
+
+                    <div class="overview-recent-item">
+
+                        <div class="overview-recent-left">
+
+                            <div class="overview-recent-title capitalize">
+
+                                ${license.package}
+
+                            </div>
+
+                            <div class="overview-recent-subtitle">
+
+                                ${license.key}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="overview-recent-right">
+
+                            <div class="
+                                license-status
+                                ${license.is_active
+                            ? "active"
+                            : "inactive"}
+                            ">
+
+                                ${license.is_active
+                            ? "Active"
+                            : "Inactive"}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                `
+                })
+            }
+
+
+
+            /* =========================================================
+               RECENT BILLING
+            ========================================================= */
+
+            const recentBillingContainer =
+                document.getElementById(
+                    "overview-recent-billing"
+                )
+
+
+
+            recentBillingContainer.innerHTML = ""
+
+
+
+            const recentBilling =
+                [...billingData.orders]
+                    .slice(0, 3)
+
+
+
+            if (!recentBilling.length) {
+
+                recentBillingContainer.innerHTML = `
+
+                <div class="text-zinc-500 py-10 text-center">
+
+                    No recent purchases found.
+
+                </div>
+            `
+
+            } else {
+
+                recentBilling.forEach(order => {
+
+                    recentBillingContainer.innerHTML += `
+
+                    <div class="overview-recent-item">
+
+                        <div class="overview-recent-left">
+
+                            <div class="overview-recent-title capitalize">
+
+                                ${order.package}
+
+                            </div>
+
+                            <div class="overview-recent-subtitle">
+
+                                ${new Date(
+                        order.created_at
+                    ).toLocaleDateString()}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="overview-recent-right">
+
+                            <div class="overview-recent-price">
+
+                                €${order.amount}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                `
+                })
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Overview load error:",
+                error
+            )
+        }
+    }
+
+
+
+    loadOverview()
+
+</script>

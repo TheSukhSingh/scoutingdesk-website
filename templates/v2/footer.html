@@ -10,8 +10,8 @@
     lg:justify-between">
       <div class="flex flex-col items-center text-center sm:items-start sm:text-left">
         <div class="flex items-center gap-2">
-          <img src="{% static 'favicon.png' %}" class="h-10 w-10" />
-          <img src="{% static 'images/logo_text.png' %}" class="h-8" />
+          <img src="{% static 'favicon.png' %}"     alt="ScoutingDesk icon" class="h-10 w-10" />
+          <img src="{% static 'images/logo_text.png' %}"    alt="ScoutingDesk" class="h-8" />
         </div>
 
         <p class="text-sm text-gray-400 mt-4 leading-relaxed">
@@ -48,7 +48,7 @@
             <a href="{% url 'terms_v2' %}" class="hover:text-white transition">Terms & Conditions</a>
           </li>
           <li>
-            <a href="{% url 'cookie_v2' %}" class="hover:text-white transition">Cookie Policy</a>
+            <a href="{% url 'cookie_v2' %}" class="hover:text-white transition"  aria-label="Learn more about our cookie policy">Cookie Policy</a>
           </li>
         </ul>
       </div>

@@ -77,7 +77,9 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-    const fadeElements = document.querySelectorAll(".fade-up");
+    const animatedElements = document.querySelectorAll(
+        ".fade-up, .fade-in"
+    );
 
     const observer = new IntersectionObserver((entries) => {
 
@@ -97,7 +99,9 @@ document.addEventListener("DOMContentLoaded", () => {
         threshold: 0.12
     });
 
-    fadeElements.forEach((el) => observer.observe(el));
+    animatedElements.forEach((el) => {
+        observer.observe(el);
+    });
 
 });
 </script>

@@ -76,6 +76,16 @@
         opacity: 1;
         transform: translateY(0);
     }
+    .fade-in {
+        opacity: 0;
+        transition:
+            opacity 0.8s ease;
+        will-change: opacity;
+    }
+
+    .fade-in.show {
+        opacity: 1;
+    }
 
     .fade-delay-1 {
         transition-delay: 0.1s;

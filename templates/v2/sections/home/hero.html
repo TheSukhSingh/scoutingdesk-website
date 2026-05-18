@@ -1,6 +1,6 @@
 {% load static %}
 
-<section class="relative overflow-hidden">
+<section class="relative overflow-hidden ">
 
     <!-- BACKGROUND IMAGE -->
     <img src="{% static 'images/hero-image-updated.webp' %}" class="absolute top-0 right-0 z-0
@@ -13,7 +13,8 @@
         object-right
 
         [mask-image:linear-gradient(to_right,transparent_0%,black_12%,black_100%)]
-        [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_12%,black_100%)]" />
+        [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_12%,black_100%)]" loading="eager"
+        fetchpriority="high" decoding="async" />
 
     <!-- CONTENT -->
     <div class="container-main relative z-10">
@@ -21,10 +22,10 @@
         <div class="hero-layout">
 
             <!-- LEFT CONTENT -->
-            <div class="hero-content">
+            <div class="hero-content  ">
 
                 <!-- TOP TAG -->
-                <div class="hero-badge">
+                <div class="hero-badge fade-up">
 
                     <span>
                         PROFESSIONAL SCOUTING SOFTWARE
@@ -33,7 +34,7 @@
                 </div>
 
                 <!-- HEADING -->
-                <h1 class="hero-heading">
+                <h1 class="hero-heading fade-up ">
 
                     The Leading Software For
 
@@ -44,7 +45,7 @@
                 </h1>
 
                 <!-- DESCRIPTION -->
-                <p class="hero-description">
+                <p class="hero-description fade-up fade-delay-1">
 
                     ScoutingDesk helps clubs, agencies and players
                     turn performance data into professional scouting
@@ -56,7 +57,7 @@
                 <div class="hero-features">
 
                     <!-- ITEM -->
-                    <div class="hero-feature-item">
+                    <div class="hero-feature-item fade-up fade-delay-2">
 
                         <!-- <svg xmlns="http://www.w3.org/2000/svg" class="hero-feature-icon" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
@@ -66,7 +67,16 @@
 
                         </svg> -->
 
-                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text-icon lucide-file-text"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-file-text-icon lucide-file-text">
+                            <path
+                                d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+                            <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+                            <path d="M10 9H8" />
+                            <path d="M16 13H8" />
+                            <path d="M16 17H8" />
+                        </svg>
 
                         <p>
                             Professional <br> Reports
@@ -75,7 +85,7 @@
                     </div>
 
                     <!-- ITEM -->
-                    <div class="hero-feature-item">
+                    <div class="hero-feature-item fade-up fade-delay-2">
 
                         <!-- <svg xmlns="http://www.w3.org/2000/svg" class="hero-feature-icon" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
@@ -99,9 +109,15 @@
                     </div>
 
                     <!-- ITEM -->
-                    <div class="hero-feature-item">
+                    <div class="hero-feature-item fade-up fade-delay-2">
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key-round-icon lucide-key-round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-key-round-icon lucide-key-round">
+                            <path
+                                d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" />
+                            <circle cx="16.5" cy="7.5" r=".5" fill="currentColor" />
+                        </svg>
 
                         <p>
                             One-Time <br> Purchase
@@ -112,7 +128,7 @@
                 </div>
 
                 <!-- BUTTONS -->
-                <div class="hero-buttons">
+                <div class="hero-buttons fade-up fade-delay-3">
 
                     <a href="#" class="btn-primary hero-btn-primary">
                         Explore Packages
@@ -138,7 +154,7 @@
         max-h-[420px]
         object-cover
         object-center
-        opacity-95" />
+        opacity-95" loading="eager" fetchpriority="high" decoding="async" />
 
     </div>
 

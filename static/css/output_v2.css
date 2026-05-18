@@ -560,6 +560,36 @@ body {
   color: var(--color-text);
 }
 
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+            opacity 0.8s ease,
+            transform 0.8s ease;
+  will-change: opacity, transform;
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.fade-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.fade-delay-3 {
+  transition-delay: 0.3s;
+}
+
+.fade-delay-4 {
+  transition-delay: 0.4s;
+}
+
 .container {
   width: 100%;
 }

@@ -93,18 +93,22 @@
                     <!-- FOOT -->
                     <div class="mt-auto pt-6 fade-in">
 
-                        <a href="/accounts/logout/" class="dashboard-logout-btn">
+                        <!-- LOGOUT BUTTON -->
+                        <button onclick="openLogoutModal()" class="dashboard-logout-btn">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out">
+                                stroke-linejoin="round">
+
                                 <path d="m16 17 5-5-5-5" />
                                 <path d="M21 12H9" />
                                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+
                             </svg>
+
                             Logout
 
-                        </a>
+                        </button>
 
                     </div>
 
@@ -162,6 +166,50 @@
                 </div>
 
             </main>
+
+        </div>
+
+    </div>
+    <!-- LOGOUT MODAL -->
+    <div id="logout-modal-overlay" class="custom-modal-overlay modal-hidden">
+
+        <div class="custom-modal">
+
+            <div class="custom-modal-top">
+
+                <h3>
+                    Logout?
+                </h3>
+
+                <button onclick="closeLogoutModal()" class="custom-modal-close">
+
+                    ✕
+
+                </button>
+
+            </div>
+
+            <p class="custom-modal-description">
+
+                Are you sure you want to logout from your account?
+
+            </p>
+
+            <div class="custom-modal-actions">
+
+                <button onclick="closeLogoutModal()" class="modal-btn secondary">
+
+                    Cancel
+
+                </button>
+
+                <button onclick="confirmLogout()" class="modal-btn primary">
+
+                    Logout
+
+                </button>
+
+            </div>
 
         </div>
 
@@ -457,9 +505,43 @@
             sectionId
         )
     }
+    function openLogoutModal() {
 
+        document.getElementById(
+            "logout-modal-overlay"
+        ).classList.remove(
+            "modal-hidden"
+        )
+    }
 
+    function closeLogoutModal() {
 
+        document.getElementById(
+            "logout-modal-overlay"
+        ).classList.add(
+            "modal-hidden"
+        )
+    }
+
+function confirmLogout() {
+
+    fetch("/accounts/logout/", {
+        method: "POST",
+
+        headers: {
+            "X-CSRFToken":
+                "{{ csrf_token }}",
+
+            "Content-Type":
+                "application/json"
+        }
+
+    }).then(() => {
+
+        window.location.href = "/"
+
+    })
+}
     // RESTORE SECTION ON REFRESH
     window.addEventListener(
         "DOMContentLoaded",

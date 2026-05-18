@@ -202,32 +202,78 @@ def get_user_licenses(request):
 
 @login_required
 def dashboard_reset_device(request):
+    RESET_COOLDOWN_DAYS = 7
+
     if request.method != "POST":
-        return JsonResponse({"success": False, "error": "Invalid request"})
+        return JsonResponse({
+            "success": False, 
+            "error": "Invalid request"
+        })
 
     try:
         data = json.loads(request.body)
         key = data.get("activation_key")
 
         if not key:
-            return JsonResponse({"success": False, "error": "Missing key"})
+            return JsonResponse({
+                "success": False, 
+                "error": "Missing key"
+            })
         
         try:
             license = License.objects.get(key=key)
         except License.DoesNotExist:
-            return JsonResponse({"success": False, "error": "License not found"})
+            return JsonResponse({
+                "success": False, 
+                "error": "License not found"
+            })
 
         if license.user != request.user:
-            return JsonResponse({"success": False, "error": "Not allowed"})
+            return JsonResponse({
+                "success": False, 
+                "error": "Not allowed"
+            })
         
+        if license.last_device_reset_at:
+            cooldown_end = (
+                license.last_device_reset_at + timedelta(days=RESET_COOLDOWN_DAYS)
+            )
+            if timezone.now() < cooldown_end:
+                remaining_seconds = (cooldown_end - timezone.now()).total_seconds()
+                remaining_days = int(remaining_seconds // 86400) + 1
+
+                return JsonResponse({
+                    "success": False,
+                    "error": (
+                        f"You can reset device after {remaining_days} days"
+                    )
+                })
+
+        # Reset device and sessions
         license.device_id = None
         license.session_token = None
+        license.token_expires_at = None
+
+        # Tracks
+        license.last_device_reset_at = timezone.now()
+        license.device_reset_count += 1
+
         license.save()
+
+        LicenseActivity.objects.create(
+            license=license,
+            action='reset_device',
+            device_id="reset",
+            ip_address=get_client_ip(request)
+        )
 
         return JsonResponse({"success": True})
 
-    except Exception as e:
-        return JsonResponse({"success": False, "error": str(e)})
+    except Exception:
+        return JsonResponse({
+            "success": False, 
+            "error": "Something went wrong"
+            })
     
 import uuid
 from datetime import timedelta
@@ -239,26 +285,40 @@ def generate_unique_key():
         
 @login_required
 def regenerate_key(request):
+    REGENERATION_COOLDOWN_DAYS = 30
+
     if request.method != "POST":
-        return JsonResponse({"success": False, "error": "Invalid request"})
+        return JsonResponse({
+            "success": False, 
+            "error": "Invalid request"
+        })
 
     try:
         data = json.loads(request.body)
         key = data.get("activation_key")
 
         if not key:
-            return JsonResponse({"success": False, "error": "Missing key"})
+            return JsonResponse({
+                "success": False, 
+                "error": "Missing key"
+                })
         
         try:
             license = License.objects.get(key=key)
         except License.DoesNotExist:
-            return JsonResponse({"success": False, "error": "License not found"})
+            return JsonResponse({
+                "success": False, 
+                "error": "License not found"
+                })
 
         if license.user != request.user:
-            return JsonResponse({"success": False, "error": "Not allowed"})
+            return JsonResponse({
+                "success": False, 
+                "error": "Not allowed"
+                })
 
         if license.last_key_regenerated_at:
-            cooldown_end = license.last_key_regenerated_at + timedelta(days=7)
+            cooldown_end = license.last_key_regenerated_at + timedelta(days=REGENERATION_COOLDOWN_DAYS)
 
             if timezone.now() < cooldown_end:
                 remaining_seconds = (cooldown_end - timezone.now()).total_seconds()
@@ -272,15 +332,30 @@ def regenerate_key(request):
         new_key = generate_unique_key()
 
         license.key = new_key
+        
         license.device_id = None
         license.session_token = None
+        license.token_expires_at = None
+
         license.last_key_regenerated_at = timezone.now()
+        license.key_regeneration_count += 1
+
         license.save()
 
+        LicenseActivity.objects.create(
+            license=license,
+            action='regenerate_key',
+            device_id="regenerated",
+            ip_address=get_client_ip(request)
+        )
+        
         return JsonResponse({
             "success": True,
             "new_key": new_key
         })
 
-    except Exception as e:
-        return JsonResponse({"success": False, "error": str(e)})
+    except Exception:
+        return JsonResponse({
+            "success": False, 
+            "error": "Something went wrong"
+            })

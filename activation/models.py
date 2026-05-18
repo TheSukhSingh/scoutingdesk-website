@@ -19,24 +19,42 @@ class License(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="licenses")
-    last_key_regenerated_at = models.DateTimeField(null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
+
     key = models.CharField(max_length=32, unique=True, default=generate_activation_key)
-
     package = models.CharField(max_length=20, choices=PACKAGE_CHOICES)
-
     is_active = models.BooleanField(default=True)
 
-    # 🔐 Device binding (Phase 2 use)
-    device_id = models.CharField(max_length=255, null=True, blank=True)
 
-    # 📊 Tracking
+
+
+    # Device binding
+    device_id = models.CharField(max_length=255, null=True, blank=True)
+    session_token = models.CharField( max_length=255, null=True, blank=True, unique=True )
+
+    token_expires_at = models.DateTimeField(null=True, blank=True)
+
+    # Tracking
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     activated_at = models.DateTimeField(null=True, blank=True)
     last_seen = models.DateTimeField(null=True, blank=True)
-    session_token = models.CharField(max_length=255, null=True, blank=True)
-    token_expires_at = models.DateTimeField(null=True, blank=True)
-    # 💰 Link to order
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
+
+    last_key_regenerated_at = models.DateTimeField(null=True, blank=True)
+    last_device_reset_at = models.DateTimeField(null=True, blank=True)
+
+    device_reset_count = models.PositiveIntegerField(default=0) 
+    key_regeneration_count = models.PositiveIntegerField(default=0)
+
+    class Meta: 
+        indexes = [ 
+            models.Index(fields=["key"]), 
+            models.Index(fields=["session_token"]), 
+            models.Index(fields=["device_id"]), 
+            models.Index(fields=["user"]), 
+            models.Index(fields=["created_at"]), 
+        ]
 
     def __str__(self):
         return f"{self.user.email} - {self.package} - {self.key}"
@@ -49,6 +67,7 @@ class LicenseActivity(models.Model):
         ('failed', 'Failed Attempt'),
         ('switch', 'Device Switch'),
         ('login_failed', 'Login Failed'),
+        ('reset_device', 'Reset Device'), ('regenerate_key', 'Regenerate Key'),
     ]
 
     license = models.ForeignKey(
@@ -65,6 +84,13 @@ class LicenseActivity(models.Model):
     ip_address = models.GenericIPAddressField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta: 
+        indexes = [ 
+            models.Index(fields=["action"]), 
+            models.Index(fields=["created_at"]), 
+            models.Index(fields=["ip_address"]), 
+        ]
 
     def __str__(self):
         if self.license:

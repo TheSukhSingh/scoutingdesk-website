@@ -554,7 +554,11 @@ video {
   display: none;
 }
 
-body {
+html,
+    body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   font-family: "Poppins", sans-serif;
   background: var(--color-primary);
   color: var(--color-text);
@@ -2437,6 +2441,10 @@ body {
 
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
 }
 
 .rounded-2xl {

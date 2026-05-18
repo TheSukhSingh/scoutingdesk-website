@@ -95,13 +95,13 @@
 
                         <a href="/accounts/logout/" class="dashboard-logout-btn">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
 
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-7.5A2.25 2.25 0 003.75 5.25v13.5A2.25 2.25 0 006 21h7.5a2.25 2.25 0 002.25-2.25V15m-3-3h8.25m0 0l-3-3m3 3l-3 3" />
 
-                            </svg>
+                            </svg> -->
 
                             Logout
 
@@ -423,28 +423,98 @@
 
 <script>
 
+    const DASHBOARD_SECTION_KEY =
+        "dashboard_active_section"
+
     function showSection(sectionId, buttonElement) {
 
+        // Hide all sections
         document
             .querySelectorAll(".dashboard-section")
             .forEach(section => {
                 section.classList.add("hidden")
             })
 
+        // Show selected
         document
             .getElementById(sectionId)
             .classList.remove("hidden")
 
+        // Remove active state
         document
             .querySelectorAll(".dashboard-tab")
             .forEach(tab => {
                 tab.classList.remove("active-dashboard-tab")
             })
 
+        // Add active state
         buttonElement.classList.add(
             "active-dashboard-tab"
         )
+
+        // Save ONLY for refresh persistence
+        sessionStorage.setItem(
+            DASHBOARD_SECTION_KEY,
+            sectionId
+        )
     }
+
+
+
+    // RESTORE SECTION ON REFRESH
+    window.addEventListener(
+        "DOMContentLoaded",
+        () => {
+
+            const savedSection =
+                sessionStorage.getItem(
+                    DASHBOARD_SECTION_KEY
+                )
+
+            if (!savedSection) {
+                return
+            }
+
+            const targetSection =
+                document.getElementById(
+                    savedSection
+                )
+
+            if (!targetSection) {
+                return
+            }
+
+            const targetButton =
+                document.querySelector(
+                    `[onclick*="${savedSection}"]`
+                )
+
+            if (targetButton) {
+
+                showSection(
+                    savedSection,
+                    targetButton
+                )
+            }
+        }
+    )
+
+
+
+    // CLEAR ON NORMAL NAVIGATION
+    window.addEventListener(
+        "beforeunload",
+        () => {
+
+            if (
+                performance.navigation.type !== 1
+            ) {
+                sessionStorage.removeItem(
+                    DASHBOARD_SECTION_KEY
+                )
+            }
+        }
+    )
 
 </script>
 

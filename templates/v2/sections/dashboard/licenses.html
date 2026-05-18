@@ -112,7 +112,7 @@
      MODAL
 ========================================================= -->
 
-<div id="modal-overlay" class="custom-modal-overlay hidden">
+<div id="modal-overlay" class="custom-modal-overlay modal-hidden">
 
     <div class="custom-modal">
 
@@ -139,7 +139,7 @@
 
 
         <!-- CONFIRM INPUT -->
-        <div id="confirm-input-wrap" class="hidden mt-5">
+        <div id="confirm-input-wrap" class="modal-hidden mt-5">
 
             <label class="block text-sm text-zinc-400 mb-2">
                 Type "confirm" to continue
@@ -770,7 +770,7 @@
         outline: none;
     }
 
-    .hidden {
+    .modal-hidden {
         display: none;
     }
 </style>
@@ -1035,11 +1035,11 @@
 
         document.getElementById(
             "confirm-input-wrap"
-        ).classList.add("hidden")
+        ).classList.add("modal-hidden")
 
         document.getElementById(
             "modal-overlay"
-        ).classList.remove("hidden")
+        ).classList.remove("modal-hidden")
     }
 
 
@@ -1062,11 +1062,11 @@
 
         document.getElementById(
             "confirm-input-wrap"
-        ).classList.remove("hidden")
+        ).classList.remove("modal-hidden")
 
         document.getElementById(
             "modal-overlay"
-        ).classList.remove("hidden")
+        ).classList.remove("modal-hidden")
     }
 
 
@@ -1075,7 +1075,7 @@
 
         document.getElementById(
             "modal-overlay"
-        ).classList.add("hidden")
+        ).classList.add("modal-hidden")
 
         document.getElementById(
             "confirm-input"

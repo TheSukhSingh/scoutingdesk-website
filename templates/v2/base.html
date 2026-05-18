@@ -2,145 +2,137 @@
 <!doctype html>
 <html lang="en">
 
+
 <head>
+    <meta charset="UTF-8">
     <title>ScoutingDesk - Professional Football Scouting Software</title>
-<meta
-    name="description"
-    content="ScoutingDesk is a professional football scouting software for generating executive-level reports, player analysis, and structured scouting workflows."
->
+    <meta name="description"
+        content="ScoutingDesk is a professional football scouting software for generating executive-level reports, player analysis, and structured scouting workflows.">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static 'css/output_v2.css' %}" rel="stylesheet" />
 
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="ScoutingDesk - Professional Football Scouting Software">
+    <meta property="og:description"
+        content="Professional football scouting software for executive-level reports and player analysis.">
+    <meta property="og:type" content="website">
+
+
 </head>
 
 <body>
 
     {% include 'v2/header.html' %}
+<main id="main-content">
 
     {% block content %}{% endblock %}
+</main>
     {% include 'v2/footer.html' %}
     <div id="cookie-banner"
         class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-3xl bg-[var(--color-primary)] text-white px-6 py-4 rounded-xl shadow-xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 z-[9999] opacity-0 pointer-events-none transition-all duration-300">
 
         <p class="text-sm text-gray-300 leading-relaxed text-center sm:text-left">
             We use essential cookies to ensure the website functions properly.
-            <a href="/cookie/" class="text-blue-400 hover:underline ml-1">Learn more</a>
+            <a href="{% url 'cookie_v2' %}" class="text-blue-400 hover:underline ml-1"
+                aria-label="Read our cookie policy">Cookie Policy</a>
         </p>
 
-        <button id="cookie-accept"
-            class="cookie-btn text-white text-sm px-5 py-2 rounded-lg transition">
+        <button id="cookie-accept" class="cookie-btn text-white text-sm px-5 py-2 rounded-lg transition">
             Got it
         </button>
     </div>
-</body>
-<script>
 
-    const menuBtn = document.getElementById("menu-btn");
-    const mobileMenu = document.getElementById("mobile-menu");
+    <script>
 
-    menuBtn.addEventListener("click", () => {
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
 
-        mobileMenu.classList.toggle("open");
+        if (menuBtn && mobileMenu) {
 
-    });
+            menuBtn.addEventListener("click", () => {
 
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const banner = document.getElementById("cookie-banner");
-        const acceptBtn = document.getElementById("cookie-accept");
+                mobileMenu.classList.toggle("open");
 
-        // check if already accepted
-        const seen = localStorage.getItem("cookie_notice_seen");
+                const isOpen = mobileMenu.classList.contains("open");
 
-        if (!seen) {
-            // show banner
-            setTimeout(() => {
-                banner.classList.remove("opacity-0", "pointer-events-none");
-                banner.classList.add("opacity-100");
-            }, 300);
+                menuBtn.setAttribute(
+                    "aria-expanded",
+                    isOpen
+                );
+
+            });
+
         }
 
-        // on click accept
-        acceptBtn?.addEventListener("click", () => {
-            localStorage.setItem("cookie_notice_seen", "true");
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const banner = document.getElementById("cookie-banner");
+            const acceptBtn = document.getElementById("cookie-accept");
 
-            banner.classList.remove("opacity-100");
-            banner.classList.add("opacity-0");
+            // check if already accepted
+            const seen = localStorage.getItem("cookie_notice_seen");
 
-            setTimeout(() => {
-                banner.classList.add("pointer-events-none");
-            }, 300);
-        });
-    });
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-    const animatedElements = document.querySelectorAll(
-        ".fade-up, .fade-in"
-    );
-
-    const observer = new IntersectionObserver((entries) => {
-
-        entries.forEach((entry) => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.classList.add("show");
-
-                observer.unobserve(entry.target);
-
+            if (!seen) {
+                // show banner
+                setTimeout(() => {
+                    banner.classList.remove("opacity-0", "pointer-events-none");
+                    banner.classList.add("opacity-100");
+                }, 300);
             }
 
+            // on click accept
+            acceptBtn?.addEventListener("click", () => {
+                localStorage.setItem("cookie_notice_seen", "true");
+
+                banner.classList.remove("opacity-100");
+                banner.classList.add("opacity-0");
+
+                setTimeout(() => {
+                    banner.classList.add("pointer-events-none");
+                }, 300);
+            });
         });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
 
-    }, {
-        threshold: 0.12
-    });
+            const animatedElements = document.querySelectorAll(
+                ".fade-up, .fade-in"
+            );
 
-    animatedElements.forEach((el) => {
-        observer.observe(el);
-    });
+            animatedElements.forEach((el) => {
+                el.classList.add("animate-on-scroll");
+            });
 
-});
-</script>
-<script>
-    function showToast(type, title, message) {
+            const observer = new IntersectionObserver((entries) => {
 
-    const container =
-        document.getElementById(
-            "toast-container"
-        )
+                entries.forEach((entry) => {
 
-    const toast =
-        document.createElement("div")
+                    if (entry.isIntersecting) {
 
-    toast.className =
-        `custom-toast ${type}`
+                        entry.target.classList.add("show");
 
-    toast.innerHTML = `
+                        observer.unobserve(entry.target);
 
-        <div class="toast-title">
-            ${title}
-        </div>
+                    }
 
-        <div class="toast-message">
-            ${message}
-        </div>
+                });
 
-    `
+            }, {
+                threshold: 0.12
+            });
 
-    container.appendChild(toast)
+            animatedElements.forEach((el) => {
+                observer.observe(el);
+            });
 
-    setTimeout(() => {
+        });
+    </script>
+</body>
 
-        toast.remove()
 
-    }, 4000)
-}
-</script>
 </html>

@@ -63,7 +63,13 @@
         color: var(--color-text);
     }
 
-    .fade-up {
+    .fade-up,
+    .fade-in {
+        opacity: 1;
+        transform: none;
+    }
+
+    .fade-up.animate-on-scroll {
         opacity: 0;
         transform: translateY(40px);
         transition:
@@ -72,18 +78,18 @@
         will-change: opacity, transform;
     }
 
-    .fade-up.show {
+    .fade-up.animate-on-scroll.show {
         opacity: 1;
         transform: translateY(0);
     }
-    .fade-in {
+
+    .fade-in.animate-on-scroll {
         opacity: 0;
-        transition:
-            opacity 0.8s ease;
+        transition: opacity 0.8s ease;
         will-change: opacity;
     }
 
-    .fade-in.show {
+    .fade-in.animate-on-scroll.show {
         opacity: 1;
     }
 
@@ -102,8 +108,21 @@
     .fade-delay-4 {
         transition-delay: 0.4s;
     }
-}
 
+    @media (prefers-reduced-motion: reduce) {
+
+        .fade-up,
+        .fade-in,
+        .fade-up.animate-on-scroll,
+        .fade-in.animate-on-scroll {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+        }
+
+    }
+
+}
 
 /* =========================================================
    TYPOGRAPHY
@@ -2000,35 +2019,35 @@
 
     backdrop-filter: blur(14px);
 
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
     animation:
         toastSlide 0.25s ease;
 
     box-shadow:
-        0 10px 30px rgba(0,0,0,0.35);
+        0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
 .custom-toast.success {
 
     background:
         linear-gradient(to bottom,
-            rgba(22,101,52,0.96),
-            rgba(20,83,45,0.96));
+            rgba(22, 101, 52, 0.96),
+            rgba(20, 83, 45, 0.96));
 
     border-color:
-        rgba(34,197,94,0.22);
+        rgba(34, 197, 94, 0.22);
 }
 
 .custom-toast.error {
 
     background:
         linear-gradient(to bottom,
-            rgba(127,29,29,0.96),
-            rgba(69,10,10,0.96));
+            rgba(127, 29, 29, 0.96),
+            rgba(69, 10, 10, 0.96));
 
     border-color:
-        rgba(239,68,68,0.22);
+        rgba(239, 68, 68, 0.22);
 }
 
 .toast-title {
@@ -2048,7 +2067,7 @@
 
     line-height: 1.6;
 
-    color: rgba(255,255,255,0.82);
+    color: rgba(255, 255, 255, 0.82);
 }
 
 @keyframes toastSlide {
@@ -2058,8 +2077,7 @@
         opacity: 0;
 
         transform:
-            translateY(-10px)
-            translateX(10px);
+            translateY(-10px) translateX(10px);
     }
 
     to {
@@ -2067,7 +2085,6 @@
         opacity: 1;
 
         transform:
-            translateY(0)
-            translateX(0);
+            translateY(0) translateX(0);
     }
 }

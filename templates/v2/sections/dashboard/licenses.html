@@ -292,23 +292,24 @@
 
         color: white;
     }
-@media (max-width: 768px) {
 
-    .licenses-filters {
+    @media (max-width: 768px) {
 
-        width: 100%;
+        .licenses-filters {
 
-        justify-content: center;
+            width: 100%;
+
+            justify-content: center;
+        }
+
+        .licenses-select {
+
+            flex: 1;
+
+            min-width: 0;
+        }
+
     }
-
-    .licenses-select {
-
-        flex: 1;
-
-        min-width: 0;
-    }
-
-}
 
     /* =========================================================
        TABLE
@@ -790,7 +791,41 @@
     }
 </style>
 
+<script>
+    function showToast(type, title, message) {
 
+        const container =
+            document.getElementById(
+                "toast-container"
+            )
+
+        const toast =
+            document.createElement("div")
+
+        toast.className =
+            `custom-toast ${type}`
+
+        toast.innerHTML = `
+
+        <div class="toast-title">
+            ${title}
+        </div>
+
+        <div class="toast-message">
+            ${message}
+        </div>
+
+    `
+
+        container.appendChild(toast)
+
+        setTimeout(() => {
+
+            toast.remove()
+
+        }, 4000)
+    }
+</script>
 
 <script>
 
@@ -823,7 +858,7 @@
 
 
 
-  function renderLicenses() {
+    function renderLicenses() {
 
         const container =
             document.getElementById(
@@ -1011,7 +1046,7 @@
         document.getElementById(
             "pagination-info"
         ).innerText =
-           `Page ${paginationData.current_page} of ${paginationData.total_pages || 1}`
+            `Page ${paginationData.current_page} of ${paginationData.total_pages || 1}`
     }
 
 
@@ -1232,62 +1267,62 @@
        FILTERS
     ========================================================= */
 
-document.getElementById(
-    "license-search"
-).addEventListener(
-    "input",
-    () => {
+    document.getElementById(
+        "license-search"
+    ).addEventListener(
+        "input",
+        () => {
 
-        currentPage = 1
+            currentPage = 1
 
-        renderLicenses()
-    }
-)
-document.getElementById(
-    "package-filter"
-).addEventListener(
-    "change",
-    renderLicenses
-)
-
-document.getElementById(
-    "status-filter"
-).addEventListener(
-    "change",
-    renderLicenses
-)
-
-
-
-  document.getElementById(
-    "prev-page"
-).addEventListener(
-    "click",
-    () => {
-
-        if (paginationData.has_previous) {
-
-            currentPage--
-
-            loadLicenses()
+            renderLicenses()
         }
-    }
-)
+    )
+    document.getElementById(
+        "package-filter"
+    ).addEventListener(
+        "change",
+        renderLicenses
+    )
 
-document.getElementById(
-    "next-page"
-).addEventListener(
-    "click",
-    () => {
+    document.getElementById(
+        "status-filter"
+    ).addEventListener(
+        "change",
+        renderLicenses
+    )
 
-        if (paginationData.has_next) {
 
-            currentPage++
 
-            loadLicenses()
+    document.getElementById(
+        "prev-page"
+    ).addEventListener(
+        "click",
+        () => {
+
+            if (paginationData.has_previous) {
+
+                currentPage--
+
+                loadLicenses()
+            }
         }
-    }
-)
+    )
+
+    document.getElementById(
+        "next-page"
+    ).addEventListener(
+        "click",
+        () => {
+
+            if (paginationData.has_next) {
+
+                currentPage++
+
+                loadLicenses()
+            }
+        }
+    )
 
 
 

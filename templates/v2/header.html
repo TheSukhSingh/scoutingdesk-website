@@ -9,13 +9,9 @@
         <a href="{% url 'home_v2' %}" aria-label="Go to ScoutingDesk homepage">
             <div class="navbar-logo-group">
 
-                <img
-                    src="{% static 'favicon.png' %}"    alt="ScoutingDesk logo icon"
-                    class="navbar-logo-icon" />
+                <img src="{% static 'favicon.webp' %}" alt="ScoutingDesk logo icon" class="navbar-logo-icon" />
 
-                <img
-                    src="{% static 'images/logo_text.png' %}" alt="ScoutingDesk"
-                    class="navbar-logo-text" />
+                <img src="{% static 'images/logo_text.webp' %}" alt="ScoutingDesk" class="navbar-logo-text" />
 
             </div>
         </a>
@@ -40,8 +36,7 @@
             </a>
 
             {% if request.user.is_authenticated %}
-            <a href="{% url 'dashboard_v2' %}"
-                class="nav-link font-semibold">
+            <a href="{% url 'dashboard_v2' %}" class="nav-link font-semibold">
                 Dashboard
             </a>
             {% endif %}
@@ -51,24 +46,18 @@
         <!-- RIGHT SIDE -->
         <div class="flex items-center gap-3">
 
-            <a href="#packages"
-                class="btn-primary navbar-cta hidden sm:inline-flex">
+            <a href="#packages" class="btn-primary navbar-cta hidden sm:inline-flex">
                 Purchase Software
             </a>
 
             <!-- HAMBURGER -->
-            <button id="menu-btn" class="navbar-menu-btn">
+            <button id="menu-btn" class="navbar-menu-btn" aria-label="Open mobile menu" aria-expanded="false"
+                aria-controls="mobile-menu">
 
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="navbar-menu-icon"
-                    fill="none"
-                    viewBox="0 0 24 24"
+                <svg xmlns="http://www.w3.org/2000/svg" class="navbar-menu-icon" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
 
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2.3"
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"
                         d="M4 6h16M4 12h16M4 18h16" />
 
                 </svg>
@@ -101,14 +90,12 @@
             </a>
 
             {% if request.user.is_authenticated %}
-            <a href="{% url 'dashboard_v2' %}"
-                class="mobile-nav-link font-semibold">
+            <a href="{% url 'dashboard_v2' %}" class="mobile-nav-link font-semibold">
                 Dashboard
             </a>
             {% endif %}
 
-            <a href="#packages"
-                class="btn-primary w-full justify-center mt-4">
+            <a href="#packages" class="btn-primary w-full justify-center mt-4">
                 Purchase Software
             </a>
 

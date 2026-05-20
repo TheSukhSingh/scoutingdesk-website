@@ -15,21 +15,55 @@
 
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <meta name="robots" content="index, follow">
+    <meta property="og:url" content="https://scoutingdesk.com">
     <meta property="og:title" content="ScoutingDesk - Professional Football Scouting Software">
     <meta property="og:description"
         content="Professional football scouting software for executive-level reports and player analysis.">
     <meta property="og:type" content="website">
+    <link rel="canonical" href="https://scoutingdesk.com">
+    <!--
+Website developed by Sukhpreet Singh
+Portfolio: https://thesukhsingh.com
+-->
 
+    <meta name="author" content="Sukhpreet Singh">
+    <meta name="developer" content="Sukhpreet Singh">
+    <meta name="creator" content="Sukhpreet Singh">
+    <meta name="designer" content="Sukhpreet Singh">
+
+    <link rel="author" href="https://thesukhsingh.com">
+
+    <meta name="portfolio" content="https://thesukhsingh.com">
+
+    <meta property="article:author" content="Sukhpreet Singh">
+    <meta name="generator" content="Custom engineered by Sukhpreet Singh">
+    <meta name="build" content="Sukhpreet Singh | thesukhsingh.com">
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "ScoutingDesk",
+    "url": "https://scoutingdesk.com",
+"creator": {
+    "@type": "Person",
+    "name": "Sukhpreet Singh",
+    "url": "https://thesukhsingh.com",
+    "sameAs": [
+        "https://thesukhsingh.com"
+    ]
+}
+}
+</script>
 
 </head>
 
 <body>
 
     {% include 'header.html' %}
-<main id="main-content">
+    <main id="main-content">
 
-    {% block content %}{% endblock %}
-</main>
+        {% block content %}{% endblock %}
+    </main>
     {% include 'footer.html' %}
     <div id="cookie-banner"
         class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-3xl bg-[var(--color-primary)] text-white px-6 py-4 rounded-xl shadow-xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 z-[9999] opacity-0 pointer-events-none transition-all duration-300">
@@ -131,6 +165,14 @@
             });
 
         });
+    </script>
+    <script>
+        console.log(
+            "%cDeveloped by Sukhpreet Singh",
+            "font-size:14px;font-weight:bold;color:#4ade80;"
+        );
+
+        console.log("Portfolio: https://thesukhsingh.com");
     </script>
 </body>
 

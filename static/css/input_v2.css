@@ -59,8 +59,16 @@
 
     body {
         font-family: "Poppins", sans-serif;
-        background: var(--color-primary);
+        background:
+
+            linear-gradient(180deg,
+                var(--color-primary) 0%,
+                var(--color-secondary) 50%,
+                var(--color-primary) 100%);
+
+        background-attachment: fixed;
         color: var(--color-text);
+
     }
 
     .fade-up,
@@ -450,22 +458,6 @@
         max-width: 460px;
     }
 
-    /* BADGE */
-
-    .hero-badge {
-
-        @apply inline-flex items-center px-4 py-2 rounded-full border border-white/10 bg-white/5;
-
-        margin-bottom: 1.5rem;
-    }
-
-    .hero-badge span {
-
-        @apply text-xs tracking-wide;
-
-        color: #93c5fd;
-    }
-
     /* HEADING */
     .hero-heading {
 
@@ -600,7 +592,7 @@
 
         overflow: hidden;
 
-        background:
+        /* background:
 
             radial-gradient(circle at top left,
                 rgba(61, 110, 229, 0.11) 0%,
@@ -610,13 +602,7 @@
             radial-gradient(circle at bottom right,
                 rgba(61, 110, 229, 0.11) 0%,
                 rgba(61, 110, 229, 0.05) 18%,
-                transparent 38%),
-
-            linear-gradient(135deg,
-                #030b14 0%,
-                #06101b 35%,
-                #08111b 65%,
-                #040b14 100%);
+                transparent 38%), */
     }
 
 
@@ -747,10 +733,10 @@
 
         border-radius: 22px;
 
-        background:
+        /* background:
             linear-gradient(to bottom,
                 rgba(255, 255, 255, 0.04),
-                rgba(255, 255, 255, 0.02));
+                rgba(255, 255, 255, 0.02)); */
 
         border: 1px solid rgba(61, 110, 229, 0.35);
 
@@ -769,28 +755,6 @@
         border-color: rgba(61, 110, 229, 0.4);
     }
 
-
-    .pricing-badge {
-
-        @apply absolute;
-
-        top: -12px;
-        right: 20px;
-
-        padding: 0.45rem 0.8rem;
-
-        border-radius: 999px;
-
-        background: var(--btn-blue);
-
-        font-size: 0.72rem;
-
-        font-weight: 600;
-
-        letter-spacing: 0.05em;
-
-        color: white;
-    }
 
     .pricing-card-top {
 
@@ -967,7 +931,7 @@
     }
 
 
-    .report-showcase-badge {
+    .badge {
 
         @apply inline-flex items-center;
 
@@ -1499,6 +1463,316 @@
 }
 
 /* =========================================================
+   SETUP AND ACTIVATION SECTION
+========================================================= */
+
+@layer components {
+
+    .setup-section {
+        @apply py-16 lg:py-24;
+
+        position: relative;
+
+    }
+
+    .setup-layout {
+
+        display: grid;
+
+        grid-template-columns: minmax(0, 450px) minmax(0, 1fr);
+
+        gap: 2rem;
+
+        align-items: start;
+    }
+
+    @media (max-width: 1200px) {
+
+        .setup-layout {
+
+            grid-template-columns: 1fr;
+        }
+
+        .setup-content {
+
+            max-width: 700px;
+        }
+
+    }
+
+    .setup-heading {
+
+        font-size: 2.25rem;
+
+        font-weight: 600;
+
+        line-height: 1.25;
+
+        color: white;
+    }
+
+    .setup-heading span {
+
+        display: inline;
+
+        margin-top: 0.2rem;
+    }
+
+    .setup-description {
+
+        margin-top: 1.25rem;
+
+        font-size: 1rem;
+
+        line-height: 1.7;
+
+        color: #94a3b8;
+    }
+
+    /* RIGHT SIDE */
+
+    .setup-preview {
+
+        position: relative;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 1.5rem;
+    }
+
+    /* CARD */
+
+    .setup-step-card {
+
+        position: relative;
+
+        display: grid;
+
+        grid-template-columns: 55px minmax(0, 1fr) 200px;
+
+        gap: 1.25rem;
+
+        align-items: center;
+
+        min-height: 220px;
+
+        padding: 1rem;
+
+        border-radius: 24px;
+
+        border: 1px solid rgba(61, 110, 229, 0.14);
+
+        transition: all 0.3s ease;
+
+        overflow: visible;
+    }
+
+    .setup-step-card:hover {
+
+        transform: translateY(-2px);
+
+        border-color: rgba(71, 123, 255, 0.24);
+
+        box-shadow:
+            0 20px 50px rgba(0, 0, 0, 0.22);
+    }
+
+    /* LEFT */
+
+    .setup-step-left {
+
+        position: relative;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        height: 100%;
+    }
+
+    .setup-step-number {
+
+        position: relative;
+
+        z-index: 3;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 54px;
+        height: 54px;
+
+        border-radius: 999px;
+
+        font-size: 0.95rem;
+
+        font-weight: 600;
+
+        color: white;
+        /* 
+        background:
+            radial-gradient(circle at top,
+                rgba(71, 123, 255, 0.14),
+                rgba(71, 123, 255, 0.05)); */
+
+        border: 1px solid rgba(71, 123, 255, 0.45);
+
+        box-shadow:
+            0 0 12px rgba(71, 123, 255, 0.22),
+            inset 0 0 18px rgba(71, 123, 255, 0.08);
+    }
+
+    .setup-step-line {
+        position: absolute;
+        left: 50%;
+        top: calc(50% + 42px);
+        width: 2px;
+        /* Reduced height to create perfect symmetric spacing between the circles */
+        height: calc(100% - 60px);
+        transform: translateX(-50%);
+        /* Boosted bottom opacity so the line blends better into the solid arrow */
+        background: linear-gradient(to bottom,
+                rgba(71, 123, 255, 0.95),
+                rgba(71, 123, 255, 0.5));
+        z-index: 1;
+    }
+
+    /* ARROW */
+    .setup-step-line::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        /* Pulled up slightly so the line tip sits exactly inside the V vertex */
+        bottom: -2px;
+        width: 12px;
+        height: 12px;
+        border-right: 2px solid rgba(71, 123, 255, 0.85);
+        border-bottom: 2px solid rgba(71, 123, 255, 0.85);
+        transform: translateX(-50%) rotate(45deg);
+        filter: drop-shadow(0 0 6px rgba(71, 123, 255, 0.45));
+    }
+
+    .setup-step-card:last-child .setup-step-line {
+        display: none;
+    }
+
+    /* IMAGE */
+
+    .setup-step-image {
+
+        min-width: 0;
+    }
+
+    .setup-image {
+
+        height: 160px;
+
+        overflow: hidden;
+
+        position: relative;
+    }
+
+
+    /* RIGHT CONTENT */
+
+    .setup-step-content h3 {
+
+        font-size: 1.15rem;
+
+        font-weight: 600;
+
+        line-height: 1.4;
+
+        color: white;
+    }
+
+    .setup-step-content p {
+
+        margin-top: 0.65rem;
+
+        font-size: 0.92rem;
+
+        line-height: 1.7;
+
+        color: #94a3b8;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 1100px) {
+
+        .setup-step-card {
+
+            grid-template-columns: 60px minmax(0, 1fr);
+
+        }
+
+        .setup-step-content {
+
+            grid-column: 2;
+        }
+
+    }
+
+    @media (max-width: 640px) {
+
+        .setup-heading {
+
+            font-size: 1.7rem;
+
+            line-height: 1.4;
+        }
+
+        .setup-description {
+
+            font-size: 1rem;
+
+            line-height: 1.7;
+        }
+
+        .setup-step-card {
+
+            grid-template-columns: 48px 1fr;
+
+            gap: 0.9rem;
+
+            padding: 0.8rem;
+        }
+
+        .setup-image {
+
+            height: 120px;
+        }
+
+        .setup-step-number {
+
+            width: 40px;
+            height: 40px;
+
+            font-size: 0.82rem;
+        }
+
+        .setup-step-content h3 {
+
+            font-size: 1rem;
+        }
+
+        .setup-step-content p {
+
+            font-size: 0.88rem;
+        }
+
+    }
+}
+
+/* =========================================================
    WORKFLOW SECTION
 ========================================================= */
 
@@ -1512,14 +1786,14 @@
 
         overflow: hidden;
 
-        background:
-            radial-gradient(circle at top center,
+        /* background:
+             radial-gradient(circle at top center,
                 rgba(61, 110, 229, 0.08),
-                transparent 45%),
+                transparent 45%), 
 
             linear-gradient(to bottom,
                 #030b14,
-                #020912);
+                #020912); */
     }
 
     .workflow-bg {
@@ -1545,27 +1819,6 @@
         @apply text-center mx-auto;
 
         max-width: 860px;
-    }
-
-    .workflow-badge {
-
-        @apply inline-flex items-center;
-
-        padding: 0.55rem 1rem;
-
-        border-radius: 999px;
-
-        border: 1px solid rgba(61, 110, 229, 0.25);
-
-        background: rgba(61, 110, 229, 0.08);
-
-        font-size: 0.75rem;
-
-        letter-spacing: 0.06em;
-
-        color: #93c5fd;
-
-        margin-bottom: 1.5rem;
     }
 
     .workflow-heading {

@@ -11,7 +11,8 @@
   },
   "scripts": {
     "dev": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch",
-    "dev:v2": "tailwindcss -i ./static/css/input_v2.css -o ./static/css/output_v2.css --config tailwind.config.v2.js --watch"
+    "dev:v2": "tailwindcss -i ./static/css/input_v2.css -o ./static/css/output_v2.css --config tailwind.config.v2.js --watch",
+    "host": "git pull && ./venv/bin/python manage.py collectstatic --noinput && systemctl restart scoutingdesk"
   },
   "repository": {
     "type": "git",

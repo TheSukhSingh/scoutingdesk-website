@@ -1427,17 +1427,30 @@
     @media (max-width: 640px) {
 
         .report-toolbar {
+            width: 100%;
+            left: 0;
+        }
 
-            padding: 0.45rem;
+        .report-toolbar-left {
+
+            display: grid;
+
+            grid-template-columns: 1fr;
+
+            gap: 0.5rem;
+
+            width: 100%;
+
+            overflow: visible;
         }
 
         .report-tab {
 
-            min-height: 48px;
+            width: 100%;
+
+            justify-content: flex-start;
 
             padding: 0 1rem;
-
-            font-size: 0.82rem;
         }
 
         .report-tab-icon {
@@ -1469,11 +1482,17 @@
             grid-template-columns: 1fr;
         }
 
+
         .report-mode-row {
 
-            justify-content: flex-start;
+            justify-content: flex-end;
 
-            margin-top: -0.5rem;
+            width: 100%;
+        }
+
+        .report-toolbar-right {
+
+            width: auto;
         }
 
     }

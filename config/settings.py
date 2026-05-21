@@ -124,17 +124,17 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET", "dev-secret-123")
 STRIPE_PRICES = {
     "player": {
         "name": "Player Package",
-        "price": 49,
+        "price": 4900,
         "price_id": os.getenv("STRIPE_PLAYER_PRICE_ID"),
     },
     "agency": {
         "name": "Agency Package",
-        "price": 99,
+        "price": 9900,
         "price_id": os.getenv("STRIPE_AGENCY_PRICE_ID"),
     },
     "club": {
         "name": "Club Package",
-        "price": 199,
+        "price": 19900,
         "price_id": os.getenv("STRIPE_CLUB_PRICE_ID"),
     },
 }

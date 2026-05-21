@@ -47,7 +47,7 @@ def dashboard_context(request):
         ).aggregate(
             total=Sum("amount")
         )["total"] or 0
-    ) / 100
+    ) / 100.0
 
     weekly_revenue = (
         Order.objects.filter(
@@ -56,7 +56,7 @@ def dashboard_context(request):
         ).aggregate(
             total=Sum("amount")
         )["total"] or 0
-    ) / 100
+    ) / 100.0
 
     monthly_revenue = (
         Order.objects.filter(
@@ -65,7 +65,7 @@ def dashboard_context(request):
         ).aggregate(
             total=Sum("amount")
         )["total"] or 0
-    ) / 100
+    ) / 100.0
 
     # =========================
     # RECENT PAYMENTS
@@ -109,7 +109,7 @@ def dashboard_context(request):
             ).aggregate(
                 total=Sum("amount")
             )["total"] or 0
-        ) / 100
+        ) / 100.0
 
         revenue_labels.append(day.strftime("%a"))
 

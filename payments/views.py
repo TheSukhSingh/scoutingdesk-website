@@ -275,7 +275,7 @@ def billing_history(request):
                 summary["successful_payments"] or 0,
 
             "total_spent":
-                (summary["total_spent"] or 0) / 100,
+                (summary["total_spent"] or 0) / 100.0,
         },
 
 

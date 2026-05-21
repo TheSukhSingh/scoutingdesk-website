@@ -1,0 +1,228 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 transition hover:border-zinc-700 shadow">
+        <p class="text-sm text-zinc-400">Total Revenue</p>
+        <h2 class="text-4xl font-bold mt-3 text-white">
+            €{{ dashboard_stats.total_revenue }}
+        </h2>
+    </div>
+
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 transition hover:border-zinc-700 shadow">
+        <p class="text-sm text-zinc-400">Monthly Revenue</p>
+        <h2 class="text-4xl font-bold mt-3 text-white">
+            €{{ dashboard_stats.monthly_revenue }}
+        </h2>
+    </div>
+
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 transition hover:border-zinc-700 shadow">
+        <p class="text-sm text-zinc-400">Weekly Revenue</p>
+        <h2 class="text-4xl font-bold mt-3 text-white">
+            €{{ dashboard_stats.weekly_revenue }}
+        </h2>
+    </div>
+
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 transition hover:border-zinc-700 shadow">
+        <p class="text-sm text-zinc-400">Active Licenses</p>
+        <h2 class="text-4xl font-bold mt-3 text-white">
+            {{ dashboard_stats.active_licenses }}
+        </h2>
+    </div>
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 transition hover:border-zinc-700">
+
+        <p class="text-xs uppercase tracking-wide text-zinc-500">
+            New Users This Week
+        </p>
+
+        <h2 class="text-4xl font-bold mt-3 text-white">
+            {{ dashboard_stats.new_users_week }}
+        </h2>
+
+    </div>
+
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 transition hover:border-zinc-700">
+
+        <p class="text-xs uppercase tracking-wide text-zinc-500">
+            Payments This Week
+        </p>
+
+        <h2 class="text-4xl font-bold mt-3 text-white">
+            {{ dashboard_stats.payments_this_week }}
+        </h2>
+
+    </div>
+
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 transition hover:border-zinc-700">
+
+        <p class="text-xs uppercase tracking-wide text-zinc-500">
+            Licenses This Week
+        </p>
+
+        <h2 class="text-4xl font-bold mt-3 text-white">
+            {{ dashboard_stats.licenses_this_week }}
+        </h2>
+
+    </div>
+
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 transition hover:border-zinc-700 shadow">
+
+        <h2 class="text-xl font-semibold text-white mb-4">
+            Revenue Last 7 Days
+        </h2>
+
+        <div style="height: 350px;">
+            <canvas id="revenueChart"></canvas>
+        </div>
+
+    </div>
+
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 transition hover:border-zinc-700 shadow">
+
+        <h2 class="text-xl font-semibold text-white mb-4">
+            New Licenses Last 7 Days
+        </h2>
+
+        <div style="height: 350px;">
+            <canvas id="licenseChart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 transition hover:border-zinc-700 shadow">
+
+    <h2 class="text-xl font-semibold text-white mb-4">
+        Recent Payments
+    </h2>
+
+    <div class="overflow-x-auto">
+
+        <table class="w-full">
+
+            <thead>
+                <tr class="border-b">
+                    <th class="text-left py-3">User</th>
+                    <th class="text-left py-3">Package</th>
+                    <th class="text-left py-3">Amount</th>
+                    <th class="text-left py-3">Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for payment in recent_payments %}
+
+                <tr class="border-b">
+
+                    <td class="py-3">
+                        {{ payment.user.email }}
+                    </td>
+
+                    <td class="py-3">
+                        {{ payment.package }}
+                    </td>
+
+                    <td class="py-3">
+                     €{{ payment.amount|floatformat:2 }} USD
+                    </td>
+
+                    <td class="py-3">
+                        {{ payment.created_at }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{{ revenue_chart.labels|json_script:"revenue-labels" }}
+{{ revenue_chart.data|json_script:"revenue-data" }}
+
+{{ license_chart.labels|json_script:"license-labels" }}
+{{ license_chart.data|json_script:"license-data" }}
+
+<script>
+
+    const revenueLabels = JSON.parse(
+        document.getElementById('revenue-labels').textContent
+    );
+
+    const revenueData = JSON.parse(
+        document.getElementById('revenue-data').textContent
+    );
+
+    const licenseLabels = JSON.parse(
+        document.getElementById('license-labels').textContent
+    );
+
+    const licenseData = JSON.parse(
+        document.getElementById('license-data').textContent
+    );
+
+    const revenueCtx = document.getElementById('revenueChart');
+
+    new Chart(revenueCtx, {
+
+        type: 'line',
+
+        data: {
+
+            labels: revenueLabels,
+
+            datasets: [{
+                label: 'Revenue',
+                data: revenueData,
+                tension: 0.4,
+                borderWidth: 3,
+                fill: true,
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+
+    const licenseCtx = document.getElementById('licenseChart');
+
+    new Chart(licenseCtx, {
+
+        type: 'bar',
+
+        data: {
+
+            labels: licenseLabels,
+
+            datasets: [{
+                label: 'Licenses',
+                data: licenseData,
+                borderWidth: 1,
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+
+</script>
+{% endblock %}

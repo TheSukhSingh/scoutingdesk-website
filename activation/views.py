@@ -268,7 +268,7 @@ def dashboard_reset_device(request):
         
         if license.last_device_reset_at:
             cooldown_end = (
-                license.last_device_reset_at + timedelta(days=RESET_COOLDOWN_DAYS)
+                license.last_device_reset_at + timezone.timedelta(days=RESET_COOLDOWN_DAYS)
             )
             if timezone.now() < cooldown_end:
                 remaining_seconds = (cooldown_end - timezone.now()).total_seconds()
@@ -308,7 +308,6 @@ def dashboard_reset_device(request):
             })
     
 import uuid
-from datetime import timedelta
 def generate_unique_key():
     while True:
         key = f"SD-{uuid.uuid4().hex[:12].upper()}"
@@ -350,7 +349,7 @@ def regenerate_key(request):
                 })
 
         if license.last_key_regenerated_at:
-            cooldown_end = license.last_key_regenerated_at + timedelta(days=REGENERATION_COOLDOWN_DAYS)
+            cooldown_end = license.last_key_regenerated_at + timezone.timedelta(days=REGENERATION_COOLDOWN_DAYS)
 
             if timezone.now() < cooldown_end:
                 remaining_seconds = (cooldown_end - timezone.now()).total_seconds()

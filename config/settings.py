@@ -90,12 +90,15 @@ ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR = 'django.contrib.auth.tokens.PasswordRes
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'core.apps.CoreConfig',
     'payments',
     "activation",
@@ -108,6 +111,28 @@ INSTALLED_APPS = [
 
     # 'core.middleware.DebugMiddleware',
 ]
+from django.templatetags.static import static
+
+UNFOLD = {
+
+    "SITE_TITLE": "ScoutingDesk Admin",
+
+    "SITE_HEADER": "ScoutingDesk",
+
+    "SITE_SYMBOL": "sports_soccer",
+
+    "SHOW_HISTORY": True,
+
+    "SHOW_VIEW_ON_SITE": False,
+
+    "DASHBOARD_CALLBACK": "core.dashboard.dashboard_callback",
+
+    "THEME": "dark",
+
+    "SIDEBAR": {
+        "show_search": True,
+    },
+}
 
 ALL_AUTH_f = [ # include in installed apps to use google authentication
     'allauth.socialaccount',

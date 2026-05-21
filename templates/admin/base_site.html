@@ -1,7 +1,21 @@
 {% extends "admin/base.html" %}
 
+{% load static %}
+
+{% block extrahead %}
+
+{{ block.super }}
+
+<link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+{% endblock %}
+
 {% block branding %}
+
 <h1 id="site-name">
-    ScoutingDesk Administration
+    <a href="/admin/">
+        ScoutingDesk Administration
+    </a>
 </h1>
+
 {% endblock %}

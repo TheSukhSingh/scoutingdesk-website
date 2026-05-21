@@ -90,7 +90,6 @@ ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR = 'django.contrib.auth.tokens.PasswordRes
 # Application definition
 
 INSTALLED_APPS = [
-    "unfold",
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -111,28 +110,7 @@ INSTALLED_APPS = [
 
     # 'core.middleware.DebugMiddleware',
 ]
-from django.templatetags.static import static
 
-UNFOLD = {
-
-    "SITE_TITLE": "ScoutingDesk Admin",
-
-    "SITE_HEADER": "ScoutingDesk",
-
-    "SITE_SYMBOL": "sports_soccer",
-
-    "SHOW_HISTORY": True,
-
-    "SHOW_VIEW_ON_SITE": False,
-
-    "DASHBOARD_CALLBACK": "core.dashboard.dashboard_callback",
-
-    "THEME": "dark",
-
-    "SIDEBAR": {
-        "show_search": True,
-    },
-}
 
 ALL_AUTH_f = [ # include in installed apps to use google authentication
     'allauth.socialaccount',
@@ -146,17 +124,17 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET", "dev-secret-123")
 STRIPE_PRICES = {
     "player": {
         "name": "Player Package",
-        "price": 4900,
+        "price": 49,
         "price_id": os.getenv("STRIPE_PLAYER_PRICE_ID"),
     },
     "agency": {
         "name": "Agency Package",
-        "price": 9900,
+        "price": 99,
         "price_id": os.getenv("STRIPE_AGENCY_PRICE_ID"),
     },
     "club": {
         "name": "Club Package",
-        "price": 19900,
+        "price": 199,
         "price_id": os.getenv("STRIPE_CLUB_PRICE_ID"),
     },
 }
@@ -198,6 +176,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.dashboard.dashboard_context',
             ],
         },
     },

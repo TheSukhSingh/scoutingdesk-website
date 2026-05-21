@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from django.db.models import Sum, Count
+from django.db.models import Sum
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 
@@ -10,7 +10,10 @@ from payments.models import Order
 User = get_user_model()
 
 
-def dashboard_callback(request, context):
+def dashboard_context(request):
+
+    if not request.path.startswith("/admin"):
+        return {}
 
     now = timezone.now()
 
@@ -144,7 +147,7 @@ def dashboard_callback(request, context):
 
         license_data.append(count)
 
-    context.update({
+    return {
 
         # =====================
         # STATS
@@ -165,7 +168,6 @@ def dashboard_callback(request, context):
             "weekly_revenue": weekly_revenue,
 
             "monthly_revenue": monthly_revenue,
-
         },
 
         # =====================
@@ -187,6 +189,7 @@ def dashboard_callback(request, context):
         # =====================
 
         "recent_payments": recent_payments,
+
         "new_users_week": User.objects.filter(
             date_joined__gte=last_7_days
         ).count(),
@@ -199,6 +202,4 @@ def dashboard_callback(request, context):
             status="paid",
             created_at__gte=last_7_days
         ).count(),
-    })
-
-    return context
+    }

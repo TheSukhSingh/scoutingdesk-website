@@ -1,19 +1,16 @@
-{% extends "base.html" %}  {% block content %}
+{% extends "base.html" %} {% block content %}
 
-<div class="min-h-screen flex relative overflow-hidden">
+<div class="md:min-h-screen flex relative overflow-hidden">
   <!-- 🔵 LEFT SIDE -->
   <div
-    class="hidden lg:flex w-1/2 flex-col justify-between bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)] text-white p-16 relative overflow-hidden"
-  >
+    class="hidden md:flex w-1/2 flex-col justify-between bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)] text-white p-16 relative overflow-hidden">
     <!-- BACKGROUND PATTERN -->
     <div
-      class="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:30px_30px]"
-    ></div>
+      class="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:30px_30px]">
+    </div>
 
     <!-- GLOW -->
-    <div
-      class="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/20 blur-3xl rounded-full"
-    ></div>
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/20 blur-3xl rounded-full"></div>
 
     <!-- LOGO -->
     <h1 class="text-xl font-semibold relative z-10">
@@ -21,13 +18,13 @@
     </h1>
 
     <!-- CONTENT -->
-    <div class="max-w-lg relative z-10">
-      <h2 class="text-4xl font-semibold leading-tight">
+    <div class="w-full max-w-[430px] ml-auto mr-12 lg:mr-24 relative z-10">
+      <h2 class="text-3xl lg:text-4xl font-semibold leading-tight">
         Structured Scouting.<br />
         <span class="text-blue-400">Clear Decisions.</span>
       </h2>
 
-      <p class="mt-6 text-sm text-gray-300 leading-relaxed">
+      <p class="mt-5 text-xs lg:text-sm text-gray-300 leading-relaxed">
         A professional environment for documenting player and match evaluations
         with clarity, consistency and structure.
       </p>
@@ -35,11 +32,9 @@
       <!-- FEATURE BLOCKS -->
       <div class="mt-10 space-y-6">
         <div class="flex gap-3 group">
-          <div
-            class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"
-          ></div>
+          <div class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"></div>
           <div>
-            <h3 class="text-sm font-medium">Standardized Reporting</h3>
+            <h3 class="text-xs lg:text-sm font-medium">Standardized Reporting</h3>
             <p class="text-xs text-gray-400 mt-1">
               Every report follows a defined framework used in professional
               environments.
@@ -48,11 +43,9 @@
         </div>
 
         <div class="flex gap-3 group">
-          <div
-            class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"
-          ></div>
+          <div class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"></div>
           <div>
-            <h3 class="text-sm font-medium">Structured Evaluations</h3>
+            <h3 class="text-xs lg:text-sm font-medium">Structured Evaluations</h3>
             <p class="text-xs text-gray-400 mt-1">
               Technical, physical and mental attributes — all consistently
               recorded.
@@ -61,11 +54,9 @@
         </div>
 
         <div class="flex gap-3 group">
-          <div
-            class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"
-          ></div>
+          <div class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"></div>
           <div>
-            <h3 class="text-sm font-medium">Presentation Ready</h3>
+            <h3 class="text-xs lg:text-sm font-medium">Presentation Ready</h3>
             <p class="text-xs text-gray-400 mt-1">
               Clean, formatted outputs ready for internal review or
               decision-making.
@@ -79,37 +70,34 @@
       </p>
     </div>
 
-    <p class="text-xs text-gray-600 relative z-10">
-      Used where clarity in reporting directly impacts decisions.
+    <p class="">
     </p>
   </div>
 
-  <div class="hidden lg:block w-px bg-white/10"></div>
+  <div class="hidden md:block w-px bg-white/10"></div>
 
   <!-- RIGHT SIDE -->
   <div
-    class="w-full lg:w-1/2 flex items-center justify-center bg-gray-50 px-6 relative overflow-hidden"
-  >
+    class="w-full md:w-1/2 flex items-start md:items-center justify-center bg-gray-50 px-6 pt-10 md:pt-0 pb-12 md:pb-0 relative overflow-hidden">
     <div
-      class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)] [background-size:30px_30px]"
-    ></div>
+      class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)] [background-size:30px_30px]">
+    </div>
     <div class="absolute w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
 
     <div
-      class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-8 relative z-10"
-    >
+      class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-8 relative z-10 md:ml-0 lg:ml-0">
       <!-- HEADER -->
       <h2 class="text-2xl font-semibold text-gray-900">
         Access Your Workspace
       </h2>
 
-      <p class="text-sm text-gray-500 mt-2">
+      <p class="text-xs lg:text-sm text-gray-500 mt-2">
         Continue working on your reports and evaluations.
       </p>
 
       <!-- 🔴 ERROR MESSAGES -->
       {% if messages %} {% for message in messages %}
-      <p class="text-red-500 text-sm mt-4">{{ message }}</p>
+      <p class="text-red-500 text-xs lg:text-sm mt-4">{{ message }}</p>
       {% endfor %} {% endif %}
 
       <!-- FORM -->
@@ -119,58 +107,32 @@
         <!-- EMAIL -->
         <div>
           <label class="text-xs text-gray-500">Email</label>
-          <input
-            type="email"
-            name="login"
-            required
-            class="w-full mt-1 px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
-          />
+          <input type="email" name="login" required
+            class="w-full mt-1 px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-xs lg:text-sm transition duration-200 hover:border-gray-300" />
         </div>
 
         <!-- PASSWORD -->
         <div class="relative">
           <label class="text-xs text-gray-500">Password</label>
 
-          <input
-            type="password"
-            name="password"
-            id="password"
-            required
-            class="w-full mt-1 px-4 py-3 pr-12 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
-          />
-  
+          <input type="password" name="password" id="password" required
+            class="w-full mt-1 px-4 py-3 pr-12 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-xs lg:text-sm transition duration-200 hover:border-gray-300" />
+
           <!-- 👁️ TOGGLE -->
-          <button
-            type="button"
-            onclick="togglePassword('password', this)"
-            class="absolute right-3 top-1/2 text-gray-400 hover:text-gray-700 transition-all duration-200"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-5 h-5 transition-all duration-200 ease-in-out transform"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+          <button type="button" onclick="togglePassword('password', this)"
+            class="absolute right-3 top-1/2 text-gray-400 hover:text-gray-700 transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-all duration-200 ease-in-out transform"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <!-- default = eye open -->
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5
         c4.477 0 8.268 2.943 9.542 7
         -1.274 4.057-5.065 7-9.542 7
-        -4.477 0-8.268-2.943-9.542-7z"
-              />
+        -4.477 0-8.268-2.943-9.542-7z" />
             </svg>
           </button>
-                
+
         </div>
 
         <!-- ACTIONS -->
@@ -180,30 +142,22 @@
             Remember me
           </label>
 
-          <a
-            href="/accounts/password/reset/"
-            class="hover:text-gray-800 transition"
-          >
+          <a href="/accounts/password/reset/" class="hover:text-gray-800 transition">
             Forgot password?
           </a>
         </div>
 
         <!-- BUTTON -->
-        <button
-          type="submit"
-          class="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white py-3 rounded-xl text-sm font-medium shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-200"
-        >
+        <button type="submit"
+          class="w-full bg-[image:var(--btn-blue)] hover:bg-[image:var(--btn-blue-hover)] text-white py-3 rounded-xl text-xs lg:text-sm font-medium shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-200">
           Login
         </button>
       </form>
 
       <!-- FOOT -->
-      <p class="text-sm text-gray-500 text-center mt-6">
+      <p class="text-xs lg:text-sm text-gray-500 text-center mt-6">
         Don't have an account?
-        <a
-          href="{% url 'account_signup' %}"
-          class="text-blue-600 hover:underline"
-        >
+        <a href="{% url 'account_signup' %}" class="text-blue-600 hover:underline">
           Sign up
         </a>
       </p>

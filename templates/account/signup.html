@@ -1,9 +1,9 @@
 {% extends "base.html" %}  {% block content %}
 
-<div class="min-h-screen flex relative overflow-hidden">
+<div class="md:min-h-screen flex relative overflow-hidden">
   <!-- LEFT SIDE (UNCHANGED) -->
   <div
-    class="hidden lg:flex w-1/2 flex-col justify-between bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)] text-white p-16 relative overflow-hidden"
+    class="hidden md:flex w-1/2 flex-col justify-between bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-primary)] text-white p-16 relative overflow-hidden"
   >
     <!-- BACKGROUND PATTERN -->
     <div
@@ -21,13 +21,13 @@
     </h1>
 
     <!-- CONTENT -->
-    <div class="max-w-lg relative z-10">
-      <h2 class="text-4xl font-semibold leading-tight">
+    <div class="w-full max-w-[430px] ml-auto mr-12 lg:mr-24 relative z-10">
+      <h2 class="text-3xl lg:text-4xl font-semibold leading-tight">
         Structured Scouting.<br />
         <span class="text-blue-400">Clear Decisions.</span>
       </h2>
 
-      <p class="mt-6 text-sm text-gray-300 leading-relaxed">
+      <p class="mt-5 text-xs lg:text-sm text-gray-300 leading-relaxed">
         A professional environment for documenting player and match evaluations
         with clarity, consistency and structure.
       </p>
@@ -39,7 +39,7 @@
             class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"
           ></div>
           <div>
-            <h3 class="text-sm font-medium">Standardized Reporting</h3>
+            <h3 class="text-xs lg:text-sm font-medium">Standardized Reporting</h3>
             <p class="text-xs text-gray-400 mt-1">
               Every report follows a defined framework used in professional
               environments.
@@ -52,7 +52,7 @@
             class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"
           ></div>
           <div>
-            <h3 class="text-sm font-medium">Structured Evaluations</h3>
+            <h3 class="text-xs lg:text-sm font-medium">Structured Evaluations</h3>
             <p class="text-xs text-gray-400 mt-1">
               Technical, physical and mental attributes — all consistently
               recorded.
@@ -65,7 +65,7 @@
             class="w-[2px] bg-blue-500 rounded-full group-hover:h-6 transition-all"
           ></div>
           <div>
-            <h3 class="text-sm font-medium">Presentation Ready</h3>
+            <h3 class="text-xs lg:text-sm font-medium">Presentation Ready</h3>
             <p class="text-xs text-gray-400 mt-1">
               Clean, formatted outputs ready for internal review or
               decision-making.
@@ -80,14 +80,13 @@
     </div>
 
     <p class="text-xs text-gray-600 relative z-10">
-      Used where clarity in reporting directly impacts decisions.
     </p>
   </div>
-  <div class="hidden lg:block w-px bg-white/10"></div>
+  <div class="hidden md:block w-px bg-white/10"></div>
 
   <!-- ⚪ RIGHT SIDE -->
   <div
-    class="w-full lg:w-1/2 flex items-center justify-center bg-gray-50 px-6 relative overflow-hidden"
+    class="w-full md:w-1/2 flex items-start md:items-center justify-center bg-gray-50 px-6 pt-10 md:pt-0 pb-12 md:pb-0 relative overflow-hidden"
   >
     <div
       class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)] [background-size:30px_30px]"
@@ -95,17 +94,17 @@
     <div class="absolute w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
 
     <div
-      class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-8 relative z-10"
+      class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-8 relative z-10 md:ml-0 lg:ml-0"
     >
       <!-- HEADER -->
       <h2 class="text-2xl font-semibold text-gray-900">Create Your Account</h2>
-      <p class="text-sm text-gray-500 mt-2">
+      <p class="text-xs lg:text-sm text-gray-500 mt-2">
         Start building structured reports and evaluations.
       </p>
 
       <!-- 🔴 GLOBAL ERRORS -->
       {% if form.non_field_errors %}
-      <div class="mt-4 text-red-500 text-sm">{{ form.non_field_errors }}</div>
+      <div class="mt-4 text-red-500 text-xs lg:text-sm">{{ form.non_field_errors }}</div>
       {% endif %}
 
       <!-- FORM -->
@@ -120,7 +119,7 @@
             name="email"
             required
             value="{{ form.email.value|default:'' }}"
-            class="w-full mt-1 px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
+            class="w-full mt-1 px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-xs lg:text-sm transition duration-200 hover:border-gray-300"
           />
 
           {% if form.email.errors %}
@@ -137,7 +136,7 @@
             name="password1"
             id="password1"
             required
-            class="w-full mt-1 px-4 py-3 pr-12 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
+            class="w-full mt-1 px-4 py-3 pr-12 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-xs lg:text-sm transition duration-200 hover:border-gray-300"
           />
 
           <!-- 👁️ TOGGLE -->
@@ -186,7 +185,7 @@
             name="password2"
             id="password2"
             required
-            class="w-full mt-1 px-4 py-3 pr-12 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-sm transition duration-200 hover:border-gray-300"
+            class="w-full mt-1 px-4 py-3 pr-12 rounded-xl bg-gray-50 border border-gray-200 text-black focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-xs lg:text-sm transition duration-200 hover:border-gray-300"
           />
 
           <!-- 👁️ TOGGLE -->
@@ -228,14 +227,14 @@
         <!-- BUTTON -->
         <button
           type="submit"
-          class="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white py-3 rounded-xl text-sm font-medium shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-200"
+          class="w-full bg-[image:var(--btn-blue)] hover:bg-[image:var(--btn-blue-hover)] text-white py-3 rounded-xl text-xs lg:text-sm font-medium shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-200"
         >
           Create Account
         </button>
       </form>
 
       <!-- FOOT -->
-      <p class="text-sm text-gray-500 text-center mt-6">
+      <p class="text-xs lg:text-sm text-gray-500 text-center mt-6">
         Already have an account?
         <a
           href="{% url 'account_login' %}"

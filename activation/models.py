@@ -25,9 +25,6 @@ class License(models.Model):
     package = models.CharField(max_length=20, choices=PACKAGE_CHOICES)
     is_active = models.BooleanField(default=True)
 
-
-
-
     # Device binding
     device_id = models.CharField(max_length=255, null=True, blank=True)
     session_token = models.CharField( max_length=255, null=True, blank=True, unique=True )
@@ -96,6 +93,3 @@ class LicenseActivity(models.Model):
         if self.license:
             return f"{self.license.key} - {self.action}"
         return f"No License - {self.action}"
-
-
-

@@ -606,7 +606,21 @@
     }
 
 
+    .faq-section {
 
+        @apply py-16 lg:py-24;
+
+        padding-bottom: 7rem;
+
+        position: relative;
+
+        overflow: hidden;
+
+        background:
+            radial-gradient(circle at center,
+                rgba(61, 110, 229, 0.05),
+                transparent 60%);
+    }
     /* HEADER */
 
     .pricing-header {

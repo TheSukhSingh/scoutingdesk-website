@@ -1,0 +1,552 @@
+{% load static %}
+
+<section class="download-faq-section" id="download-faq">
+
+    <div class="container-main">
+
+        <!-- TOP -->
+        <div class="download-faq-top fade-up">
+
+            <div class="badge">
+                DETAILED FAQ
+            </div>
+
+            <h2 class="download-faq-heading">
+                Questions About
+                <span class="hero-blue-text">
+                    Installation, Licensing & Usage
+                </span>
+            </h2>
+
+            <p class="download-faq-subtext">
+                Everything you need to know before downloading and activating
+                ScoutingDesk professional scouting software.
+            </p>
+
+        </div>
+
+        <!-- FAQ GRID -->
+        <div class="download-faq-grid">
+
+            <!-- SIDEBAR -->
+            <div class="download-faq-sidebar fade-up">
+
+                <div class="download-sidebar-card">
+
+                    <div class="sidebar-title">
+                        Categories
+                    </div>
+
+                    <div class="download-sidebar-links">
+
+                        <button data-target="general" class="faq-nav-btn active">
+                            General Questions
+                        </button>
+
+                        <button data-target="privacy" class="faq-nav-btn">
+                            Privacy & Offline Usage
+                        </button>
+
+                        <button data-target="licensing" class="faq-nav-btn">
+                            Licensing & Activation
+                        </button>
+
+                        <button data-target="reports" class="faq-nav-btn">
+                            Reports & Features
+                        </button>
+
+                        <button data-target="compatibility" class="faq-nav-btn">
+                            Compatibility
+                        </button>
+
+                        <button data-target="purchase" class="faq-nav-btn">
+                            Purchase Questions
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CONTENT -->
+            <div class="download-faq-content">
+
+                <!-- GENERAL -->
+                <div class="faq-category active" id="general">
+
+                    <div class="faq-category-title">
+                        General Questions
+                    </div>
+
+                    {% include 'sections/download/partials/faq-item.html' with question="What is ScoutingDesk?" answer="ScoutingDesk is a professional football scouting software designed to generate structured and modern scouting reports quickly through an optimized workflow." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="How does ScoutingDesk work?" answer="Users enter scouting details, player information, match analysis, and report data into the software. ScoutingDesk automatically generates a professional PDF report ready for export or presentation." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Is ScoutingDesk a web application?" answer="No. ScoutingDesk is a Windows desktop software delivered as an executable (.exe) application." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="How long does it take to generate a report?" answer="Most reports can be completed within minutes once scouting information is prepared." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Do I need design skills to use the software?" answer="No. The software automatically handles layouts, formatting, styling, and report structure." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Are reports exportable as PDF?" answer="Yes. All reports are exported as high-quality PDF files." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Can reports be edited later?" answer="Yes. Reports can be modified and exported again without limitations." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Can I generate unlimited reports?" answer="Yes. There are no report generation limits." %}
+
+                </div>
+
+                <!-- PRIVACY -->
+                <div class="faq-category" id="privacy">
+
+                    <div class="faq-category-title">
+                        Privacy & Offline Usage
+                    </div>
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Does ScoutingDesk work offline?" answer="Yes. ScoutingDesk is designed primarily for offline usage." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Does the software require internet access?" answer="Internet access is only required periodically for activation and license validation." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Is scouting data uploaded to your servers?" answer="No. ScoutingDesk does not upload reports, scouting information, or player data to external servers." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Is data stored locally?" answer="Yes. All reports and scouting data remain on the user's own device." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Is there any cloud dependency?" answer="No. ScoutingDesk is fully usable without cloud storage or online workflows." %}
+
+                </div>
+
+                <!-- LICENSING -->
+                <div class="faq-category" id="licensing">
+
+                    <div class="faq-category-title">
+                        Licensing & Activation
+                    </div>
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Is ScoutingDesk subscription-based?" answer="No. All packages are purchased once with no recurring fees." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="How does activation work?" answer="Each purchase includes a unique activation key linked to one device at a time." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Can I use the same key on multiple devices?" answer="No. Each activation key can only be connected to one device simultaneously." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Can I transfer my license to another device?" answer="Yes. Users can reset activation to unlink the current device and activate another one." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Is there a cooldown for activation resets?" answer="Yes. Device resets include a 7-day cooldown period." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="What happens if my activation key gets leaked?" answer="Users can regenerate their activation key, which permanently revokes the previous key and creates a new one." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Is there a cooldown for key regeneration?" answer="Yes. Key regeneration includes a 30-day cooldown period." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Do I receive instant access after purchase?" answer="Yes. Activation and software access are available immediately after successful payment." %}
+
+                </div>
+
+                <!-- REPORTS -->
+                <div class="faq-category" id="reports">
+
+                    <div class="faq-category-title">
+                        Reports & Features
+                    </div>
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Which report types are included?" answer="Included report types depend on the selected package and may include Individual Player Reports, Player Match Reports, General Match Reports, and Opposition Reports." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Can I add player images and club logos?" answer="Yes. Users can include player images, club branding, and report visuals directly inside the software." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Are reports suitable for professional presentation?" answer="Yes. Reports are designed with a modern professional scouting department style suitable for clubs, agencies, analysts, and player presentations." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Are reports printable?" answer="Yes. Reports are optimized for both digital viewing and professional-quality printing." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Does ScoutingDesk support dark and light report styles?" answer="Yes. Reports can be generated in both dark and light visual styles." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Which languages does ScoutingDesk support?" answer="ScoutingDesk currently supports English, Dutch, French, German, Spanish, Portuguese, Italian, Polish, Ukrainian, and Russian report generation workflows." %}
+
+                </div>
+
+                <!-- COMPATIBILITY -->
+                <div class="faq-category" id="compatibility">
+
+                    <div class="faq-category-title">
+                        Compatibility
+                    </div>
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Which operating systems are supported?" answer="ScoutingDesk currently supports Windows systems." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Does the software require installation?" answer="Yes. ScoutingDesk is delivered as a desktop executable application." %}
+
+                </div>
+
+                <!-- PURCHASE -->
+                <div class="faq-category" id="purchase">
+
+                    <div class="faq-category-title">
+                        Purchase Questions
+                    </div>
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Why use ScoutingDesk instead of Word or Canva templates?" answer="ScoutingDesk is specifically designed for football scouting workflows, allowing users to generate structured and consistent reports significantly faster without manual design work." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Who is ScoutingDesk designed for?" answer="ScoutingDesk is designed for football clubs, scouts, agencies, analysts, and players who need professional scouting presentations and reporting workflows." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Is the software beginner-friendly?" answer="Yes. ScoutingDesk is designed to be easy to use while still producing professional-level outputs." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Are there recurring subscription fees?" answer="No. All packages are based on a one-time purchase model." %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+    .download-faq-section {
+
+        position: relative;
+
+        overflow: hidden;
+
+        padding: 7rem 0;
+
+    }
+
+    .download-faq-top {
+
+        max-width: 760px;
+
+        margin-bottom: 4rem;
+    }
+
+    .download-faq-heading {
+
+        margin-top: 1rem;
+
+        font-size: 3rem;
+
+        line-height: 1.2;
+
+        font-weight: 600;
+
+        color: white;
+    }
+
+    .download-faq-heading span {
+
+        display: block;
+    }
+
+    .download-faq-subtext {
+
+        margin-top: 1.4rem;
+
+        color: #94a3b8;
+
+        line-height: 1.9;
+
+        max-width: 680px;
+
+        font-size: 1.02rem;
+    }
+
+    .download-faq-grid {
+
+        display: grid;
+
+        grid-template-columns: 320px minmax(0, 1fr);
+
+        gap: 2rem;
+
+        align-items: start;
+    }
+
+    .download-faq-sidebar {
+
+        position: sticky;
+
+        top: 110px;
+    }
+
+    .download-sidebar-card {
+
+        border-radius: 28px;
+
+        border: 1px solid rgba(61, 110, 229, 0.12);
+
+        background:
+            linear-gradient(to bottom,
+                rgba(255,255,255,0.03),
+                rgba(255,255,255,0.015));
+
+        backdrop-filter: blur(14px);
+
+        padding: 1.4rem;
+    }
+
+    .sidebar-title {
+
+        font-size: 0.9rem;
+
+        letter-spacing: 0.12em;
+
+        color: #64748b;
+
+        text-transform: uppercase;
+
+        margin-bottom: 1rem;
+    }
+
+    .download-sidebar-links {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 0.65rem;
+    }
+
+    .faq-nav-btn {
+
+        text-align: left;
+
+        border-radius: 14px;
+
+        padding: 0.95rem 1rem;
+
+        color: #cbd5e1;
+
+        font-size: 0.96rem;
+
+        transition: all 0.25s ease;
+
+        border: 1px solid transparent;
+    }
+
+    .faq-nav-btn:hover {
+
+        background: rgba(255,255,255,0.03);
+
+        color: white;
+    }
+
+    .faq-nav-btn.active {
+
+        background:
+            linear-gradient(to right,
+                rgba(61, 110, 229, 0.18),
+                rgba(61, 110, 229, 0.08));
+
+        border-color: rgba(61, 110, 229, 0.22);
+
+        color: white;
+    }
+
+    .faq-category {
+
+        display: none;
+    }
+
+    .faq-category.active {
+
+        display: block;
+    }
+
+    .faq-category-title {
+
+        font-size: 1.7rem;
+
+        font-weight: 600;
+
+        color: white;
+
+        margin-bottom: 1.8rem;
+    }
+
+    .download-faq-item {
+
+        margin-bottom: 1rem;
+
+        border-radius: 20px;
+
+        overflow: hidden;
+
+        border: 1px solid rgba(61,110,229,0.14);
+
+        background:
+            linear-gradient(to bottom,
+                rgba(255,255,255,0.03),
+                rgba(255,255,255,0.015));
+
+        transition: all 0.3s ease;
+    }
+
+    .download-faq-item:hover {
+
+        border-color: rgba(61,110,229,0.22);
+
+        transform: translateY(-2px);
+    }
+
+    .download-faq-question {
+
+        width: 100%;
+
+        padding: 1.4rem 1.5rem;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 1rem;
+
+        color: white;
+
+        font-size: 1rem;
+
+        font-weight: 500;
+
+        text-align: left;
+    }
+
+    .download-faq-answer {
+
+        max-height: 0;
+
+        overflow: hidden;
+
+        transition: all 0.35s ease;
+    }
+
+    .download-faq-answer p {
+
+        padding: 0 1.5rem 1.5rem;
+
+        color: #94a3b8;
+
+        line-height: 1.9;
+
+        font-size: 0.95rem;
+    }
+
+    .download-faq-item.active .download-faq-answer {
+
+        max-height: 300px;
+    }
+
+    .download-faq-icon {
+
+        width: 18px;
+
+        height: 18px;
+
+        color: var(--text-blue);
+
+        transition: transform 0.25s ease;
+
+        flex-shrink: 0;
+    }
+
+    .download-faq-item.active .download-faq-icon {
+
+        transform: rotate(45deg);
+    }
+
+    @media (max-width: 1100px) {
+
+        .download-faq-grid {
+
+            grid-template-columns: 1fr;
+        }
+
+        .download-faq-sidebar {
+
+            position: relative;
+
+            top: unset;
+        }
+
+        .download-sidebar-links {
+
+            flex-direction: row;
+
+            overflow-x: auto;
+
+            padding-bottom: 0.5rem;
+        }
+
+        .faq-nav-btn {
+
+            white-space: nowrap;
+        }
+
+    }
+
+    @media (max-width: 640px) {
+
+        .download-faq-section {
+
+            padding: 5rem 0;
+        }
+
+        .download-faq-heading {
+
+            font-size: 2rem;
+
+            line-height: 1.35;
+        }
+
+        .faq-category-title {
+
+            font-size: 1.35rem;
+        }
+
+    }
+
+</style>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        // CATEGORY SWITCHING
+        const navButtons = document.querySelectorAll(".faq-nav-btn");
+        const categories = document.querySelectorAll(".faq-category");
+
+        navButtons.forEach((btn) => {
+
+            btn.addEventListener("click", () => {
+
+                const target = btn.dataset.target;
+
+                navButtons.forEach((b) => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                categories.forEach((cat) => {
+                    cat.classList.remove("active");
+                });
+
+                document.getElementById(target).classList.add("active");
+
+            });
+
+        });
+
+        // FAQ TOGGLE
+        document.querySelectorAll(".download-faq-item").forEach((item) => {
+
+            const button = item.querySelector(".download-faq-question");
+
+            button.addEventListener("click", () => {
+
+                item.classList.toggle("active");
+
+            });
+
+        });
+
+    });
+
+</script>

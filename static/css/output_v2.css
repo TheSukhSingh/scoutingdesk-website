@@ -1046,6 +1046,28 @@ body {
                 transparent 38%), */
 }
 
+.faq-section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 1024px) {
+  .faq-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+.faq-section {
+  padding-bottom: 7rem;
+  position: relative;
+  overflow: hidden;
+  background:
+            radial-gradient(circle at center,
+                rgba(61, 110, 229, 0.05),
+                transparent 60%);
+}
+
 /* HEADER */
 
 .pricing-header {
@@ -2844,10 +2866,6 @@ body {
   border-color: rgb(255 255 255 / 0.1);
 }
 
-.bg-\[var\(--color-accent\)\] {
-  background-color: var(--color-accent);
-}
-
 .bg-\[var\(--color-bg-2\)\] {
   background-color: var(--color-bg-2);
 }
@@ -3045,11 +3063,6 @@ body {
 .py-14 {
   padding-top: 3.5rem;
   padding-bottom: 3.5rem;
-}
-
-.py-16 {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
 }
 
 .py-2 {
@@ -3661,10 +3674,6 @@ body {
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
 
-.hover\:bg-\[var\(--color-accent-hover\)\]:hover {
-  background-color: var(--color-accent-hover);
-}
-
 .hover\:bg-gray-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
@@ -3829,10 +3838,6 @@ body {
 
   .lg\:hidden {
     display: none;
-  }
-
-  .lg\:w-1\/2 {
-    width: 50%;
   }
 
   .lg\:max-w-\[85\%\] {

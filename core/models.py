@@ -45,6 +45,7 @@ class AuthActivity(models.Model):
     user_agent = models.TextField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
-
+    class Meta: 
+        verbose_name_plural = "Auth Activities"
     def __str__(self):
         return f"{self.email or self.user} - {self.action}"

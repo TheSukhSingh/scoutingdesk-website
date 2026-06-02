@@ -83,6 +83,7 @@ class LicenseActivity(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta: 
+        verbose_name_plural = "License Activities"
         indexes = [ 
             models.Index(fields=["action"]), 
             models.Index(fields=["created_at"]), 

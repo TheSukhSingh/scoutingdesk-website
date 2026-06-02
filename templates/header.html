@@ -19,15 +19,15 @@
         <!-- DESKTOP NAV -->
         <div class="hidden lg:flex items-center gap-8">
 
-            <a href="#product" class="nav-link">
+            <a href="{% url 'home' %}#product" class="nav-link">
                 Product
             </a>
 
-            <a href="#features" class="nav-link">
-                Features
+            <a href="{% url 'home' %}#how-it-works" class="nav-link">
+                How It Works
             </a>
 
-            <a href="#packages" class="nav-link">
+            <a href="{% url 'home' %}#packages" class="nav-link">
                 Packages
             </a>
 
@@ -46,7 +46,7 @@
         <!-- RIGHT SIDE -->
         <div class="flex items-center gap-3">
 
-            <a href="#packages" class="btn-primary navbar-cta hidden sm:inline-flex">
+            <a href="{% url 'home' %}#packages" class="btn-primary navbar-cta hidden sm:inline-flex">
                 Purchase Software
             </a>
 
@@ -73,15 +73,15 @@
 
         <div class="container-main mobile-menu-inner">
 
-            <a href="#product" class="mobile-nav-link">
+            <a href="{% url 'home' %}#product" class="mobile-nav-link">
                 Product
             </a>
 
-            <a href="#features" class="mobile-nav-link">
-                Features
+            <a href="{% url 'home' %}#how-it-works" class="mobile-nav-link">
+                How It Works
             </a>
 
-            <a href="#packages" class="mobile-nav-link">
+            <a href="{% url 'home' %}#packages" class="mobile-nav-link">
                 Packages
             </a>
 
@@ -95,7 +95,7 @@
             </a>
             {% endif %}
 
-            <a href="#packages" class="btn-primary w-full justify-center mt-4">
+            <a href="{% url 'home' %}#packages" class="btn-primary w-full justify-center mt-4">
                 Purchase Software
             </a>
 

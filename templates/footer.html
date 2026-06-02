@@ -27,13 +27,13 @@
         <h3 class="font-semibold mb-4 text-white">Navigation</h3>
         <ul class="space-y-2 text-sm text-gray-400">
           <li>
-            <a href="/#product" class="hover:text-white transition">Product Overview</a>
+            <a href="{% url 'home' %}#product" class="hover:text-white transition">Product Overview</a>
           </li>
           <li>
-            <a href="/#features" class="hover:text-white transition">Features</a>
+            <a href="{% url 'home' %}#features" class="hover:text-white transition">Features</a>
           </li>
           <li>
-            <a href="/#packages" class="hover:text-white transition">Packages</a>
+            <a href="{% url 'home' %}#packages" class="hover:text-white transition">Packages</a>
           </li>
           <li>
             <a href="{% url 'download' %}" class="hover:text-white transition">Download</a>

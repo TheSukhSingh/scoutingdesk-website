@@ -65,7 +65,10 @@
                 <div class="workflow-demo-badge"> <span></span> LIVE PRODUCT DEMO </div>
                 <video class="workflow-video" autoplay muted loop playsinline controls
                     controlsList="nodownload noplaybackrate" disablePictureInPicture>
+                    <!-- MODERN FORMAT -->
+                    <source src="{% static 'video/demo.webm' %}" type="video/webm">
                     <source src="{% static 'videos/demo.mp4' %}" type="video/mp4">
+
                 </video>
 
             </div>

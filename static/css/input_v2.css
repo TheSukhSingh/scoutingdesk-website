@@ -575,6 +575,16 @@
 
     }
 
+    @media (max-width: 1024px) {
+
+        .hero-layout {
+
+            min-height: auto;
+
+            padding-bottom: 1.5rem;
+        }
+
+    }
 
 
 }

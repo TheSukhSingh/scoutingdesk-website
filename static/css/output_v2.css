@@ -1018,6 +1018,13 @@ body {
   }
 }
 
+@media (max-width: 1024px) {
+  .hero-layout {
+    min-height: auto;
+    padding-bottom: 1.5rem;
+  }
+}
+
 .pricing-section {
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -1906,234 +1913,21 @@ body {
                 #020912); */
 }
 
-.workflow-bg {
-  position: absolute;
-  inset: 0;
-  opacity: 0.18;
-  background:
-            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-          mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-}
-
 /* HEADER */
-
-.workflow-header {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  max-width: 860px;
-}
-
-.workflow-heading {
-  font-size: 2.25rem;
-  font-weight: 600;
-  line-height: 1.22;
-  color: white;
-}
-
-.workflow-description {
-  margin-top: 1rem;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #94a3b8;
-  max-width: 760px;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 /* GRID */
 
-.workflow-grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.workflow-line {
-  position: absolute;
-  top: 61px;
-  left: 10%;
-  right: 10%;
-  height: 2.5px;
-  border-radius: 999px;
-  background:
-            linear-gradient(to right,
-                rgba(53, 83, 208, 0.22),
-                rgba(71, 123, 255, 0.9) 50%,
-                rgba(53, 83, 208, 0.22));
-  box-shadow:
-            0 0 6px rgba(71, 123, 255, 0.22);
-  z-index: 0;
-  overflow: hidden;
-}
-
-.workflow-line::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-            repeating-linear-gradient(to right,
-
-                transparent 0px,
-                transparent 142px,
-
-                rgba(214, 226, 255, 0.95) 142px,
-                rgba(214, 226, 255, 0.95) 144px,
-
-                transparent 144px,
-                transparent 148px,
-
-                rgba(180, 205, 255, 0.72) 148px,
-                rgba(180, 205, 255, 0.72) 150px,
-
-                transparent 150px,
-                transparent 154px,
-
-                rgba(120, 160, 255, 0.38) 154px,
-                rgba(120, 160, 255, 0.38) 156px,
-
-                transparent 156px,
-                transparent 310px);
-  opacity: 0.95;
-}
-
 /* CARD */
-
-.workflow-card {
-  position: relative;
-  z-index: 1;
-}
 
 /* ICON */
 
-.workflow-icon-wrap {
-  position: relative;
-  width: 124px;
-  height: 124px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.workflow-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  width: 96px;
-  height: 96px;
-  border-radius: 999px;
-  background:
-            radial-gradient(circle at 50% 30%,
-                rgba(255, 255, 255, 0.02),
-                rgba(255, 255, 255, 0.005));
-  border: 1.5px solid rgba(71, 123, 255, 0.26);
-  backdrop-filter: blur(10px);
-  box-shadow:
-            inset 0 0 18px rgba(255, 255, 255, 0.01),
-            0 0 10px rgba(71, 123, 255, 0.08);
-}
-
-.workflow-icon::after {
-  content: "";
-  position: absolute;
-  inset: -13px;
-  border-radius: 999px;
-  border: 1px solid rgba(71, 123, 255, 0.05);
-  opacity: 1;
-}
-
-.workflow-icon svg {
-  width: 56px;
-  height: 56px;
-  color: var(--text-blue);
-  filter:
-            drop-shadow(0 0 3px rgba(71, 123, 255, 0.12));
-}
-
 /* NUMBER */
-
-.workflow-number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  min-width: 56px;
-  height: 32px;
-  padding: 0 0.95rem;
-  margin-top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 10px;
-  border: 1px solid rgba(71, 123, 255, 0.14);
-  background:
-            linear-gradient(to bottom,
-                rgba(53, 83, 208, 0.07),
-                rgba(53, 83, 208, 0.02));
-  font-size: 0.84rem;
-  font-weight: 500;
-  color: #d7e3ff;
-  box-shadow:
-            0 0 6px rgba(71, 123, 255, 0.04);
-}
 
 /* TEXT */
 
-.workflow-card-title {
-  margin-top: 1.8rem;
-  font-size: 1.35rem;
-  font-weight: 600;
-  text-align: center;
-  color: white;
-}
-
-.workflow-card-description {
-  margin-top: 1rem;
-  font-size: 0.96rem;
-  line-height: 1.8;
-  text-align: center;
-  color: #94a3b8;
-}
-
 /* MOCKS */
 
-.workflow-mock-card,
-    .workflow-form-mock,
-    .workflow-analysis-card,
-    .workflow-export-card {
-  margin-top: 2rem;
-  border-radius: 20px;
-  background:
-            linear-gradient(to bottom,
-                rgba(255, 255, 255, 0.04),
-                rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1rem;
-  backdrop-filter: blur(10px);
-}
-
 /* STEP 1 */
-
-.workflow-mock-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.workflow-mock-item {
-  padding: 0.9rem 1rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.02);
-  font-size: 0.92rem;
-  color: #dbe4f0;
-}
 
 .workflow-mock-item.active {
   border-color: rgba(61, 110, 229, 0.35);
@@ -2142,72 +1936,11 @@ body {
 
 /* STEP 2 */
 
-.workflow-form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-}
-
-.workflow-input {
-  padding: 0.9rem;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 0.82rem;
-  color: #94a3b8;
-}
-
 /* STEP 3 */
-
-.workflow-analysis-card {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.workflow-analysis-item {
-  font-size: 0.92rem;
-  color: #dbe4f0;
-}
 
 /* STEP 4 */
 
-.workflow-export-preview {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.workflow-export-page {
-  flex: 1;
-  aspect-ratio: 0.72;
-  border-radius: 12px;
-  background:
-            linear-gradient(to bottom,
-                #f8fafc,
-                #dbe4f0);
-}
-
-.workflow-export-status {
-  margin-top: 1rem;
-  padding: 0.9rem 1rem;
-  border-radius: 12px;
-  background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.18);
-  font-size: 0.9rem;
-  color: #86efac;
-}
-
 /* RESPONSIVE */
-
-@media (max-width: 1200px) {
-  .workflow-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .workflow-line {
-    display: none;
-  }
-}
 
 @media (max-width: 640px) {
   .workflow-section {
@@ -2380,14 +2113,13 @@ body {
   z-index: 9999;
 }
 
-.-mx-4 {
-  margin-left: -1rem;
-  margin-right: -1rem;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.-mt-24 {
+  margin-top: -6rem;
 }
 
 .mb-10 {
@@ -2480,6 +2212,10 @@ body {
 
 .inline-block {
   display: inline-block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -2614,6 +2350,10 @@ body {
   width: 1px;
 }
 
+.max-w-2xl {
+  max-width: 42rem;
+}
+
 .max-w-3xl {
   max-width: 48rem;
 }
@@ -2640,10 +2380,6 @@ body {
 
 .max-w-xl {
   max-width: 36rem;
-}
-
-.max-w-2xl {
-  max-width: 42rem;
 }
 
 .flex-shrink {
@@ -3193,10 +2929,6 @@ body {
   font-weight: 600;
 }
 
-.font-normal {
-  font-weight: 400;
-}
-
 .uppercase {
   text-transform: uppercase;
 }
@@ -3397,11 +3129,6 @@ body {
 
 .blur-\[140px\] {
   --tw-blur: blur(140px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.drop-shadow {
-  --tw-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -3746,6 +3473,10 @@ body {
 }
 
 @media (min-width: 640px) {
+  .sm\:-mt-10 {
+    margin-top: -2.5rem;
+  }
+
   .sm\:mt-0 {
     margin-top: 0px;
   }
@@ -3858,24 +3589,16 @@ body {
     grid-template-columns: 1.1fr 1.2fr;
   }
 
+  .lg\:grid-cols-\[1\.1fr_1fr\] {
+    grid-template-columns: 1.1fr 1fr;
+  }
+
   .lg\:grid-cols-\[1fr_1\.2fr\] {
     grid-template-columns: 1fr 1.2fr;
   }
 
   .lg\:grid-cols-\[340px_auto_auto_auto\] {
     grid-template-columns: 340px auto auto auto;
-  }
-
-  .lg\:grid-cols-\[1\.1fr_1fr\] {
-    grid-template-columns: 1.1fr 1fr;
-  }
-
-  .lg\:grid-cols-\[1\.3fr_1fr\] {
-    grid-template-columns: 1.3fr 1fr;
-  }
-
-  .lg\:grid-cols-\[1\.2fr_1fr\] {
-    grid-template-columns: 1.2fr 1fr;
   }
 
   .lg\:justify-start {
@@ -3921,14 +3644,6 @@ body {
 
   .lg\:pt-12 {
     padding-top: 3rem;
-  }
-
-  .lg\:pt-16 {
-    padding-top: 4rem;
-  }
-
-  .lg\:pt-14 {
-    padding-top: 3.5rem;
   }
 
   .lg\:text-4xl {

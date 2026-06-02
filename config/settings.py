@@ -123,7 +123,6 @@ ALL_AUTH_f = [ # include in installed apps to use google authentication
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
-CLIENT_SECRET = os.getenv("CLIENT_SECRET", "dev-secret-123")
 STRIPE_PRICES = {
     "player": {
         "name": "Player Package",

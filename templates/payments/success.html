@@ -12,25 +12,41 @@
     <div class="w-full max-w-lg bg-white border border-gray-200 rounded-2xl shadow-xl p-10 text-center relative z-10">
 
       <!-- TITLE -->
-      <h1 class="text-2xl font-semibold text-[var(--color-text-dark)]">
+      <h1 class="text-2xl font-semibold text-slate-950">
         Payment Successful
       </h1>
 
       <!-- SUBTEXT -->
-      <p class="text-sm text-[var(--color-text-muted)] mt-3 leading-relaxed">
+      <p class="text-sm text-slate-600 mt-3 leading-relaxed">
         Your purchase has been completed successfully.
         Your license and software access are now available.
       </p>
 
       <!-- PLAN CARD -->
-      <div class="mt-8 bg-[var(--color-bg-2)] border border-gray-200 rounded-xl p-6">
+      <div class="mt-8 bg-slate-950 border border-slate-800 rounded-xl p-6 shadow-inner">
 
-        <p class="text-xs text-gray-500 uppercase tracking-wide">
+        <p class="text-xs text-blue-200 uppercase tracking-wide">
           Activated Plan
         </p>
 
-        <p class="mt-2 text-lg font-semibold text-[var(--color-text-dark)]">
-          {{ plan|title }}
+        <p class="mt-2 text-2xl font-semibold text-white">
+          {% if plan %}
+            {{ plan|title }} Package
+          {% else %}
+            Confirming payment
+          {% endif %}
+        </p>
+
+        <p class="mt-3 text-sm text-slate-300 leading-relaxed">
+          {% if plan == "agency" %}
+            Your agency package includes 2 activation keys, each for one user/device.
+          {% elif plan == "club" %}
+            Your club package includes 5 activation keys, each for one user/device.
+          {% elif plan == "player" %}
+            Your player package includes 1 activation key for one user/device.
+          {% else %}
+            If your plan is not visible yet, refresh this page in a few seconds or check your dashboard.
+          {% endif %}
         </p>
 
       </div>
@@ -44,14 +60,14 @@
         </a>
 
         <a href="{% url 'download' %}"
-          class="px-6 py-3 rounded-lg text-sm border border-gray-200 hover:bg-gray-50 transition text-center">
+          class="px-6 py-3 rounded-lg text-sm border border-gray-200 text-slate-700 hover:bg-gray-50 transition text-center">
           Download App
         </a>
 
       </div>
 
       <!-- EXTRA INFO -->
-      <p class="text-xs text-gray-500 mt-6">
+      <p class="text-xs text-slate-500 mt-6">
         You can manage your licenses and access downloads anytime from your dashboard.
       </p>
 

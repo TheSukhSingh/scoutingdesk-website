@@ -95,8 +95,9 @@ class LicenseAdmin(admin.ModelAdmin):
 class LicenseActivityAdmin(admin.ModelAdmin):
 
     list_display = (
-        "license",
-        "license_key",
+        "owner_email",
+        "license_key_label",
+        "package",
         "action",
         "ip_address",
         "created_at",
@@ -125,6 +126,52 @@ class LicenseActivityAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
 
     list_per_page = 50
+
+    list_select_related = (
+        "license",
+        "license__user",
+        "license_key",
+        "license_key__license",
+        "license_key__license__user",
+    )
+
+    def _license(self, obj):
+        return obj.license or (
+            obj.license_key.license
+            if obj.license_key_id and obj.license_key.license_id
+            else None
+        )
+
+    def owner_email(self, obj):
+        license = self._license(obj)
+
+        if license and license.user_id:
+            return license.user.email or license.user.username or f"User #{license.user_id}"
+
+        return "Unknown User"
+
+    owner_email.short_description = "Owner"
+    owner_email.admin_order_field = "license__user__email"
+
+    def license_key_label(self, obj):
+        if obj.license_key_id:
+            return obj.license_key.display_name or obj.license_key.key
+
+        return "-"
+
+    license_key_label.short_description = "License Key"
+    license_key_label.admin_order_field = "license_key__key"
+
+    def package(self, obj):
+        license = self._license(obj)
+
+        if license:
+            return license.get_package_display()
+
+        return "-"
+
+    package.short_description = "Package"
+    package.admin_order_field = "license__package"
 
 @admin.register(PackageConfig)
 class PackageConfigAdmin(admin.ModelAdmin):

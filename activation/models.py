@@ -41,8 +41,7 @@ class License(models.Model):
     def __str__(self):
         return (
             f"{self.user.email} | "
-            f"{self.get_package_display()} | "
-            f"License #{self.id}"
+            f"{self.get_package_display()} "
         )
     
 

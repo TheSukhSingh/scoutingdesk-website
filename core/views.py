@@ -1,26 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-
-# Create your views here.
 from django.http import HttpResponse
-
-# def home(request):
-#     return render(request, 'core/home.html')
 
 def home(request):
     return render(request, 'core/home.html')
-
-# def feature_page(request):
-#     return render(request, 'core/features.html')
-
-# def terms(request):
-#     return render(request, 'docs/terms.html')
-
-# def cookie(request):
-#     return render(request, 'docs/cookie.html')
-
-# def privacy(request):
-#     return render(request, 'docs/privacy.html')
 
 def terms(request):
     return render(request, 'docs/terms.html')
@@ -31,16 +14,9 @@ def cookie(request):
 def privacy(request):
     return render(request, 'docs/privacy.html')
 
-# @login_required
-# def dashboard(request):
-#     return render(request, "dashboard.html")
-
 @login_required
 def dashboard(request):
     return render(request, "core/dashboard.html")
-
-# def download_page(request):
-#     return render(request, "download.html")
 
 def download_page(request):
     return render(request, "core/download.html")

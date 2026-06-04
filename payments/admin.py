@@ -1,24 +1,6 @@
 from django.contrib import admin
 from .models import Order
 
-
-# @admin.register(Package)
-# class PackageAdmin(admin.ModelAdmin):
-
-#     list_display = (
-#         "name",
-#         "price_display",
-#     )
-
-#     search_fields = (
-#         "name",
-#     )
-
-#     @admin.display(description="Price")
-#     def price_display(self, obj):
-#         return f"€{obj.price / 100:.2f}"
-
-
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
 

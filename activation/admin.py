@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import License, LicenseActivity
+from .models import License, LicenseActivity, LicenseKey, PackageConfig
 
 
 class LicenseActivityInline(admin.TabularInline):
@@ -164,3 +164,45 @@ class LicenseActivityAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
 
     list_per_page = 50
+
+@admin.register(PackageConfig)
+class PackageConfigAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "package",
+        "max_licenses",
+        "device_reset_cooldown_days",
+        "key_regeneration_cooldown_days",
+        "is_active",
+    )
+
+    list_editable = (
+        "max_licenses",
+        "device_reset_cooldown_days",
+        "key_regeneration_cooldown_days",
+        "is_active",
+    )
+
+
+@admin.register(LicenseKey)
+class LicenseKeyAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "key",
+        "license",
+        "display_name",
+        "is_active",
+        "activated_at",
+        "last_seen",
+    )
+
+    search_fields = (
+        "key",
+        "display_name",
+        "license__user__email",
+    )
+
+    list_filter = (
+        "is_active",
+        "license__package",
+    )

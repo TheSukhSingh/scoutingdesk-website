@@ -94,3 +94,131 @@ class LicenseActivity(models.Model):
         if self.license:
             return f"{self.license.key} - {self.action}"
         return f"No License - {self.action}"
+    
+
+class PackageConfig(models.Model):
+
+    PACKAGE_CHOICES = [
+        ('player', 'Player'),
+        ('agency', 'Agency'),
+        ('club', 'Club'),
+    ]
+
+    package = models.CharField(
+        max_length=20,
+        choices=PACKAGE_CHOICES,
+        unique=True
+    )
+
+    max_licenses = models.PositiveIntegerField(default=1)
+
+    device_reset_cooldown_days = models.PositiveIntegerField(default=7)
+
+    key_regeneration_cooldown_days = models.PositiveIntegerField(default=30)
+
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Package Configuration"
+        verbose_name_plural = "Package Configurations"
+
+    def __str__(self):
+        return (
+            f"{self.package} "
+            f"(licenses={self.max_licenses})"
+        )
+
+
+class LicenseKey(models.Model):
+
+    license = models.ForeignKey(
+        License,
+        on_delete=models.CASCADE,
+        related_name="license_keys"
+    )
+
+    key = models.CharField(
+        max_length=32,
+        unique=True,
+        default=generate_activation_key
+    )
+
+    display_name = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    note = models.TextField(
+        blank=True
+    )
+
+    is_active = models.BooleanField(default=True)
+
+    device_id = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+    )
+
+    session_token = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        unique=True
+    )
+
+    token_expires_at = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    activated_at = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    last_seen = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    last_key_regenerated_at = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    last_device_reset_at = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    device_reset_count = models.PositiveIntegerField(
+        default=0
+    )
+
+    key_regeneration_count = models.PositiveIntegerField(
+        default=0
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+
+        indexes = [
+            models.Index(fields=["key"]),
+            models.Index(fields=["session_token"]),
+            models.Index(fields=["device_id"]),
+        ]
+
+    def __str__(self):
+        return self.key

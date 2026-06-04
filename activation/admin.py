@@ -8,8 +8,15 @@ class LicenseActivityInline(admin.TabularInline):
     extra = 0
 
     can_delete = False
-
+    fields = (
+        "license_key",
+        "action",
+        "device_id",
+        "ip_address",
+        "created_at",
+    )
     readonly_fields = (
+        "license_key",
         "action",
         "device_id",
         "ip_address",
@@ -89,11 +96,11 @@ class LicenseActivityAdmin(admin.ModelAdmin):
 
     list_display = (
         "license",
+        "license_key",
         "action",
         "ip_address",
         "created_at",
     )
-
     list_filter = (
         "action",
         "created_at",
@@ -101,11 +108,12 @@ class LicenseActivityAdmin(admin.ModelAdmin):
 
     search_fields = (
         "license__user__email",
+        "license_key__key",
         "ip_address",
     )
-
     readonly_fields = (
         "license",
+        "license_key",
         "action",
         "device_id",
         "ip_address",
@@ -142,7 +150,8 @@ class LicenseKeyAdmin(admin.ModelAdmin):
 
     list_display = (
         "key",
-        "license",
+        "owner_email",
+        "package",
         "display_name",
         "is_active",
         "activated_at",
@@ -159,3 +168,32 @@ class LicenseKeyAdmin(admin.ModelAdmin):
         "is_active",
         "license__package",
     )
+
+    list_select_related = (
+        "license",
+        "license__user",
+    )
+
+    ordering = (
+        "-created_at",
+    )
+
+    list_per_page = 50
+
+    def owner_email(self, obj):
+        user = obj.license.user
+
+        if user.email:
+            return user.email
+
+        if user.username:
+            return user.username
+
+        return f"User #{user.id}"
+
+    owner_email.short_description = "Owner"
+    
+    def package(self, obj):
+        return obj.license.get_package_display()
+
+    package.short_description = "Package"

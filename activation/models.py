@@ -41,7 +41,7 @@ class License(models.Model):
     def __str__(self):
         return (
             f"{self.user.email} | "
-            f"{self.get_package_display()} "
+            f"{self.get_package_display()}"
         )
     
 
@@ -62,7 +62,13 @@ class LicenseActivity(models.Model):
         null=True,
         blank=True
     )
-
+    license_key = models.ForeignKey(
+        "LicenseKey",
+        on_delete=models.CASCADE,
+        related_name="activities",
+        null=True,
+        blank=True
+    )
     action = models.CharField(max_length=20, choices=ACTION_CHOICES)
 
     device_id = models.CharField(max_length=255)
@@ -76,13 +82,31 @@ class LicenseActivity(models.Model):
             models.Index(fields=["action"]), 
             models.Index(fields=["created_at"]), 
             models.Index(fields=["ip_address"]), 
+            models.Index(fields=["license_key"]),
         ]
 
     def __str__(self):
-        if self.license:
-            return f"License #{self.license.id} - {self.action}"
+        if self.license_key:
+            owner_email = (
+                self.license_key.license.user.email
+                if self.license_key.license
+                else "Unknown User"
+            )
 
-        return f"No License - {self.action}"
+            return (
+                f"{owner_email} | "
+                f"{self.license_key.display_name or self.license_key.key} | "
+                f"{self.action}"
+            )
+
+        if self.license:
+            return (
+                f"{self.license.user.email} | "
+                f"{self.license.get_package_display()} | "
+                f"{self.action}"
+            )
+
+        return f"Unknown License | {self.action}"
     
 
 class PackageConfig(models.Model):

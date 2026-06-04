@@ -47,7 +47,7 @@ def _key_regeneration_cooldown_days(license_key):
     return 30
 
 
-def _get_owned_license_key(request, key):
+def _get_license_key(key):
     try:
         return (
             LicenseKey.objects
@@ -84,7 +84,7 @@ def activate_license(request):
         if failed_attempts >= MAX_ACTIVATION_FAILED_ATTEMPTS:
             return JsonResponse({"valid": False, "error": "Too many attempts"})
 
-        license_key = _get_owned_license_key(request, key)
+        license_key = _get_license_key(key)
 
         if not license_key:
             LicenseActivity.objects.create(
@@ -128,6 +128,7 @@ def activate_license(request):
 
         LicenseActivity.objects.create(
             license=license,
+            license_key=license_key,
             action='activate',
             device_id=hashed_device,
             ip_address=ip
@@ -209,6 +210,7 @@ def validate_license(request):
 
         LicenseActivity.objects.create(
             license=license,
+            license_key=license_key,
             action='validate',
             device_id=hashed_device,
             ip_address=ip
@@ -291,7 +293,7 @@ def dashboard_reset_device(request):
                 "error": "Missing key"
             })
 
-        license_key = _get_owned_license_key(request, key)
+        license_key = _get_license_key(key)
 
         if not license_key:
             return JsonResponse({
@@ -340,6 +342,7 @@ def dashboard_reset_device(request):
 
         LicenseActivity.objects.create(
             license=license,
+            license_key=license_key,
             action='reset_device',
             device_id="reset",
             ip_address=get_client_ip(request)
@@ -379,7 +382,7 @@ def regenerate_key(request):
                 "error": "Missing key"
                 })
 
-        license_key = _get_owned_license_key(request, key)
+        license_key = _get_license_key(key)
 
         if not license_key:
             return JsonResponse({
@@ -432,11 +435,11 @@ def regenerate_key(request):
 
         LicenseActivity.objects.create(
             license=license,
+            license_key=license_key,
             action='regenerate_key',
             device_id="regenerated",
             ip_address=get_client_ip(request)
         )
-
         return JsonResponse({
             "success": True,
             "new_key": new_key

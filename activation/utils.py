@@ -47,14 +47,23 @@ def create_license(user, package, order=None):
 
     return license
 
+from django.utils import timezone
+
 
 def deactivate_license_by_order_object(order):
     licenses = License.objects.filter(order=order)
 
-    for license in licenses:
-        license.is_active = False
-        license.save(update_fields=["is_active", "updated_at"])
-        license.license_keys.update(is_active=False)
+    licenses.update(
+        is_active=False,
+        updated_at=timezone.now()
+    )
+
+    LicenseKey.objects.filter(
+        license__order=order
+    ).update(
+        is_active=False,
+        updated_at=timezone.now()
+    )
 
 
 def get_client_ip(request):

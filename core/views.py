@@ -25,16 +25,19 @@ def download_page(request):
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
-from activation.models import License
+from activation.models import LicenseKey
 
 @login_required
 def get_profile_data(request):
 
     profile = request.user.profile
 
-    latest_license = License.objects.filter(
-        user=request.user
-    ).first()
+    latest_license_key = (
+        LicenseKey.objects
+        .filter(license__user=request.user)
+        .order_by("-last_seen", "-created_at")
+        .first()
+    )
 
     data = {
         "first_name": request.user.first_name,
@@ -49,12 +52,12 @@ def get_profile_data(request):
         "created_at": profile.created_at,
 
         "device_active": bool(
-            latest_license.device_id
-        ) if latest_license else False,
+            latest_license_key.device_id
+        ) if latest_license_key else False,
 
         "last_seen": (
-            latest_license.last_seen
-        ) if latest_license else None,
+            latest_license_key.last_seen
+        ) if latest_license_key else None,
     }
 
     return JsonResponse(data)

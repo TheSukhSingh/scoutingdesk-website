@@ -1,4 +1,27 @@
-from .models import License
+from .models import License, LicenseKey, PackageConfig
+
+
+DEFAULT_PACKAGE_LICENSE_COUNTS = {
+    "player": 1,
+    "agency": 2,
+    "club": 5,
+}
+
+
+def get_package_config(package):
+    return PackageConfig.objects.filter(
+        package=package,
+        is_active=True,
+    ).first()
+
+
+def get_package_license_count(package):
+    package_config = get_package_config(package)
+
+    if package_config:
+        return package_config.max_licenses
+
+    return DEFAULT_PACKAGE_LICENSE_COUNTS.get(package, 1)
 
 
 def create_license(user, package, order=None):
@@ -7,17 +30,31 @@ def create_license(user, package, order=None):
         package=package,
         order=order
     )
+
+    license_count = get_package_license_count(package)
+
+    LicenseKey.objects.bulk_create([
+        LicenseKey(
+            license=license,
+            display_name=(
+                f"{license.get_package_display()} Seat {index}"
+                if license_count > 1
+                else "Primary Seat"
+            )
+        )
+        for index in range(1, license_count + 1)
+    ])
+
     return license
 
 
 def deactivate_license_by_order_object(order):
-    try:
-        license = License.objects.filter(order=order).first()
-        if license:
-            license.is_active = False
-            license.save()
-    except License.DoesNotExist:
-        pass
+    licenses = License.objects.filter(order=order)
+
+    for license in licenses:
+        license.is_active = False
+        license.save(update_fields=["is_active", "updated_at"])
+        license.license_keys.update(is_active=False)
 
 
 def get_client_ip(request):

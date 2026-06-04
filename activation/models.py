@@ -5,10 +5,15 @@ from payments.models import Order
 
 User = get_user_model()
 
+from django.apps import apps
+
 def generate_activation_key():
+    LicenseKey = apps.get_model("activation", "LicenseKey")
+
     while True:
         key = f"SD-{uuid.uuid4().hex[:12].upper()}"
-        if not License.objects.filter(key=key).exists():
+
+        if not LicenseKey.objects.filter(key=key).exists():
             return key
 
 class License(models.Model):
@@ -21,40 +26,20 @@ class License(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="licenses")
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
 
-    key = models.CharField(max_length=32, unique=True, default=generate_activation_key)
     package = models.CharField(max_length=20, choices=PACKAGE_CHOICES)
     is_active = models.BooleanField(default=True)
 
-    # Device binding
-    device_id = models.CharField(max_length=255, null=True, blank=True)
-    session_token = models.CharField( max_length=255, null=True, blank=True, unique=True )
-
-    token_expires_at = models.DateTimeField(null=True, blank=True)
-
-    # Tracking
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    activated_at = models.DateTimeField(null=True, blank=True)
-    last_seen = models.DateTimeField(null=True, blank=True)
-
-    last_key_regenerated_at = models.DateTimeField(null=True, blank=True)
-    last_device_reset_at = models.DateTimeField(null=True, blank=True)
-
-    device_reset_count = models.PositiveIntegerField(default=0) 
-    key_regeneration_count = models.PositiveIntegerField(default=0)
-
     class Meta: 
         indexes = [ 
-            models.Index(fields=["key"]), 
-            models.Index(fields=["session_token"]), 
-            models.Index(fields=["device_id"]), 
             models.Index(fields=["user"]), 
             models.Index(fields=["created_at"]), 
         ]
 
     def __str__(self):
-        return f"{self.user.email} - {self.package} - {self.key}"
+        return f"{self.user.email} - {self.package}"
     
 
 class LicenseActivity(models.Model):
@@ -92,7 +77,8 @@ class LicenseActivity(models.Model):
 
     def __str__(self):
         if self.license:
-            return f"{self.license.key} - {self.action}"
+            return f"License #{self.license.id} - {self.action}"
+
         return f"No License - {self.action}"
     
 

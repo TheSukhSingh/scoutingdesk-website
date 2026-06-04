@@ -25,36 +25,23 @@ class LicenseAdmin(admin.ModelAdmin):
     list_display = (
         "user",
         "package",
-        "key",
         "is_active",
-        "device_bound",
         "created_at",
-        "last_seen",
     )
 
     search_fields = (
         "user__email",
-        "key",
     )
 
     list_filter = (
         "package",
         "is_active",
         "created_at",
-        "activated_at",
     )
 
     readonly_fields = (
-        "key",
-        "session_token",
         "created_at",
         "updated_at",
-        "activated_at",
-        "last_seen",
-        "device_reset_count",
-        "key_regeneration_count",
-        "last_key_regenerated_at",
-        "last_device_reset_at",
     )
 
     ordering = ("-created_at",)
@@ -73,15 +60,6 @@ class LicenseAdmin(admin.ModelAdmin):
                 "order",
                 "package",
                 "is_active",
-                "key",
-            )
-        }),
-
-        ("Device Security", {
-            "fields": (
-                "device_id",
-                "session_token",
-                "token_expires_at",
             )
         }),
 
@@ -89,17 +67,6 @@ class LicenseAdmin(admin.ModelAdmin):
             "fields": (
                 "created_at",
                 "updated_at",
-                "activated_at",
-                "last_seen",
-            )
-        }),
-
-        ("Security Actions", {
-            "fields": (
-                "device_reset_count",
-                "key_regeneration_count",
-                "last_device_reset_at",
-                "last_key_regenerated_at",
             )
         }),
     )
@@ -107,12 +74,7 @@ class LicenseAdmin(admin.ModelAdmin):
     actions = [
         "activate_selected",
         "deactivate_selected",
-        "reset_device_binding",
     ]
-
-    @admin.display(boolean=True, description="Device")
-    def device_bound(self, obj):
-        return bool(obj.device_id)
 
     @admin.action(description="Activate selected licenses")
     def activate_selected(self, request, queryset):
@@ -121,15 +83,6 @@ class LicenseAdmin(admin.ModelAdmin):
     @admin.action(description="Deactivate selected licenses")
     def deactivate_selected(self, request, queryset):
         queryset.update(is_active=False)
-
-    @admin.action(description="Reset device binding")
-    def reset_device_binding(self, request, queryset):
-        queryset.update(
-            device_id=None,
-            session_token=None,
-            token_expires_at=None,
-        )
-
 
 @admin.register(LicenseActivity)
 class LicenseActivityAdmin(admin.ModelAdmin):
@@ -147,7 +100,7 @@ class LicenseActivityAdmin(admin.ModelAdmin):
     )
 
     search_fields = (
-        "license__key",
+        "license__user__email",
         "ip_address",
     )
 

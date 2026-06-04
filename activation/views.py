@@ -1,14 +1,62 @@
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.utils import timezone
-import json
 import hashlib
+import json
 import uuid
+
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+
 from activation.utils import get_client_ip
-from .models import License, LicenseActivity
+from .models import LicenseActivity, LicenseKey, PackageConfig
+
+
+MAX_ACTIVATION_FAILED_ATTEMPTS = 10
+MAX_VALIDATE_ATTEMPTS = 30
+VALIDATE_WINDOW_MINUTES = 5
+PER_PAGE = 20
+
 
 def hash_device(device_id):
     return hashlib.sha256(device_id.encode()).hexdigest()
+
+
+def _package_config(license_key):
+    return PackageConfig.objects.filter(
+        package=license_key.license.package,
+        is_active=True,
+    ).first()
+
+
+def _device_reset_cooldown_days(license_key):
+    package_config = _package_config(license_key)
+
+    if package_config:
+        return package_config.device_reset_cooldown_days
+
+    return 7
+
+
+def _key_regeneration_cooldown_days(license_key):
+    package_config = _package_config(license_key)
+
+    if package_config:
+        return package_config.key_regeneration_cooldown_days
+
+    return 30
+
+
+def _get_owned_license_key(request, key):
+    try:
+        return (
+            LicenseKey.objects
+            .select_related("license", "license__user")
+            .get(key=key)
+        )
+    except LicenseKey.DoesNotExist:
+        return None
+
 
 @csrf_exempt
 def activate_license(request):
@@ -27,19 +75,18 @@ def activate_license(request):
         hashed_device = hash_device(device_id)
         ip = get_client_ip(request)
 
-        # Failed attempts protection
         failed_attempts = LicenseActivity.objects.filter(
             action='failed',
             ip_address=ip,
             created_at__gte=timezone.now() - timezone.timedelta(minutes=10)
         ).count()
 
-        if failed_attempts >= 10:
+        if failed_attempts >= MAX_ACTIVATION_FAILED_ATTEMPTS:
             return JsonResponse({"valid": False, "error": "Too many attempts"})
 
-        try:
-            license = License.objects.get(key=key)
-        except License.DoesNotExist:
+        license_key = _get_owned_license_key(request, key)
+
+        if not license_key:
             LicenseActivity.objects.create(
                 license=None,
                 action='failed',
@@ -48,28 +95,36 @@ def activate_license(request):
             )
             return JsonResponse({"valid": False, "error": "Invalid key"})
 
-        if not license.is_active:
+        license = license_key.license
+
+        if not license.is_active or not license_key.is_active:
             return JsonResponse({"valid": False, "error": "License inactive"})
-        
-        # 🔒 Device locking (TEMP — will improve in next step)
-        if license.device_id and license.device_id != hashed_device:
+
+        if license_key.device_id and license_key.device_id != hashed_device:
             return JsonResponse({
                 "valid": False,
                 "error": "License already used on another device"
             })
 
-        # 🔑 Generate session token
         token = str(uuid.uuid4())
-        license.session_token = token
-        license.token_expires_at = timezone.now() + timezone.timedelta(days=7)
+        now = timezone.now()
 
-        # 🟢 First activation
-        if not license.device_id:
-            license.device_id = hashed_device
-            license.activated_at = timezone.now()
+        license_key.session_token = token
+        license_key.token_expires_at = now + timezone.timedelta(days=7)
 
-        license.last_seen = timezone.now()
-        license.save()
+        if not license_key.device_id:
+            license_key.device_id = hashed_device
+            license_key.activated_at = now
+
+        license_key.last_seen = now
+        license_key.save(update_fields=[
+            "device_id",
+            "session_token",
+            "token_expires_at",
+            "activated_at",
+            "last_seen",
+            "updated_at",
+        ])
 
         LicenseActivity.objects.create(
             license=license,
@@ -87,10 +142,7 @@ def activate_license(request):
     except Exception as e:
         return JsonResponse({"valid": False, "error": str(e)})
 
-MAX_VALIDATE_ATTEMPTS = 30
-VALIDATE_WINDOW_MINUTES = 5
 
-# 🔁 VALIDATE USING TOKEN (NOT KEY)
 @csrf_exempt
 def validate_license(request):
     if request.method != "POST":
@@ -107,7 +159,7 @@ def validate_license(request):
 
         hashed_device = hash_device(device_id)
         ip = get_client_ip(request)
-        # RATE LIMIT: IP + TOKEN
+
         recent_attempts = LicenseActivity.objects.filter(
             action='validate',
             ip_address=ip,
@@ -119,21 +171,27 @@ def validate_license(request):
                 "valid": False,
                 "error": "Too many requests. Try again later."
             })
+
         try:
-            license = License.objects.get(session_token=token)
-        except License.DoesNotExist:
+            license_key = (
+                LicenseKey.objects
+                .select_related("license")
+                .get(session_token=token)
+            )
+        except LicenseKey.DoesNotExist:
             return JsonResponse({"valid": False, "error": "Invalid session"})
 
-        if not license.is_active:
+        license = license_key.license
+
+        if not license.is_active or not license_key.is_active:
             return JsonResponse({"valid": False, "error": "License inactive"})
 
-        if not license.token_expires_at or license.token_expires_at < timezone.now():
+        if not license_key.token_expires_at or license_key.token_expires_at < timezone.now():
             return JsonResponse({"valid": False, "error": "Session expired"})
 
-        if license.device_id != hashed_device:
+        if license_key.device_id != hashed_device:
             return JsonResponse({"valid": False, "error": "Device mismatch"})
-        
-        #  RATE LIMIT: TOKEN ABUSE
+
         token_attempts = LicenseActivity.objects.filter(
             action='validate',
             license=license,
@@ -145,9 +203,9 @@ def validate_license(request):
                 "valid": False,
                 "error": "Too many validation attempts for this license."
             })
-        
-        license.last_seen = timezone.now()
-        license.save()
+
+        license_key.last_seen = timezone.now()
+        license_key.save(update_fields=["last_seen", "updated_at"])
 
         LicenseActivity.objects.create(
             license=license,
@@ -165,28 +223,19 @@ def validate_license(request):
         return JsonResponse({"valid": False, "error": str(e)})
 
 
-from django.contrib.auth.decorators import login_required
-
-from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-
-
 @login_required
 def get_user_licenses(request):
-
     page = request.GET.get("page", 1)
 
-    PER_PAGE = 20
-
-    licenses_queryset = (
-        License.objects
-        .filter(user=request.user)
-        .order_by("-created_at")
+    license_keys_queryset = (
+        LicenseKey.objects
+        .select_related("license")
+        .filter(license__user=request.user)
+        .order_by("-license__created_at", "id")
     )
 
     paginator = Paginator(
-        licenses_queryset,
+        license_keys_queryset,
         PER_PAGE
     )
 
@@ -194,51 +243,41 @@ def get_user_licenses(request):
 
     data = []
 
-    for l in current_page.object_list:
+    for license_key in current_page.object_list:
+        license = license_key.license
 
         data.append({
-            "key": l.key,
-
-            "package": l.package,
-
-            "is_active": l.is_active,
-
-            "device_bound": bool(l.device_id),
-
-            "created_at": l.created_at,
-
-            "activated_at": l.activated_at,
-
-            "last_seen": l.last_seen,
-
+            "key": license_key.key,
+            "display_name": license_key.display_name,
+            "note": license_key.note,
+            "package": license.package,
+            "license_id": license.id,
+            "is_active": license.is_active and license_key.is_active,
+            "device_bound": bool(license_key.device_id),
+            "created_at": license_key.created_at,
+            "activated_at": license_key.activated_at,
+            "last_seen": license_key.last_seen,
             "can_regenerate": True,
         })
 
     return JsonResponse({
         "licenses": data,
-
         "pagination": {
             "current_page": current_page.number,
-
             "total_pages": paginator.num_pages,
-
             "total_items": paginator.count,
-
             "has_next": current_page.has_next(),
-
             "has_previous": current_page.has_previous(),
-
             "per_page": PER_PAGE,
         }
     })
 
+
 @login_required
 def dashboard_reset_device(request):
-    RESET_COOLDOWN_DAYS = 7
-
     if request.method != "POST":
         return JsonResponse({
-            "success": False, 
+            "success": False,
             "error": "Invalid request"
         })
 
@@ -248,27 +287,31 @@ def dashboard_reset_device(request):
 
         if not key:
             return JsonResponse({
-                "success": False, 
+                "success": False,
                 "error": "Missing key"
             })
-        
-        try:
-            license = License.objects.get(key=key)
-        except License.DoesNotExist:
+
+        license_key = _get_owned_license_key(request, key)
+
+        if not license_key:
             return JsonResponse({
-                "success": False, 
+                "success": False,
                 "error": "License not found"
             })
 
+        license = license_key.license
+
         if license.user != request.user:
             return JsonResponse({
-                "success": False, 
+                "success": False,
                 "error": "Not allowed"
             })
-        
-        if license.last_device_reset_at:
+
+        cooldown_days = _device_reset_cooldown_days(license_key)
+
+        if license_key.last_device_reset_at:
             cooldown_end = (
-                license.last_device_reset_at + timezone.timedelta(days=RESET_COOLDOWN_DAYS)
+                license_key.last_device_reset_at + timezone.timedelta(days=cooldown_days)
             )
             if timezone.now() < cooldown_end:
                 remaining_seconds = (cooldown_end - timezone.now()).total_seconds()
@@ -281,16 +324,19 @@ def dashboard_reset_device(request):
                     )
                 })
 
-        # Reset device and sessions
-        license.device_id = None
-        license.session_token = None
-        license.token_expires_at = None
-
-        # Tracks
-        license.last_device_reset_at = timezone.now()
-        license.device_reset_count += 1
-
-        license.save()
+        license_key.device_id = None
+        license_key.session_token = None
+        license_key.token_expires_at = None
+        license_key.last_device_reset_at = timezone.now()
+        license_key.device_reset_count += 1
+        license_key.save(update_fields=[
+            "device_id",
+            "session_token",
+            "token_expires_at",
+            "last_device_reset_at",
+            "device_reset_count",
+            "updated_at",
+        ])
 
         LicenseActivity.objects.create(
             license=license,
@@ -303,24 +349,23 @@ def dashboard_reset_device(request):
 
     except Exception:
         return JsonResponse({
-            "success": False, 
+            "success": False,
             "error": "Something went wrong"
             })
-    
-import uuid
+
+
 def generate_unique_key():
     while True:
         key = f"SD-{uuid.uuid4().hex[:12].upper()}"
-        if not License.objects.filter(key=key).exists():
+        if not LicenseKey.objects.filter(key=key).exists():
             return key
-        
+
+
 @login_required
 def regenerate_key(request):
-    REGENERATION_COOLDOWN_DAYS = 30
-
     if request.method != "POST":
         return JsonResponse({
-            "success": False, 
+            "success": False,
             "error": "Invalid request"
         })
 
@@ -330,26 +375,30 @@ def regenerate_key(request):
 
         if not key:
             return JsonResponse({
-                "success": False, 
+                "success": False,
                 "error": "Missing key"
                 })
-        
-        try:
-            license = License.objects.get(key=key)
-        except License.DoesNotExist:
+
+        license_key = _get_owned_license_key(request, key)
+
+        if not license_key:
             return JsonResponse({
-                "success": False, 
+                "success": False,
                 "error": "License not found"
                 })
 
+        license = license_key.license
+
         if license.user != request.user:
             return JsonResponse({
-                "success": False, 
+                "success": False,
                 "error": "Not allowed"
                 })
 
-        if license.last_key_regenerated_at:
-            cooldown_end = license.last_key_regenerated_at + timezone.timedelta(days=REGENERATION_COOLDOWN_DAYS)
+        cooldown_days = _key_regeneration_cooldown_days(license_key)
+
+        if license_key.last_key_regenerated_at:
+            cooldown_end = license_key.last_key_regenerated_at + timezone.timedelta(days=cooldown_days)
 
             if timezone.now() < cooldown_end:
                 remaining_seconds = (cooldown_end - timezone.now()).total_seconds()
@@ -359,19 +408,27 @@ def regenerate_key(request):
                     "error": f"You can regenerate key after {remaining_days} days"
                 })
 
-        # 🔥 generate new key
         new_key = generate_unique_key()
 
-        license.key = new_key
-        
-        license.device_id = None
-        license.session_token = None
-        license.token_expires_at = None
-
-        license.last_key_regenerated_at = timezone.now()
-        license.key_regeneration_count += 1
-
-        license.save()
+        license_key.key = new_key
+        license_key.device_id = None
+        license_key.session_token = None
+        license_key.token_expires_at = None
+        license_key.activated_at = None
+        license_key.last_seen = None
+        license_key.last_key_regenerated_at = timezone.now()
+        license_key.key_regeneration_count += 1
+        license_key.save(update_fields=[
+            "key",
+            "device_id",
+            "session_token",
+            "token_expires_at",
+            "activated_at",
+            "last_seen",
+            "last_key_regenerated_at",
+            "key_regeneration_count",
+            "updated_at",
+        ])
 
         LicenseActivity.objects.create(
             license=license,
@@ -379,7 +436,7 @@ def regenerate_key(request):
             device_id="regenerated",
             ip_address=get_client_ip(request)
         )
-        
+
         return JsonResponse({
             "success": True,
             "new_key": new_key
@@ -387,6 +444,6 @@ def regenerate_key(request):
 
     except Exception:
         return JsonResponse({
-            "success": False, 
+            "success": False,
             "error": "Something went wrong"
             })

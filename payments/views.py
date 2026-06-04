@@ -14,6 +14,7 @@ from activation.utils import create_license, deactivate_license_by_order_object
 from activation.models import License
 from django.http import JsonResponse
 from django.db.models import Count, Sum
+from django.db import transaction
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -104,12 +105,12 @@ def stripe_webhook(request):
             logger.error(f"Order not found: {order_id}")
             return HttpResponse(status=200)
 
+        user = order.user
+        profile = user.profile
+
         if order.status != 'paid':
             order.status = 'paid'
-            order.save()
-
-            user = order.user
-            profile = user.profile
+            order.save(update_fields=["status"])
 
             # 🔥 Assign plan
             profile.plan_updated_at = timezone.now()
@@ -118,42 +119,51 @@ def stripe_webhook(request):
             profile.is_locked = False
             profile.save()
 
-            # 🔑 Prevent duplicate license
-            existing_license = License.objects.filter(order=order).first()
+        # 🔑 Prevent duplicate license while still allowing webhook retries
+        existing_license = License.objects.filter(order=order).first()
 
-            if not existing_license:
+        if not existing_license:
+            with transaction.atomic():
                 license = create_license(
                     user=user,
                     package=order.package,
                     order=order
                 )
 
-                # 📩 Send email
-                send_mail(
-                    subject="Your ScoutingDesk Plan is Activated 🎉",
-                    message=f"""Hi {user.email},
+            activation_keys = list(
+                license.license_keys.order_by("id").values_list("key", flat=True)
+            )
+            activation_key_lines = "\n".join(
+                f"{index}. {activation_key}"
+                for index, activation_key in enumerate(activation_keys, start=1)
+            )
+
+            # 📩 Send email
+            send_mail(
+                subject="Your ScoutingDesk Plan is Activated 🎉",
+                message=f"""Hi {user.email},
 
 Your payment was successful.
 
 Plan Activated: {order.package.upper()}
 
-🔑 Your Activation Key:
-{license.key}
+🔑 Your Activation Keys:
+{activation_key_lines}
 
-Keep this key safe. You will need it to activate your software.
+Keep these keys safe. Each key activates one ScoutingDesk user/device.
 
 Thanks,
 ScoutingDesk Team
 """,
-                    from_email=None,
-                    recipient_list=[user.email],
-                    fail_silently=True,
-                )
+                from_email=None,
+                recipient_list=[user.email],
+                fail_silently=True,
+            )
 
-                logger.info(f"License created for order {order.id}")
+            logger.info(f"License and activation keys created for order {order.id}")
 
-            else:
-                logger.warning(f"License already exists for order {order.id}")
+        else:
+            logger.warning(f"License already exists for order {order.id}")
 
     # REFUND / CANCEL (SAFE HANDLING FOR NOW)
     elif event['type'] == 'charge.refunded':

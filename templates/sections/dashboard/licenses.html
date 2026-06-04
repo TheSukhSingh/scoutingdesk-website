@@ -64,6 +64,7 @@
                     <tr>
 
                         <th>Package</th>
+                        <th>Name</th>
                         <th>Activation Key</th>
                         <th>Status</th>
                         <th>Device</th>
@@ -858,6 +859,29 @@
 
 
 
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;")
+    }
+
+
+
+    function escapeJsString(value) {
+
+        return String(value ?? "")
+            .replace(/\\/g, "\\\\")
+            .replace(/'/g, "\\'")
+            .replace(/\n/g, "\\n")
+            .replace(/\r/g, "\\r")
+    }
+
+
+
     function renderLicenses() {
 
         const container =
@@ -885,9 +909,14 @@
         let filtered =
             allLicenses.filter(license => {
 
+                const searchableText = [
+                    license.key,
+                    license.display_name,
+                    license.package
+                ].filter(Boolean).join(" ").toLowerCase()
+
                 const matchesSearch =
-                    license.key.toLowerCase()
-                        .includes(search)
+                    searchableText.includes(search)
 
                 const matchesPackage =
                     packageFilter === "all"
@@ -928,7 +957,19 @@
                     <td>
 
                         <div class="font-semibold capitalize text-white">
-                            ${license.package}
+                            ${escapeHtml(license.package)}
+                        </div>
+
+                    </td>
+
+
+
+                    <td>
+
+                        <div class="license-small-text">
+
+                            ${escapeHtml(license.display_name || 'Seat')}
+
                         </div>
 
                     </td>
@@ -939,9 +980,9 @@
 
                         <div
                             class="license-key"
-                            onclick="copyKey('${license.key}')">
+                            onclick="copyKey('${escapeJsString(license.key)}')">
 
-                            ${license.key}
+                            ${escapeHtml(license.key)}
 
                         </div>
 
@@ -1015,7 +1056,7 @@
     <div class="license-actions-inline">
 
         <button
-            onclick="openResetModal('${license.key}')"
+            onclick="openResetModal('${escapeJsString(license.key)}')"
             class="license-btn secondary">
 
             Reset
@@ -1025,7 +1066,7 @@
 
 
         <button
-            onclick="openRegenerateModal('${license.key}')"
+            onclick="openRegenerateModal('${escapeJsString(license.key)}')"
             class="license-btn danger">
 
             Regenerate

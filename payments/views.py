@@ -4,16 +4,16 @@ import logging
 from django.conf import settings
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
 
 from .models import Order
 from activation.utils import create_license, deactivate_license_by_order_object
 from activation.models import License
-from django.http import JsonResponse
-from django.db.models import Count, Sum
+from django.db.models import Count, Q, Sum
 from django.db import transaction
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -27,7 +27,11 @@ def create_checkout_session(request, package_type):
     package = settings.STRIPE_PRICES.get(package_type)
 
     if not package:
-        return HttpResponse("Invalid package")
+        return HttpResponse("Invalid package", status=400)
+
+    if not package.get("price_id"):
+        logger.error("Stripe price ID is not configured for package: %s", package_type)
+        return HttpResponse("Payment is not configured for this package.", status=503)
 
     order = Order.objects.create(
         user=request.user,
@@ -43,12 +47,13 @@ def create_checkout_session(request, package_type):
             'quantity': 1,
         }],
         mode='payment',
-        # success_url=request.build_absolute_uri('/payments/success/?session_id={CHECKOUT_SESSION_ID}'),
-        # cancel_url=request.build_absolute_uri('/payments/cancel/'),
-        success_url='https://scoutingdesk.com/payments/success/?session_id={CHECKOUT_SESSION_ID}',
-        cancel_url='https://scoutingdesk.com/payments/cancel/',
+        success_url=request.build_absolute_uri(
+            '/payments/success/?session_id={CHECKOUT_SESSION_ID}'
+        ),
+        cancel_url=request.build_absolute_uri('/payments/cancel/'),
         metadata={
-            'order': order.id
+            'order': str(order.id),
+            'package': package_type,
         }
     )
 
@@ -58,11 +63,162 @@ def create_checkout_session(request, package_type):
     return redirect(session.url)
 
 
+def _format_activation_keys(license):
+    activation_keys = list(
+        license.license_keys.order_by("id").values_list("key", flat=True)
+    )
+
+    return "\n".join(
+        f"{index}. {activation_key}"
+        for index, activation_key in enumerate(activation_keys, start=1)
+    )
+
+
+def _send_activation_email(user, order, license):
+    activation_key_lines = _format_activation_keys(license)
+
+    send_mail(
+        subject="Your ScoutingDesk Plan is Activated 🎉",
+        message=f"""Hi {user.email},
+
+Your payment was successful.
+
+Plan Activated: {order.package.upper()}
+
+🔑 Your Activation Keys:
+{activation_key_lines}
+
+Keep these keys safe. Each key activates one ScoutingDesk user/device.
+Agency purchases include 2 activation keys. Club purchases include 5 activation keys.
+
+Thanks,
+ScoutingDesk Team
+""",
+        from_email=None,
+        recipient_list=[user.email],
+        fail_silently=True,
+    )
+
+
+def fulfill_paid_order(order):
+    """Mark a Stripe order paid and create its license/key set once."""
+    with transaction.atomic():
+        order = (
+            Order.objects
+            .select_for_update()
+            .select_related("user", "user__profile")
+            .get(pk=order.pk)
+        )
+
+        user = order.user
+        profile = user.profile
+
+        if order.status != 'paid':
+            order.status = 'paid'
+            order.save(update_fields=["status"])
+
+        profile.plan_updated_at = timezone.now()
+        profile.plan = order.package
+        profile.failed_attempts = 0
+        profile.is_locked = False
+        profile.save(update_fields=[
+            "plan_updated_at",
+            "plan",
+            "failed_attempts",
+            "is_locked",
+        ])
+
+        license = License.objects.filter(order=order).first()
+
+        if license:
+            return order, license, False
+
+        license = create_license(
+            user=user,
+            package=order.package,
+            order=order,
+        )
+
+    _send_activation_email(user, order, license)
+    logger.info(f"License and activation keys created for order {order.id}")
+
+    return order, license, True
+
+
+def _session_get(session, key, default=None):
+    if isinstance(session, dict):
+        return session.get(key, default)
+
+    return getattr(session, key, default)
+
+
+def _session_metadata(session):
+    metadata = _session_get(session, "metadata", {})
+
+    if hasattr(metadata, "to_dict"):
+        return metadata.to_dict()
+
+    return metadata or {}
+
+
+def _order_from_checkout_session(session):
+    metadata = _session_metadata(session)
+    order_id = metadata.get("order") or metadata.get("order_id")
+
+    if order_id:
+        try:
+            return Order.objects.get(id=order_id)
+        except Order.DoesNotExist:
+            logger.error(f"Order not found: {order_id}")
+
+    session_id = _session_get(session, "id")
+
+    if session_id:
+        try:
+            return Order.objects.get(stripe_session_id=session_id)
+        except Order.DoesNotExist:
+            logger.error(f"Order not found for session: {session_id}")
+
+    return None
+
+
+def _checkout_session_is_paid(session):
+    return (
+        _session_get(session, "payment_status") == "paid"
+        or _session_get(session, "status") == "complete"
+    )
+
+
 # ✅ PAYMENT SUCCESS PAGE
 @login_required
 def payment_success(request):
+    session_id = request.GET.get("session_id")
+    order = None
+
+    if session_id:
+        try:
+            session = stripe.checkout.Session.retrieve(session_id)
+            order = _order_from_checkout_session(session)
+
+            if order and _checkout_session_is_paid(session):
+                order, _, _ = fulfill_paid_order(order)
+            elif order and order.status != 'paid':
+                logger.warning(
+                    "Checkout success visited before Stripe marked session paid: %s",
+                    session_id,
+                )
+        except stripe.error.StripeError as e:
+            logger.error(f"Unable to verify checkout session {session_id}: {str(e)}")
+
+    plan = (
+        order.package
+        if order and order.status == 'paid'
+        else request.user.profile.plan
+    )
+
     return render(request, "payments/success.html", {
-        "plan": request.user.profile.plan
+        "plan": plan,
+        "order": order,
     })
 
 
@@ -89,83 +245,13 @@ def stripe_webhook(request):
 
     logger.info(f"Stripe event received: {event['type']}")
 
-    # 🟢 PAYMENT SUCCESS
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        metadata = session.metadata.to_dict() if session.metadata else {}
-        order_id = metadata.get("order")
+        order = _order_from_checkout_session(session)
 
-        if not order_id:
-            logger.error("No order in metadata")
-            return HttpResponse(status=200)
+        if order and _checkout_session_is_paid(session):
+            fulfill_paid_order(order)
 
-        try:
-            order = Order.objects.get(id=order_id)
-        except Order.DoesNotExist:
-            logger.error(f"Order not found: {order_id}")
-            return HttpResponse(status=200)
-
-        user = order.user
-        profile = user.profile
-
-        if order.status != 'paid':
-            order.status = 'paid'
-            order.save(update_fields=["status"])
-
-            # 🔥 Assign plan
-            profile.plan_updated_at = timezone.now()
-            profile.plan = order.package
-            profile.failed_attempts = 0
-            profile.is_locked = False
-            profile.save()
-
-        # 🔑 Prevent duplicate license while still allowing webhook retries
-        existing_license = License.objects.filter(order=order).first()
-
-        if not existing_license:
-            with transaction.atomic():
-                license = create_license(
-                    user=user,
-                    package=order.package,
-                    order=order
-                )
-
-            activation_keys = list(
-                license.license_keys.order_by("id").values_list("key", flat=True)
-            )
-            activation_key_lines = "\n".join(
-                f"{index}. {activation_key}"
-                for index, activation_key in enumerate(activation_keys, start=1)
-            )
-
-            # 📩 Send email
-            send_mail(
-                subject="Your ScoutingDesk Plan is Activated 🎉",
-                message=f"""Hi {user.email},
-
-Your payment was successful.
-
-Plan Activated: {order.package.upper()}
-
-🔑 Your Activation Keys:
-{activation_key_lines}
-
-Keep these keys safe. Each key activates one ScoutingDesk user/device.
-
-Thanks,
-ScoutingDesk Team
-""",
-                from_email=None,
-                recipient_list=[user.email],
-                fail_silently=True,
-            )
-
-            logger.info(f"License and activation keys created for order {order.id}")
-
-        else:
-            logger.warning(f"License already exists for order {order.id}")
-
-    # REFUND / CANCEL (SAFE HANDLING FOR NOW)
     elif event['type'] == 'charge.refunded':
         charge = event['data']['object']
 
@@ -173,7 +259,6 @@ ScoutingDesk Team
 
         if payment_intent:
             try:
-                # 🔍 Find checkout session from payment_intent
                 sessions = stripe.checkout.Session.list(
                     payment_intent=payment_intent,
                     limit=1
@@ -181,24 +266,15 @@ ScoutingDesk Team
 
                 if sessions.data:
                     session = sessions.data[0]
-                    metadata = session.metadata.to_dict() if session.metadata else {}
-                    order_id = metadata.get("order")
+                    order = _order_from_checkout_session(session)
 
-                    if order_id:
-                        try:
-                            order = Order.objects.get(id=order_id)
-                            deactivate_license_by_order_object(order)
-                        except Order.DoesNotExist:
-                            logger.error(f"Order not found during refund: {order_id}")
+                    if order:
+                        deactivate_license_by_order_object(order)
 
             except Exception as e:
                 logger.error(f"Refund handling error: {str(e)}")
+
     return HttpResponse(status=200)
-from django.db.models import Q
-
-
-from django.core.paginator import Paginator
-from django.db.models import Q, Count, Sum
 
 
 @login_required

@@ -51,6 +51,10 @@
                             Licensing & Activation
                         </button>
 
+                        <button data-target="packages" class="faq-nav-btn">
+                            Package Keys
+                        </button>
+
                         <button data-target="reports" class="faq-nav-btn">
                             Reports & Features
                         </button>
@@ -141,6 +145,26 @@
 
                 </div>
 
+
+                <!-- PACKAGE KEYS -->
+                <div class="faq-category" id="packages">
+
+                    <div class="faq-category-title">
+                        Package Keys
+                    </div>
+
+                    {% include 'sections/download/partials/faq-item.html' with question="How many activation keys are included in each package?" answer="Player includes 1 activation key, Agency includes 2 activation keys, and Club includes 5 activation keys. Each key unlocks one user/device at a time." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="How do the 2 Agency keys work?" answer="The Agency package creates two separate activation keys after purchase. You can use them for two agency users or devices, and each key can be managed, reset, or regenerated separately from the dashboard." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="How do the 5 Club keys work?" answer="The Club package creates five separate activation keys after purchase. Clubs can assign those keys to different staff members or workstations, with one active device per key." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Can one activation key be shared by the whole team?" answer="No. One activation key is intended for one active user/device at a time. Teams should use the separate keys included in the Agency or Club package." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Can I manage package keys separately?" answer="Yes. Each key appears individually in your dashboard, so device resets and key regeneration apply to the selected key instead of the full package." %}
+
+                </div>
+
                 <!-- REPORTS -->
                 <div class="faq-category" id="reports">
 
@@ -189,6 +213,8 @@
                     {% include 'sections/download/partials/faq-item.html' with question="Is the software beginner-friendly?" answer="Yes. ScoutingDesk is designed to be easy to use while still producing professional-level outputs." %}
 
                     {% include 'sections/download/partials/faq-item.html' with question="Are there recurring subscription fees?" answer="No. All packages are based on a one-time purchase model." %}
+
+                    {% include 'sections/download/partials/faq-item.html' with question="Which package should I choose?" answer="Choose Player if you only need one user/device, Agency if you need 2 keys for a small agency workflow, and Club if you need 5 keys for a scouting department or staff team." %}
 
                 </div>
 

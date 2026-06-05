@@ -105,8 +105,8 @@ def fulfill_paid_order(order):
     with transaction.atomic():
         order = (
             Order.objects
-            .select_for_update()
             .select_related("user", "user__profile")
+            .select_for_update(of=("self",))
             .get(pk=order.pk)
         )
 

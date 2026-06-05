@@ -250,7 +250,13 @@ def stripe_webhook(request):
         order = _order_from_checkout_session(session)
 
         if order and _checkout_session_is_paid(session):
-            fulfill_paid_order(order)
+            try:
+                fulfill_paid_order(order)
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                logger.exception(e)
+                raise
 
     elif event['type'] == 'charge.refunded':
         charge = event['data']['object']

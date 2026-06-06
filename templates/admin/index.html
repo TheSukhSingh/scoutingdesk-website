@@ -115,14 +115,14 @@
         </div>
 
         <div class="stat-card">
-            <div class="stat-title">Monthly Revenue</div>
+            <div class="stat-title">Last Month Revenue</div>
             <div class="stat-value">
                 €{{ dashboard_stats.monthly_revenue }}
             </div>
         </div>
 
         <div class="stat-card">
-            <div class="stat-title">Weekly Revenue</div>
+            <div class="stat-title">Last Week Revenue</div>
             <div class="stat-value">
                 €{{ dashboard_stats.weekly_revenue }}
             </div>
@@ -139,20 +139,6 @@
             <div class="stat-title">New Users This Week</div>
             <div class="stat-value">
                 {{ new_users_week }}
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-title">Payments This Week</div>
-            <div class="stat-value">
-                {{ payments_this_week }}
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-title">Licenses This Week</div>
-            <div class="stat-value">
-                {{ licenses_this_week }}
             </div>
         </div>
 
@@ -210,7 +196,7 @@
                 <tr>
 
                     <td>
-                        {{ payment.user.email }}
+                        {{ payment.user.email }} 
                     </td>
 
                     <td>

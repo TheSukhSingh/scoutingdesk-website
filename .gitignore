@@ -6,3 +6,4 @@ migrations/
 node_modules/
 .env.prod
 staticfiles
+export-project.js

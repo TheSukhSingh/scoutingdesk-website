@@ -9,8 +9,10 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         user.username = user.email
 
     def is_open_for_signup(self, request):
-        print("🔥 SIGNUP CHECK HIT")
         return True
+
+    def get_signup_redirect_url(self, request):
+        return "/#packages"
     
     def get_client_ip(self, request):
         return get_client_ip(request)

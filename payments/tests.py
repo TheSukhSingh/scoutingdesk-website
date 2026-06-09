@@ -138,6 +138,19 @@ class PaymentFulfillmentTests(TestCase):
             "paid"
         )
 
+        self.assertEqual(
+            len(response.context["license_keys"]),
+            2
+        )
+
+        self.assertEqual(
+            response.context["expected_key_count"],
+            2
+        )
+
+        self.assertContains(response, "Download ScoutingDesk")
+        self.assertContains(response, "SD-")
+
 
 class BillingHistoryTests(TestCase):
 

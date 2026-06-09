@@ -419,7 +419,7 @@
 
     .license-key::after {
 
-        content: "Click to copy";
+        content: attr(data-copy-label);
 
         position: absolute;
 
@@ -980,7 +980,8 @@
 
                         <div
                             class="license-key"
-                            onclick="copyKey('${escapeJsString(license.key)}')">
+                            data-copy-label="Click to copy"
+                            onclick="copyKey('${escapeJsString(license.key)}', this)">
 
                             ${escapeHtml(license.key)}
 
@@ -1092,14 +1093,26 @@
 
 
 
-    function copyKey(key) {
-
-        const cleaned =
-            key.replace(/^SD-/, '')
+    function copyKey(key, element) {
 
         navigator.clipboard.writeText(
-            cleaned
-        )
+            key
+        ).then(() => {
+
+            if (!element) {
+                return
+            }
+
+            element.dataset.copyLabel =
+                "Copied"
+
+            window.setTimeout(() => {
+
+                element.dataset.copyLabel =
+                    "Click to copy"
+
+            }, 1600)
+        })
     }
 
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="min-h-screen flex items-center justify-center bg-[var(--color-bg-2)] relative overflow-hidden">
+<div class="min-h-screen flex items-center justify-center bg-[var(--color-bg-2)] relative overflow-hidden py-12 px-4">
 
   <!-- BACKGROUND GLOW -->
   <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
@@ -9,66 +9,128 @@
 
   <div class="container-main flex justify-center">
 
-    <div class="w-full max-w-lg bg-white border border-gray-200 rounded-2xl shadow-xl p-10 text-center relative z-10">
+    <div class="w-full max-w-3xl bg-white border border-gray-200 rounded-3xl shadow-xl p-6 sm:p-10 relative z-10">
 
       <!-- TITLE -->
-      <h1 class="text-2xl font-semibold text-slate-950">
-        Payment Successful
-      </h1>
+      <div class="text-center">
+        <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-green-50 text-green-600 border border-green-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
 
-      <!-- SUBTEXT -->
-      <p class="text-sm text-slate-600 mt-3 leading-relaxed">
-        Your purchase has been completed successfully.
-        Your license and software access are now available.
-      </p>
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-green-600">
+          Purchase confirmed
+        </p>
+
+        <h1 class="mt-2 text-3xl font-semibold text-slate-950">
+          Payment Successful
+        </h1>
+
+        <p class="text-sm sm:text-base text-slate-600 mt-4 leading-relaxed max-w-2xl mx-auto">
+          Thank you for your purchase. Your ScoutingDesk license keys are ready now.
+          Each key starts with <span class="font-semibold text-slate-950">SD-</span>. Download the software, open it, and enter one license key when asked.
+        </p>
+      </div>
 
       <!-- PLAN CARD -->
-      <div class="mt-8 bg-slate-950 border border-slate-800 rounded-xl p-6 shadow-inner">
+      <div class="mt-8 grid gap-4 sm:grid-cols-3">
+        <div class="rounded-2xl bg-slate-950 border border-slate-800 p-5 shadow-inner sm:col-span-1">
+          <p class="text-xs text-blue-200 uppercase tracking-wide">
+            Your purchase
+          </p>
 
-        <p class="text-xs text-blue-200 uppercase tracking-wide">
-          Activated Plan
-        </p>
+          <p class="mt-2 text-2xl font-semibold text-white">
+            {% if plan %}
+              {{ plan|title }} Package
+            {% else %}
+              Confirming payment
+            {% endif %}
+          </p>
 
-        <p class="mt-2 text-2xl font-semibold text-white">
-          {% if plan %}
-            {{ plan|title }} Package
-          {% else %}
-            Confirming payment
-          {% endif %}
-        </p>
+          <p class="mt-3 text-sm text-slate-300 leading-relaxed">
+            {% if expected_key_count %}
+              Includes {{ expected_key_count }} license key{% if expected_key_count != 1 %}s{% endif %}.
+            {% else %}
+              Refresh this page in a few seconds if your plan is still confirming.
+            {% endif %}
+          </p>
+        </div>
 
-        <p class="mt-3 text-sm text-slate-300 leading-relaxed">
-          {% if plan == "agency" %}
-            Your agency package includes 2 activation keys, each for one user/device.
-          {% elif plan == "club" %}
-            Your club package includes 5 activation keys, each for one user/device.
-          {% elif plan == "player" %}
-            Your player package includes 1 activation key for one user/device.
-          {% else %}
-            If your plan is not visible yet, refresh this page in a few seconds or check your dashboard.
-          {% endif %}
-        </p>
+        <div class="rounded-2xl bg-blue-50 border border-blue-100 p-5 sm:col-span-2">
+          <p class="text-sm font-semibold text-slate-950">
+            What to do next
+          </p>
 
+          <ol class="mt-3 space-y-3 text-sm text-slate-700 leading-relaxed list-decimal list-inside">
+            <li>Click <span class="font-semibold">Download ScoutingDesk</span> below and install the software.</li>
+            <li>Copy one of the license keys shown on this page.</li>
+            <li>Open ScoutingDesk and paste the key into the activation box to unlock the software.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- LICENSE KEYS -->
+      <div class="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-5">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+          <div>
+            <p class="text-sm font-semibold text-slate-950">
+              Your new license key{% if license_keys|length != 1 %}s{% endif %}
+            </p>
+            <p class="mt-1 text-sm text-slate-600 leading-relaxed">
+              Keep these keys safe. You can also find them later in your Dashboard under the Licenses section.
+            </p>
+          </div>
+
+          <a href="{% url 'dashboard' %}"
+            class="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm text-slate-700 hover:bg-gray-100 transition text-center">
+            View in Dashboard
+          </a>
+        </div>
+
+        {% if license_keys %}
+          <div class="mt-4 space-y-3">
+            {% for license_key in license_keys %}
+              <div class="rounded-xl border border-gray-200 bg-white p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-500">
+                    {{ license_key.display_name|default:"License Key" }}
+                  </p>
+                  <p class="mt-1 font-mono text-sm sm:text-base font-semibold text-slate-950 break-all">
+                    {{ license_key.key }}
+                  </p>
+                </div>
+                <p class="text-xs text-slate-500 sm:text-right">
+                  Use this key on one user/device.
+                </p>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 leading-relaxed">
+            We are still preparing your license keys. Please refresh this page in a few seconds or open your Dashboard and choose Licenses.
+          </div>
+        {% endif %}
       </div>
 
       <!-- ACTION BUTTONS -->
       <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
 
-        <a href="{% url 'dashboard' %}"
+        <a href="{% url 'download' %}"
           class="btn-primary px-6 py-3 rounded-lg text-sm text-center">
-          Go to Dashboard
+          Download ScoutingDesk
         </a>
 
-        <a href="{% url 'download' %}"
+        <a href="{% url 'dashboard' %}"
           class="px-6 py-3 rounded-lg text-sm border border-gray-200 text-slate-700 hover:bg-gray-50 transition text-center">
-          Download App
+          Go to Dashboard
         </a>
 
       </div>
 
       <!-- EXTRA INFO -->
-      <p class="text-xs text-slate-500 mt-6">
-        You can manage your licenses and access downloads anytime from your dashboard.
+      <p class="text-xs text-slate-500 mt-6 text-center leading-relaxed">
+        If you need the keys again later, sign in and open Dashboard → Licenses. Your purchase receipt and billing details remain available in Dashboard → Billing.
       </p>
 
     </div>

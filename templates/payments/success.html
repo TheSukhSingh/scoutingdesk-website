@@ -1,141 +1,352 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="min-h-screen flex items-center justify-center bg-[var(--color-bg-2)] relative overflow-hidden py-12 px-4">
+<div class="min-h-screen bg-slate-50 py-10 px-4">
 
-  <!-- BACKGROUND GLOW -->
-  <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
-  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
+    <div class="max-w-7xl mx-auto">
 
-  <div class="container-main flex justify-center">
+        <!-- SUCCESS HEADER -->
+        <div class="flex flex-col lg:flex-row items-center gap-6 mb-10">
 
-    <div class="w-full max-w-3xl bg-white border border-gray-200 rounded-3xl shadow-xl p-6 sm:p-10 relative z-10">
+            <div class="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-12 h-12 text-green-600"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
 
-      <!-- TITLE -->
-      <div class="text-center">
-        <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-green-50 text-green-600 border border-green-100">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M5 13l4 4L19 7"/>
 
-        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-green-600">
-          Purchase confirmed
-        </p>
+                </svg>
+            </div>
 
-        <h1 class="mt-2 text-3xl font-semibold text-slate-950">
-          Payment Successful
-        </h1>
+            <div>
 
-        <p class="text-sm sm:text-base text-slate-600 mt-4 leading-relaxed max-w-2xl mx-auto">
-          Thank you for your purchase. Your ScoutingDesk license keys are ready now.
-          Each key starts with <span class="font-semibold text-slate-950">SD-</span>. Download the software, open it, and enter one license key when asked.
-        </p>
-      </div>
+                <h1 class="text-4xl font-bold text-slate-900">
+                    🎉 Your Purchase is
+                    <span class="text-green-600">Successful!</span>
+                </h1>
 
-      <!-- PLAN CARD -->
-      <div class="mt-8 grid gap-4 sm:grid-cols-3">
-        <div class="rounded-2xl bg-slate-950 border border-slate-800 p-5 shadow-inner sm:col-span-1">
-          <p class="text-xs text-blue-200 uppercase tracking-wide">
-            Your purchase
-          </p>
-
-          <p class="mt-2 text-2xl font-semibold text-white">
-            {% if plan %}
-              {{ plan|title }} Package
-            {% else %}
-              Confirming payment
-            {% endif %}
-          </p>
-
-          <p class="mt-3 text-sm text-slate-300 leading-relaxed">
-            {% if expected_key_count %}
-              Includes {{ expected_key_count }} license key{% if expected_key_count != 1 %}s{% endif %}.
-            {% else %}
-              Refresh this page in a few seconds if your plan is still confirming.
-            {% endif %}
-          </p>
-        </div>
-
-        <div class="rounded-2xl bg-blue-50 border border-blue-100 p-5 sm:col-span-2">
-          <p class="text-sm font-semibold text-slate-950">
-            What to do next
-          </p>
-
-          <ol class="mt-3 space-y-3 text-sm text-slate-700 leading-relaxed list-decimal list-inside">
-            <li>Click <span class="font-semibold">Download ScoutingDesk</span> below and install the software.</li>
-            <li>Copy one of the license keys shown on this page.</li>
-            <li>Open ScoutingDesk and paste the key into the activation box to unlock the software.</li>
-          </ol>
-        </div>
-      </div>
-
-      <!-- LICENSE KEYS -->
-      <div class="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-5">
-        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-          <div>
-            <p class="text-sm font-semibold text-slate-950">
-              Your new license key{% if license_keys|length != 1 %}s{% endif %}
-            </p>
-            <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-              Keep these keys safe. You can also find them later in your Dashboard under the Licenses section.
-            </p>
-          </div>
-
-          <a href="{% url 'dashboard' %}"
-            class="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm text-slate-700 hover:bg-gray-100 transition text-center">
-            View in Dashboard
-          </a>
-        </div>
-
-        {% if license_keys %}
-          <div class="mt-4 space-y-3">
-            {% for license_key in license_keys %}
-              <div class="rounded-xl border border-gray-200 bg-white p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <div>
-                  <p class="text-xs uppercase tracking-wide text-slate-500">
-                    {{ license_key.display_name|default:"License Key" }}
-                  </p>
-                  <p class="mt-1 font-mono text-sm sm:text-base font-semibold text-slate-950 break-all">
-                    {{ license_key.key }}
-                  </p>
-                </div>
-                <p class="text-xs text-slate-500 sm:text-right">
-                  Use this key on one user/device.
+                <p class="text-slate-600 mt-3 text-lg">
+                    Thank you for choosing ScoutingDesk. Your payment has been received and your
+                    license keys are ready to use.
                 </p>
-              </div>
-            {% endfor %}
-          </div>
-        {% else %}
-          <div class="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 leading-relaxed">
-            We are still preparing your license keys. Please refresh this page in a few seconds or open your Dashboard and choose Licenses.
-          </div>
-        {% endif %}
-      </div>
 
-      <!-- ACTION BUTTONS -->
-      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            </div>
 
-        <a href="{% url 'download' %}"
-          class="btn-primary px-6 py-3 rounded-lg text-sm text-center">
-          Download ScoutingDesk
-        </a>
+        </div>
 
-        <a href="{% url 'dashboard' %}"
-          class="px-6 py-3 rounded-lg text-sm border border-gray-200 text-slate-700 hover:bg-gray-50 transition text-center">
-          Go to Dashboard
-        </a>
 
-      </div>
+        <!-- MAIN GRID -->
+        <div class="grid lg:grid-cols-3 gap-8">
 
-      <!-- EXTRA INFO -->
-      <p class="text-xs text-slate-500 mt-6 text-center leading-relaxed">
-        If you need the keys again later, sign in and open Dashboard → Licenses. Your purchase receipt and billing details remain available in Dashboard → Billing.
-      </p>
+            <!-- LEFT -->
+            <div class="lg:col-span-2">
+
+                <div class="bg-white border rounded-3xl shadow-sm p-8">
+
+                    <h2 class="text-2xl font-bold text-slate-900">
+                        Here are your license keys
+                    </h2>
+
+                    <p class="text-slate-500 mt-2">
+                        Each key is unique and can be used on one device.
+                    </p>
+
+
+                    <div class="mt-6 p-4 rounded-2xl bg-blue-50 border border-blue-100">
+
+                        <p class="font-medium text-slate-800">
+                            All ScoutingDesk license keys start with
+                            <span class="font-bold bg-blue-100 px-2 py-1 rounded">
+                                "SD-"
+                            </span>
+                        </p>
+
+                    </div>
+
+
+                    {% if license_keys %}
+
+                    <div class="mt-6 space-y-4">
+
+                        {% for license_key in license_keys %}
+
+                        <div class="border rounded-2xl bg-white p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+
+                            <div>
+
+                                <div class="text-blue-600 font-semibold mb-2">
+                                    License Key {{ forloop.counter }}
+                                </div>
+
+                                <div class="font-mono text-xl font-bold text-slate-900 break-all">
+                                    {{ license_key.key }}
+                                </div>
+
+                            </div>
+
+                            <button onclick="navigator.clipboard.writeText('{{ license_key.key }}')"
+                                    class="px-5 py-3 border rounded-xl hover:bg-slate-50 transition">
+
+                                Copy
+
+                            </button>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="mt-6 p-5 rounded-2xl bg-yellow-50 border border-yellow-200 text-yellow-800">
+
+                        We are still preparing your license keys. Please refresh this page in a few seconds.
+
+                    </div>
+
+                    {% endif %}
+
+
+                    <div class="mt-6 bg-green-50 border border-green-200 rounded-2xl p-4 text-green-700">
+
+                        Keep these keys safe. You can always find them again inside Dashboard → Licenses.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RIGHT SIDE -->
+            <div>
+
+                <div class="bg-white border rounded-3xl shadow-sm p-8 h-full">
+
+                    <h2 class="text-2xl font-bold text-slate-900 mb-10">
+                        How to activate ScoutingDesk
+                    </h2>
+
+
+                    <!-- STEP 1 -->
+                    <div class="flex gap-4 mb-8">
+
+                        <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shrink-0">
+                            1
+                        </div>
+
+                        <div>
+
+                            <h3 class="font-semibold text-lg">
+                                Download & Install
+                            </h3>
+
+                            <p class="text-slate-500 mt-2">
+                                Download ScoutingDesk from our website and install it on your computer.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STEP 2 -->
+                    <div class="flex gap-4 mb-8">
+
+                        <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shrink-0">
+                            2
+                        </div>
+
+                        <div>
+
+                            <h3 class="font-semibold text-lg">
+                                Open the Software
+                            </h3>
+
+                            <p class="text-slate-500 mt-2">
+                                Launch ScoutingDesk after installation.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STEP 3 -->
+                    <div class="flex gap-4">
+
+                        <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shrink-0">
+                            3
+                        </div>
+
+                        <div>
+
+                            <h3 class="font-semibold text-lg">
+                                Enter Your License Key
+                            </h3>
+
+                            <p class="text-slate-500 mt-2">
+                                Copy any one of the keys from the left and paste it into the activation window.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-10 bg-yellow-50 border border-yellow-200 rounded-2xl p-5">
+
+                        <span class="font-semibold text-yellow-700">
+                            Important:
+                        </span>
+
+                        <span class="text-slate-700">
+                            Make sure you have an active internet connection while activating.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- BOTTOM CARDS -->
+        <div class="grid lg:grid-cols-3 gap-6 mt-10">
+
+
+            <!-- FIND KEYS -->
+            <div class="bg-green-50 border border-green-200 rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold text-slate-900">
+                    Where can I find my keys anytime?
+                </h3>
+
+                <p class="text-slate-600 mt-4">
+                    You can always find your license keys inside your ScoutingDesk dashboard.
+                </p>
+
+                <a href="{% url 'dashboard' %}"
+                   class="inline-flex mt-6 px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700">
+
+                    Go to Dashboard
+
+                </a>
+
+            </div>
+
+
+
+            <!-- HELP -->
+            <div class="bg-purple-50 border border-purple-200 rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold text-slate-900">
+                    Need Help?
+                </h3>
+
+                <p class="text-slate-600 mt-4">
+                    If you face any issue during download or activation, our support team is here to help.
+                </p>
+
+                <div class="flex flex-col gap-3 mt-6">
+
+                    <a href="#"
+                       class="border rounded-xl bg-white px-5 py-3 hover:bg-slate-50">
+
+                        Visit Help Center
+
+                    </a>
+
+                    <a href="#"
+                       class="border rounded-xl bg-white px-5 py-3 hover:bg-slate-50">
+
+                        Contact Support
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PURCHASE DETAILS -->
+            <div class="bg-white border rounded-3xl shadow-sm p-8">
+
+                <h3 class="text-2xl font-bold text-slate-900 mb-8">
+                    Purchase Details
+                </h3>
+
+                <div class="space-y-6">
+
+                    <div class="flex justify-between">
+
+                        <span class="text-slate-500">
+                            Package
+                        </span>
+
+                        <span class="font-semibold">
+                            {{ plan|title }} Package
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex justify-between">
+
+                        <span class="text-slate-500">
+                            Date
+                        </span>
+
+                        <span class="font-semibold">
+                            {% if order %}
+                                {{ order.created_at|date:"M d, Y H:i" }}
+                            {% endif %}
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex justify-between">
+
+                        <span class="text-slate-500">
+                            Status
+                        </span>
+
+                        <span class="font-semibold text-green-600">
+                            Paid
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FOOTER STRIP -->
+        <div class="mt-10 bg-green-50 border border-green-200 rounded-2xl p-5 text-center text-slate-700">
+
+            Thank you for your trust in ScoutingDesk. We're excited to have you onboard ⚽
+
+        </div>
+
+
 
     </div>
-
-  </div>
 
 </div>
 

@@ -3926,6 +3926,18 @@ body {
     padding-top: 3rem;
   }
 
+  .lg\:pt-8 {
+    padding-top: 2rem;
+  }
+
+  .lg\:pt-4 {
+    padding-top: 1rem;
+  }
+
+  .lg\:pt-6 {
+    padding-top: 1.5rem;
+  }
+
   .lg\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;

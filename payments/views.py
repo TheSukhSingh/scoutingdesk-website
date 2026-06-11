@@ -192,8 +192,6 @@ def _checkout_session_is_paid(session):
         or _session_get(session, "status") == "complete"
     )
 
-
-# ✅ PAYMENT SUCCESS PAGE
 @login_required
 def payment_success(request):
     session_id = request.GET.get("session_id")
@@ -205,63 +203,60 @@ def payment_success(request):
             session = stripe.checkout.Session.retrieve(session_id)
             order = _order_from_checkout_session(session)
 
-            if order and order.user_id != request.user.id:
-                logger.warning(
-                    "Checkout success session %s belongs to a different user",
-                    session_id,
-                )
-                order = None
-            elif order and _checkout_session_is_paid(session):
+            if (
+                order
+                and order.user_id == request.user.id
+                and _checkout_session_is_paid(session)
+            ):
                 order, license_obj, _ = fulfill_paid_order(order)
-            elif order and order.status != 'paid':
-                logger.warning(
-                    "Checkout success visited before Stripe marked session paid: %s",
-                    session_id,
-                )
-        except stripe.error.StripeError as e:
-            logger.error(f"Unable to verify checkout session {session_id}: {str(e)}")
 
-    if order and order.status == 'paid' and license_obj is None:
+        except stripe.error.StripeError:
+            pass
+
+    # fallback if page is refreshed
+    if order is None:
+        order = (
+            Order.objects
+            .filter(user=request.user, status="paid")
+            .order_by("-created_at")
+            .first()
+        )
+
+    if order and license_obj is None:
         license_obj = License.objects.filter(
-            order=order,
             user=request.user,
+            order=order
         ).first()
 
-    plan = (
-        order.package
-        if order and order.status == 'paid'
-        else request.user.profile.plan
-    )
+    plan = order.package if order else request.user.profile.plan
 
     license_keys = []
     if license_obj:
-        license_keys = list(
-            license_obj.license_keys
+        license_keys = (
+            license_obj
+            .license_keys
             .filter(is_active=True)
             .order_by("id")
         )
 
-    expected_key_count = (
-        get_package_license_count(plan)
-        if plan
-        else 0
+    expected_key_count = get_package_license_count(plan) if plan else 0
+
+    return render(
+        request,
+        "payments/success.html",
+        {
+            "plan": plan,
+            "order": order,
+            "license_keys": license_keys,
+            "expected_key_count": expected_key_count,
+        }
     )
 
-    return render(request, "payments/success.html", {
-        "plan": plan,
-        "order": order,
-        "license_keys": license_keys,
-        "expected_key_count": expected_key_count,
-    })
-
-
-# ❌ PAYMENT CANCEL
 @login_required
 def payment_cancel(request):
     return HttpResponse("Payment cancelled.")
 
 
-# 🔌 STRIPE WEBHOOK
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body

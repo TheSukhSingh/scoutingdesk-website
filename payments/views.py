@@ -242,7 +242,10 @@ def payment_success(request):
             .order_by("id")
         )
 
-    expected_key_count = get_package_license_count(plan) if plan else 0
+    expected_key_count = 0
+
+    if license_obj:
+        expected_key_count = license_obj.license_keys.count()
 
     return render(
         request,

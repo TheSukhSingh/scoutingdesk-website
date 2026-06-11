@@ -2097,6 +2097,18 @@ body {
   top: 4%;
 }
 
+.bottom-6 {
+  bottom: 1.5rem;
+}
+
+.left-5 {
+  left: 1.25rem;
+}
+
+.top-6 {
+  top: 1.5rem;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -2306,6 +2318,10 @@ body {
   height: 7rem;
 }
 
+.h-6 {
+  height: 1.5rem;
+}
+
 .max-h-\[420px\] {
   max-height: 420px;
 }
@@ -2388,6 +2404,10 @@ body {
 
 .w-28 {
   width: 7rem;
+}
+
+.w-6 {
+  width: 1.5rem;
 }
 
 .max-w-2xl {
@@ -3151,6 +3171,10 @@ body {
   line-height: 1.25;
 }
 
+.leading-7 {
+  line-height: 1.75rem;
+}
+
 .tracking-\[0\.2em\] {
   letter-spacing: 0.2em;
 }
@@ -3305,6 +3329,11 @@ body {
 .text-amber-700 {
   --tw-text-opacity: 1;
   color: rgb(180 83 9 / var(--tw-text-opacity, 1));
+}
+
+.text-amber-500 {
+  --tw-text-opacity: 1;
+  color: rgb(245 158 11 / var(--tw-text-opacity, 1));
 }
 
 .accent-blue-600 {

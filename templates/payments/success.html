@@ -2,34 +2,28 @@
 {% block content %}
 <div class="min-h-screen bg-slate-50 py-10 px-4">
 
-<div class="max-w-7xl mx-auto">
+  <div class="max-w-7xl mx-auto">
 
     <!-- SUCCESS HEADER -->
     <div class="flex flex-col lg:flex-row gap-6 items-center mb-10">
 
-        <div class="w-28 h-28 rounded-full bg-green-100 flex items-center justify-center shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 class="w-14 h-14 text-green-600"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke="currentColor">
-                <path stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"/>
-            </svg>
-        </div>
+      <div class="w-28 h-28 rounded-full bg-green-100 flex items-center justify-center shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-green-600" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
 
-        <div>
-            <h1 class="text-4xl font-bold text-slate-900">
-                🎉 Your Purchase is
-                <span class="text-green-600">Successful!</span>
-            </h1>
+      <div>
+        <h1 class="text-4xl font-bold text-slate-900">
+          🎉 Your Purchase is
+          <span class="text-green-600">Successful!</span>
+        </h1>
 
-            <p class="text-slate-600 mt-3 text-lg max-w-2xl">
-                Thank you for choosing ScoutingDesk. Your payment has been received and your license keys are ready to use.
-            </p>
-        </div>
+        <p class="text-slate-600 mt-3 text-lg max-w-2xl">
+          Thank you for choosing ScoutingDesk. Your payment has been received and your license keys are ready to use.
+        </p>
+      </div>
 
     </div>
 
@@ -37,170 +31,220 @@
 
     <div class="grid lg:grid-cols-3 gap-8">
 
-        <!-- LEFT -->
-        <div class="lg:col-span-2">
+      <!-- LEFT -->
+      <div class="lg:col-span-2">
 
-            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8">
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8">
 
-                <h2 class="text-2xl font-bold mb-2">
-                    Here are your license keys
-                </h2>
+          <h2 class="text-2xl font-bold mb-2">
+            Here are your license keys
+          </h2>
 
-                <p class="text-slate-500 mb-6">
-                    Each key is unique and can be used on one device.
-                </p>
+          <p class="text-slate-500 mb-6">
+            Each key is unique and can be used on one device.
+          </p>
 
 
-                <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 mb-6">
-                    <div class="font-medium text-slate-800">
-                        All ScoutingDesk license keys start with
-                        <span class="bg-blue-100 px-3 py-1 rounded-lg font-bold">
-                            "SD-"
-                        </span>
-                    </div>
+          <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 mb-6">
+            <div class="font-medium text-slate-800">
+              All ScoutingDesk license keys start with
+              <span class="bg-blue-100 px-3 py-1 rounded-lg font-bold">
+                "SD-"
+              </span>
+            </div>
+          </div>
+
+
+
+          {% if license_keys %}
+
+          <div class="space-y-4">
+
+            {% for license_key in license_keys %}
+
+            <div class="border rounded-2xl overflow-hidden">
+
+              <div class="flex flex-col md:flex-row">
+
+                <div class="bg-slate-50 w-full md:w-52 px-6 py-5 font-semibold text-blue-600 border-r">
+                  License Key {{ forloop.counter }}
                 </div>
 
+                <div class="flex flex-1 items-center justify-between px-6 py-5">
 
+                  <div class="font-mono text-xl font-bold text-slate-900 break-all">
+                    {{ license_key.key }}
+                  </div>
 
-                {% if license_keys %}
+                  <button onclick="navigator.clipboard.writeText('{{ license_key.key }}')"
+                    class="ml-4 border px-5 py-2 rounded-xl hover:bg-slate-50">
 
-                <div class="space-y-4">
+                    Copy
 
-                    {% for license_key in license_keys %}
-
-                    <div class="border rounded-2xl overflow-hidden">
-
-                        <div class="flex flex-col md:flex-row">
-
-                            <div class="bg-slate-50 w-full md:w-52 px-6 py-5 font-semibold text-blue-600 border-r">
-                                License Key {{ forloop.counter }}
-                            </div>
-
-                            <div class="flex flex-1 items-center justify-between px-6 py-5">
-
-                                <div class="font-mono text-xl font-bold text-slate-900 break-all">
-                                    {{ license_key.key }}
-                                </div>
-
-                                <button
-                                    onclick="navigator.clipboard.writeText('{{ license_key.key }}')"
-                                    class="ml-4 border px-5 py-2 rounded-xl hover:bg-slate-50">
-
-                                    Copy
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    {% endfor %}
+                  </button>
 
                 </div>
 
-                {% endif %}
-
-
-
-                <div class="bg-green-50 border border-green-200 rounded-2xl p-4 mt-6 text-green-700">
-                    Keep these keys safe. You can also find them anytime inside Dashboard → Licenses.
-                </div>
+              </div>
 
             </div>
+
+            {% endfor %}
+
+          </div>
+
+          {% endif %}
+
+
+
+          <div class="bg-green-50 border border-green-200 rounded-2xl p-4 mt-6 text-green-700">
+            Keep these keys safe. You can also find them anytime inside Dashboard → Licenses.
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- RIGHT -->
+      <div class="bg-white rounded-[28px] border border-slate-200 p-8 h-full">
+
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 16v-8m0 0l-3 3m3-3l3 3" />
+              <path d="M20 17v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2" />
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="font-bold text-2xl text-slate-900">
+              How to activate ScoutingDesk
+            </h2>
+          </div>
+        </div>
+
+
+        <div class="relative">
+
+          <!-- vertical line -->
+          <div class="absolute left-5 top-6 bottom-6 w-px bg-blue-100"></div>
+
+
+          <!-- Step 1 -->
+          <div class="flex gap-5 relative mb-10">
+
+            <div
+              class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shrink-0 z-10">
+              1
+            </div>
+
+            <div class="flex-1">
+
+              <h3 class="font-semibold text-lg text-slate-900">
+                Download & Install
+              </h3>
+
+              <p class="text-slate-500 mt-1 leading-7">
+                Download ScoutingDesk from our website and install it on your computer.
+              </p>
+
+            </div>
+
+            <div class="w-12 h-12 rounded-xl border bg-slate-50 flex items-center justify-center shrink-0">
+              ⬇️
+            </div>
+
+          </div>
+
+
+
+          <!-- Step 2 -->
+          <div class="flex gap-5 relative mb-10">
+
+            <div
+              class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shrink-0 z-10">
+              2
+            </div>
+
+            <div class="flex-1">
+
+              <h3 class="font-semibold text-lg text-slate-900">
+                Open the Software
+              </h3>
+
+              <p class="text-slate-500 mt-1 leading-7">
+                Open ScoutingDesk after installation. The activation window will appear automatically.
+              </p>
+
+            </div>
+
+            <div class="w-12 h-12 rounded-xl border bg-slate-50 flex items-center justify-center shrink-0">
+              🖥️
+            </div>
+
+          </div>
+
+
+
+          <!-- Step 3 -->
+          <div class="flex gap-5 relative">
+
+            <div
+              class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shrink-0 z-10">
+              3
+            </div>
+
+            <div class="flex-1">
+
+              <h3 class="font-semibold text-lg text-slate-900">
+                Enter Your License Key
+              </h3>
+
+              <p class="text-slate-500 mt-1 leading-7">
+                Copy one of the keys from the left and paste it into the activation box, then click Activate.
+              </p>
+
+            </div>
+
+            <div class="w-12 h-12 rounded-xl border bg-slate-50 flex items-center justify-center shrink-0">
+              🔑
+            </div>
+
+          </div>
 
         </div>
 
 
 
-        <!-- RIGHT -->
-        <div>
+        <!-- Warning box -->
 
-            <div class="bg-white rounded-3xl border border-slate-200 p-8 h-full">
+        <div class="mt-10 bg-amber-50 border border-amber-200 rounded-2xl p-5">
 
-                <h2 class="font-bold text-2xl mb-8">
-                    How to activate ScoutingDesk
-                </h2>
+          <div class="flex gap-3">
 
+            <div class="text-amber-500 text-xl">
+              💡
+            </div>
 
-                <div class="space-y-8">
+            <div>
 
-                    <div class="flex gap-5">
+              <div class="font-semibold text-amber-700">
+                Important
+              </div>
 
-                        <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
-                            1
-                        </div>
-
-                        <div>
-                            <h3 class="font-semibold text-lg">
-                                Download & Install
-                            </h3>
-
-                            <p class="text-slate-500 mt-1">
-                                Download ScoutingDesk from our website and install it on your computer.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="flex gap-5">
-
-                        <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
-                            2
-                        </div>
-
-                        <div>
-                            <h3 class="font-semibold text-lg">
-                                Open the Software
-                            </h3>
-
-                            <p class="text-slate-500 mt-1">
-                                Open ScoutingDesk after installation.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="flex gap-5">
-
-                        <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
-                            3
-                        </div>
-
-                        <div>
-                            <h3 class="font-semibold text-lg">
-                                Enter Your License Key
-                            </h3>
-
-                            <p class="text-slate-500 mt-1">
-                                Copy one of the keys from the left and paste it into the activation box.
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="mt-10 bg-amber-50 border border-amber-200 rounded-2xl p-5">
-
-                    <span class="font-semibold text-amber-700">
-                        Important:
-                    </span>
-
-                    <span class="text-slate-700">
-                        Make sure you have an active internet connection while activating.
-                    </span>
-
-                </div>
+              <div class="text-slate-600 mt-1 leading-7">
+                Make sure you have an active internet connection while activating.
+              </div>
 
             </div>
 
+          </div>
+
         </div>
+
+      </div>
 
     </div>
 
@@ -209,89 +253,89 @@
     <!-- BOTTOM -->
     <div class="grid lg:grid-cols-3 gap-6 mt-8">
 
-        <!-- FIND KEYS -->
-        <div class="bg-green-50 border border-green-200 rounded-3xl p-8">
+      <!-- FIND KEYS -->
+      <div class="bg-green-50 border border-green-200 rounded-3xl p-8">
 
-            <h3 class="font-bold text-2xl">
-                Where can I find my keys anytime?
-            </h3>
+        <h3 class="font-bold text-2xl">
+          Where can I find my keys anytime?
+        </h3>
 
-            <p class="text-slate-600 mt-4">
-                Your purchased license keys will always remain available inside your dashboard.
-            </p>
+        <p class="text-slate-600 mt-4">
+          Your purchased license keys will always remain available inside your dashboard.
+        </p>
 
-            <a href="{% url 'dashboard' %}"
-               class="inline-flex mt-6 px-6 py-3 rounded-xl bg-green-600 text-white hover:bg-green-700">
+        <a href="{% url 'dashboard' %}"
+          class="inline-flex mt-6 px-6 py-3 rounded-xl bg-green-600 text-white hover:bg-green-700">
 
-                Go to Dashboard →
+          Go to Dashboard →
 
-            </a>
+        </a>
 
-        </div>
+      </div>
 
 
 
-        <!-- HELP -->
-        <div class="bg-purple-50 border border-purple-200 rounded-3xl p-8">
+      <!-- HELP -->
+      <div class="bg-purple-50 border border-purple-200 rounded-3xl p-8">
 
-            <h3 class="font-bold text-2xl">
-                Need Help?
-            </h3>
+        <h3 class="font-bold text-2xl">
+          Need Help?
+        </h3>
 
-            <p class="text-slate-600 mt-4">
-                If you face any issue during installation or activation, our support team is here to help.
-            </p>
+        <p class="text-slate-600 mt-4">
+          If you face any issue during installation or activation, our support team is here to help.
+        </p>
 
-            <div class="mt-6 flex flex-col gap-3">
+        <div class="mt-6 flex flex-col gap-3">
 
-                <button class="border bg-white rounded-xl py-3 hover:bg-slate-50">
-                    Visit Help Center
-                </button>
+          <button class="border bg-white rounded-xl py-3 hover:bg-slate-50">
+            Visit Help Center
+          </button>
 
-                <button class="border bg-white rounded-xl py-3 hover:bg-slate-50">
-                    Contact Support
-                </button>
-
-            </div>
+          <button class="border bg-white rounded-xl py-3 hover:bg-slate-50">
+            Contact Support
+          </button>
 
         </div>
 
+      </div>
 
 
-        <!-- PURCHASE DETAILS -->
-        <div class="bg-white rounded-3xl border border-slate-200 p-8">
 
-            <h3 class="font-bold text-2xl mb-8">
-                Purchase Details
-            </h3>
+      <!-- PURCHASE DETAILS -->
+      <div class="bg-white rounded-3xl border border-slate-200 p-8">
 
-            <div class="space-y-6">
+        <h3 class="font-bold text-2xl mb-8">
+          Purchase Details
+        </h3>
 
-                <div class="flex justify-between">
-                    <span class="text-slate-500">Package</span>
-                    <span class="font-semibold">{{ plan|title }} Package</span>
-                </div>
+        <div class="space-y-6">
 
-                <div class="flex justify-between">
-                    <span class="text-slate-500">Date</span>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Package</span>
+            <span class="font-semibold">{{ plan|title }} Package</span>
+          </div>
 
-                    <span class="font-semibold">
-                        {% if order %}
-                        {{ order.created_at|date:"M d, Y h:i A" }}
-                        {% endif %}
-                    </span>
-                </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Date</span>
 
-                <div class="flex justify-between">
-                    <span class="text-slate-500">Status</span>
-                    <span class="font-semibold text-green-600">
-                        Paid
-                    </span>
-                </div>
+            <span class="font-semibold">
+              {% if order %}
+              {{ order.created_at|date:"M d, Y h:i A" }}
+              {% endif %}
+            </span>
+          </div>
 
-            </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Status</span>
+            <span class="font-semibold text-green-600">
+              Paid
+            </span>
+          </div>
 
         </div>
+
+      </div>
 
     </div>
 
@@ -301,11 +345,11 @@
 
     <div class="mt-8 bg-green-50 border border-green-200 rounded-2xl py-5 text-center text-slate-700">
 
-        Thank you for your trust in ScoutingDesk. We're excited to have you onboard ⚽
+      Thank you for your trust in ScoutingDesk. We're excited to have you onboard ⚽
 
     </div>
 
-</div>
+  </div>
 
 </div>
 {% endblock %}

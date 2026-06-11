@@ -228,7 +228,10 @@ def payment_success(request):
             order=order
         ).first()
 
-    plan = order.package if order else request.user.profile.plan
+    if order == None:
+        plan = None
+    else:
+        plan = f'{order.package} Package'
 
     license_keys = []
     if license_obj:

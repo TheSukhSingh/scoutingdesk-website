@@ -16,11 +16,6 @@
       <!-- LEFT -->
       <div>
 
-        <!-- BADGE -->
-        <div class="badge fade-up">
-          PAYMENT SUCCESSFUL
-        </div>
-
         <!-- HEADING -->
         <h1 class="report-showcase-heading font-medium max-w-xl fade-up fade-delay-1">
 
@@ -35,7 +30,7 @@
       </div>
 
       <!-- RIGHT -->
-      <div class="lg:pt-8">
+      <div class="">
 
         <p class="report-showcase-description max-w-xl fade-up fade-delay-1">
 
@@ -119,16 +114,17 @@
               {% for license_key in license_keys %}
 
               <div class="rounded-2xl border flex flex-col border-white/10 bg-white/[0.03] p-5">
+                <div class="flex items-center justify-between gap-6">
 
-                <div class="text-xs text-muted mb-3">
-                  LICENSE KEY {{ forloop.counter }}
+                  <div class="text-xs text-muted shrink-0">
+                    LICENSE KEY {{ forloop.counter }}
+                  </div>
+
+                  <div class="font-mono text-white text-sm text-right break-all">
+                    {{ license_key.key }}
+                  </div>
+
                 </div>
-
-
-                <div class="font-mono text-white break-all text-sm">
-                  {{ license_key.key }}
-                </div>
-
 
               </div>
 
@@ -271,7 +267,7 @@
 
     </div>
     <!-- BOTTOM SECTION -->
-    <div class="grid lg:grid-cols-2 gap-8 mt-20">
+    <div class="grid lg:grid-cols-2 gap-8 mt-20 items-start">
 
       <!-- LEFT CARD -->
       <div class="glass rounded-[28px] p-8">

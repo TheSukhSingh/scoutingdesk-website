@@ -2,26 +2,50 @@
 
 {% block content %}
 
-<h2>Security Notification</h2>
+<h1>Security Notification</h1>
 
 <p>
-An action was performed on your account.
+
+A security-related action has recently been performed on your ScoutingDesk account.
+
+The details of the action are provided below.
+
 </p>
 
-<div class="card">
+<div class="info-box">
 
-<strong>Action:</strong><br>
-{{ action }}
+<p>
+
+<strong style="color:white">
+Action
+</strong>
 
 <br><br>
 
-<strong>License Key:</strong><br>
+{{ action }}
+
+</p>
+
+<p>
+
+<strong style="color:white">
+License Key
+</strong>
+
+<br><br>
+
 {{ key }}
+
+</p>
 
 </div>
 
 <p>
-If this wasn't you, please contact support immediately.
+
+If you performed this action, no further action is required.
+
+If you do not recognize this activity, we recommend contacting support immediately.
+
 </p>
 
 {% endblock %}

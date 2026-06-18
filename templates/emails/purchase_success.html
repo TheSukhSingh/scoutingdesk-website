@@ -2,31 +2,53 @@
 
 {% block content %}
 
-<h2>Payment Successful 🎉</h2>
+<h1>Payment Successfully Processed</h1>
 
 <p>
-Thank you for purchasing the
-<strong>{{ package_name }}</strong> package.
+
+Thank you for your purchase.
+
+Your {{ package_name }} package has been successfully activated and the associated license keys have been generated.
+
+You can use these keys to activate ScoutingDesk on your devices.
+
 </p>
 
-<div class="card">
+<div class="info-box">
 
-<h3>Your License Keys</h3>
+<h2 style="color:white">
+License Keys
+</h2>
 
 {% for key in keys %}
+
 <p>
 
-<strong>{{ key.display_name }}</strong><br>
+<strong style="color:white">
+{{ key.display_name }}
+</strong>
+
+<br><br>
+
 {{ key.key }}
 
 </p>
+
+<hr style="border-color:rgba(255,255,255,.08)">
+
 {% endfor %}
 
 </div>
 
+<p>
+
+Your licenses can also be managed from the dashboard where you can view activity, reset devices and regenerate keys whenever necessary.
+
+</p>
+
 <br>
 
-<a class="button" href="{{ dashboard_url }}">
+<a href="{{ dashboard_url }}" class="button">
 Open Dashboard
 </a>
 

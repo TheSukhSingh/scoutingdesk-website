@@ -2,23 +2,38 @@
 
 {% block content %}
 
-<h2>Welcome to ScoutingDesk ⚽</h2>
+<h1>Verify Your Email Address</h1>
 
 <p>
-Thanks for joining ScoutingDesk.
-Please verify your email address to activate your account.
+
+Thank you for creating your ScoutingDesk account.
+
+Before accessing the platform, please confirm ownership of this email address. Verification helps us protect your account and ensures that important notifications reach you successfully.
+
+</p>
+
+<p>
+
+To activate your account, click the button below.
+
 </p>
 
 <br>
 
-<a class="button" href="{{ activate_url }}">
-Verify Email
+<a href="{{ activate_url }}" class="button">
+Verify Email Address
 </a>
 
-<br><br>
+<div class="info-box">
 
 <p>
-This link expires in 24 hours.
+
+This verification link is valid for 24 hours.
+
+If you did not create a ScoutingDesk account, no further action is required and this message can safely be ignored.
+
 </p>
+
+</div>
 
 {% endblock %}

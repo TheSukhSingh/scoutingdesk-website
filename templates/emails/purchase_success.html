@@ -1,0 +1,33 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+
+<h2>Payment Successful 🎉</h2>
+
+<p>
+Thank you for purchasing the
+<strong>{{ package_name }}</strong> package.
+</p>
+
+<div class="card">
+
+<h3>Your License Keys</h3>
+
+{% for key in keys %}
+<p>
+
+<strong>{{ key.display_name }}</strong><br>
+{{ key.key }}
+
+</p>
+{% endfor %}
+
+</div>
+
+<br>
+
+<a class="button" href="{{ dashboard_url }}">
+Open Dashboard
+</a>
+
+{% endblock %}

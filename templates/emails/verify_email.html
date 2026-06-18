@@ -1,0 +1,24 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+
+<h2>Welcome to ScoutingDesk ⚽</h2>
+
+<p>
+Thanks for joining ScoutingDesk.
+Please verify your email address to activate your account.
+</p>
+
+<br>
+
+<a class="button" href="{{ activate_url }}">
+Verify Email
+</a>
+
+<br><br>
+
+<p>
+This link expires in 24 hours.
+</p>
+
+{% endblock %}

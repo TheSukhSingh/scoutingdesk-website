@@ -1,0 +1,27 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+
+<h2>Security Notification</h2>
+
+<p>
+An action was performed on your account.
+</p>
+
+<div class="card">
+
+<strong>Action:</strong><br>
+{{ action }}
+
+<br><br>
+
+<strong>License Key:</strong><br>
+{{ key }}
+
+</div>
+
+<p>
+If this wasn't you, please contact support immediately.
+</p>
+
+{% endblock %}

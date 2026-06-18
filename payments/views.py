@@ -100,7 +100,7 @@ ScoutingDesk Team
 """,
         from_email=None,
         recipient_list=[user.email],
-        fail_silently=True,
+        fail_silently=False,
     )
 
 
@@ -143,8 +143,13 @@ def fulfill_paid_order(order):
             order=order,
         )
 
-    _send_activation_email(user, order, license_obj)
-    logger.info(f"License and activation keys created for order {order.id}")
+    try:
+        _send_activation_email(user, order, license_obj)
+    except Exception:
+        logger.exception(
+            f"Failed sending activation email for order {order.id}"
+        )
+    logger.info(f"License and activation keys created for order {order.id}. Activation email sent to {user.email}")
 
     return order, license_obj, True
 

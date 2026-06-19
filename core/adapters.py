@@ -20,9 +20,15 @@ class CustomAccountAdapter(DefaultAccountAdapter):
 
     def get_client_ip(self, request):
         return get_client_ip(request)
-    def send_mail(self, *args, **kwargs):
-        print("🔥 SEND_MAIL")
-        return super().send_mail(*args, **kwargs)
+    def send_mail(self, template_prefix, email, context):
+        print("🔥 TEMPLATE:", template_prefix)
+        print("🔥 CONTEXT KEYS:", context.keys())
+
+        return super().send_mail(
+            template_prefix,
+            email,
+            context
+        )
 
     def render_mail(self, *args, **kwargs):
         print("🔥 RENDER_MAIL")

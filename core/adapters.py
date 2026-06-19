@@ -21,14 +21,33 @@ class CustomAccountAdapter(DefaultAccountAdapter):
     def get_client_ip(self, request):
         return get_client_ip(request)
     def send_mail(self, template_prefix, email, context):
-        print("🔥 TEMPLATE:", template_prefix)
-        print("🔥 CONTEXT KEYS:", context.keys())
 
-        return super().send_mail(
-            template_prefix,
-            email,
-            context
-        )
+        print("🔥 TEMPLATE =", repr(template_prefix))
+        print("🔥 CONTEXT =", context)
+
+        if "email_confirmation" in template_prefix:
+            print("🔥 USING CUSTOM VERIFY EMAIL")
+
+            send_verification_email(
+                user=context["user"],
+                activate_url=context["activate_url"]
+            )
+            return
+
+        if "password_reset" in template_prefix:
+            print("🔥 USING CUSTOM PASSWORD RESET")
+
+            send_password_reset_email(
+                user=context["user"],
+                reset_url=(
+                    context.get("password_reset_url")
+                    or context.get("reset_url")
+                )
+            )
+            return
+
+        print("🔥 USING DEFAULT MAIL")
+        return super().send_mail(template_prefix, email, context)
 
     def render_mail(self, *args, **kwargs):
         print("🔥 RENDER_MAIL")

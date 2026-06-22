@@ -30,20 +30,20 @@ def send_html_email(
 
     msg.send()
 
-def send_verification_email(
-    user,
-    activate_url
-):
-    send_html_email(
-        subject="Verify your email - ScoutingDesk",
-        recipient=user.email,
-        template_name="emails/verify_email.html",
-        context={
-            "user": user,
-            "activate_url": activate_url,
-        },
-        text_content="Please verify your email."
-    )
+# def send_verification_email(
+#     user,
+#     activate_url
+# ):
+#     send_html_email(
+#         subject="Verify your email - ScoutingDesk",
+#         recipient=user.email,
+#         template_name="emails/verify_email.html",
+#         context={
+#             "user": user,
+#             "activate_url": activate_url,
+#         },
+#         text_content="Please verify your email."
+#     )
 
 def send_password_reset_email(
     user,

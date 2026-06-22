@@ -1813,7 +1813,7 @@ ACCOUNT_FORMS = {
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
@@ -2107,8 +2107,8 @@ FILE: core\adapters.py
 
 from allauth.account.adapter import DefaultAccountAdapter
 
+from activation.utils import get_client_ip
 from core.emails import (
-    send_verification_email,
     send_password_reset_email,
 )
 
@@ -2118,27 +2118,38 @@ class CustomAccountAdapter(DefaultAccountAdapter):
     def populate_username(self, request, user):
         user.username = user.email
 
+    def is_open_for_signup(self, request):
+        return True
+
+    def get_signup_redirect_url(self, request):
+        return "/#packages"
+
+    def get_client_ip(self, request):
+        return get_client_ip(request)
     def send_mail(self, template_prefix, email, context):
 
-        if template_prefix == "account/email/email_confirmation":
 
-            send_verification_email(
-                user=context["user"],
-                activate_url=context["activate_url"],
-            )
+        # if "email_confirmation" in template_prefix:
 
-        elif template_prefix == "account/email/password_reset_key":
+        #     send_verification_email(
+        #         user=context["user"],
+        #         activate_url=context["activate_url"]
+        #     )
+        #     return
+
+        if "password_reset" in template_prefix:
 
             send_password_reset_email(
                 user=context["user"],
                 reset_url=(
                     context.get("password_reset_url")
                     or context.get("reset_url")
-                ),
+                )
             )
+            return
 
-        else:
-            super().send_mail(template_prefix, email, context)
+        return super().send_mail(template_prefix, email, context)
+
 
 
 ==============================
@@ -2578,20 +2589,20 @@ def send_html_email(
 
     msg.send()
 
-def send_verification_email(
-    user,
-    activate_url
-):
-    send_html_email(
-        subject="Verify your email - ScoutingDesk",
-        recipient=user.email,
-        template_name="emails/verify_email.html",
-        context={
-            "user": user,
-            "activate_url": activate_url,
-        },
-        text_content="Please verify your email."
-    )
+# def send_verification_email(
+#     user,
+#     activate_url
+# ):
+#     send_html_email(
+#         subject="Verify your email - ScoutingDesk",
+#         recipient=user.email,
+#         template_name="emails/verify_email.html",
+#         context={
+#             "user": user,
+#             "activate_url": activate_url,
+#         },
+#         text_content="Please verify your email."
+#     )
 
 def send_password_reset_email(
     user,

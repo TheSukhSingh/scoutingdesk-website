@@ -2,7 +2,6 @@ from allauth.account.adapter import DefaultAccountAdapter
 
 from activation.utils import get_client_ip
 from core.emails import (
-    send_verification_email,
     send_password_reset_email,
 )
 
@@ -23,13 +22,13 @@ class CustomAccountAdapter(DefaultAccountAdapter):
     def send_mail(self, template_prefix, email, context):
 
 
-        if "email_confirmation" in template_prefix:
+        # if "email_confirmation" in template_prefix:
 
-            send_verification_email(
-                user=context["user"],
-                activate_url=context["activate_url"]
-            )
-            return
+        #     send_verification_email(
+        #         user=context["user"],
+        #         activate_url=context["activate_url"]
+        #     )
+        #     return
 
         if "password_reset" in template_prefix:
 

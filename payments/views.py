@@ -45,7 +45,7 @@ def create_checkout_session(request, package_type):
     )
 
     session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
+        # payment_method_types=['card'],
         line_items=[{
             'price': package["price_id"],
             'quantity': 1,
@@ -56,7 +56,11 @@ def create_checkout_session(request, package_type):
         tax_id_collection={
             'enabled': True,
         },
-
+        customer_creation="always",
+        customer_email=request.user.email,
+        invoice_creation={
+            "enabled": True,
+        },
         automatic_tax={
             'enabled': True,
         },

@@ -51,6 +51,15 @@ def create_checkout_session(request, package_type):
             'quantity': 1,
         }],
         mode='payment',
+        billing_address_collection='required',
+
+        tax_id_collection={
+            'enabled': True,
+        },
+
+        automatic_tax={
+            'enabled': True,
+        },
         success_url=request.build_absolute_uri(
             '/payments/success/?session_id={CHECKOUT_SESSION_ID}'
         ),

@@ -2322,7 +2322,20 @@
     box-shadow:
         0 10px 30px rgba(0, 0, 0, 0.35);
 }
+.pricing-vat {
 
+    margin-top: 0.4rem;
+
+    font-size: 0.82rem;
+
+    font-weight: 500;
+
+    color: #94a3b8;
+
+    text-align: right;
+
+    line-height: 1.2;
+}
 .custom-toast.success {
 
     background:
@@ -2382,4 +2395,37 @@
         transform:
             translateY(0) translateX(0);
     }
+}
+.pricing-price-block {
+    margin-top: 1.5rem;
+}
+
+.pricing-price {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-blue);
+}
+
+.pricing-card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:2rem;
+}
+
+.pricing-info{
+    flex:1;
+    min-width:0;
+}
+
+.pricing-price-box{
+    flex-shrink:0;
+    text-align:right;
+}
+
+.pricing-tax{
+    margin-top:.3rem;
+    font-size:0.95rem;
+    color:#94a3b8;
 }

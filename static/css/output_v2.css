@@ -3483,6 +3483,43 @@ body {
   color:#94a3b8;
 }
 
+.pricing-tax-note {
+  margin-top: auto;
+  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  letter-spacing: 0.01em;
+}
+
+.pricing-tax-note span {
+  color: var(--text-blue);
+  font-weight: 600;
+}
+
+.pricing-features {
+  flex: 1;
+}
+
+.pricing-tax-note {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .3rem;
+  margin-top: 1rem;
+  margin-bottom: .8rem;
+  font-size: .8rem;
+  color: #94a3b8;
+}
+
+.pricing-tax-note span {
+  color: var(--text-blue);
+  font-weight: 600;
+}
+
 .hover\:border-\[rgba\(71\2c 123\2c 255\2c 0\.42\)\]:hover {
   border-color: rgba(71,123,255,0.42);
 }
@@ -3746,3 +3783,4 @@ body {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
